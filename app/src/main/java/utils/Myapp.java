@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.igexin.sdk.PushManager;
+import com.liu.asus.yikezhong.DemoIntentService;
+import com.liu.asus.yikezhong.DemoPushService;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
@@ -11,6 +14,8 @@ import com.umeng.analytics.MobclickAgent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+
 
 import static utils.L.isDebug;
 
@@ -23,6 +28,9 @@ public class Myapp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //个推
+        PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
            //工具
         if (LeakCanary.isInAnalyzerProcess(this)) {
                         return;

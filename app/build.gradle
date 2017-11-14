@@ -10,6 +10,12 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"
+        manifestPlaceholders = [
+                GETUI_APP_ID : "GdOte02rQ59LqbQmowiCk",
+                GETUI_APP_KEY : "rpIwp1GjerAM0Gi94yHQO9",
+                GETUI_APP_SECRET : "n5PPau7SAW6MteXZ9eswO6"
+        ]
+
     }
     signingConfigs {
         debug {}
@@ -20,15 +26,7 @@ android {
             keyPassword "111111"
         }
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
     productFlavors {
-
         wandoujia {}
         baidu {}
         c360 {}
@@ -37,6 +35,16 @@ android {
             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }
     }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+
 
 }
 
@@ -67,6 +75,8 @@ dependencies {
         testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
        compile 'com.umeng.analytics:analytics:latest.integration'
 
+
+    compile 'com.getui:sdk:2.11.1.0'
 
 
 
