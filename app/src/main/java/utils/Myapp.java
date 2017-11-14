@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
@@ -22,6 +23,11 @@ public class Myapp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+           //工具
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+                        return;
+                   }
+         LeakCanary.install(this);
         //友盟
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_NORMAL );
 
