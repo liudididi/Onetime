@@ -30,7 +30,7 @@
         </activity>
         <meta-data android:value="5a0a59f1b27b0a2ed80002ce" android:name="UMENG_APPKEY"/>
 
-
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
 
 
     </application>
