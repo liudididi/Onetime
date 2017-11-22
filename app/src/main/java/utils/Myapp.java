@@ -10,6 +10,7 @@ import com.liu.asus.yikezhong.DemoPushService;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
+import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,6 +29,7 @@ public class Myapp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AutoLayoutConifg.getInstance().useDeviceSize();
         //个推
         PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);
         PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), DemoIntentService.class);
@@ -38,7 +40,6 @@ public class Myapp extends Application {
          LeakCanary.install(this);
         //友盟
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType. E_UM_NORMAL );
-
 
         MobclickAgent. startWithConfigure( new MobclickAgent.UMAnalyticsConfig(this,"5a0a59f1b27b0a2ed80002ce",""));
 
