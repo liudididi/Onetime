@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/YiKeZhong.iml" filepath="$PROJECT_DIR$/YiKeZhong.iml" />
+      <module fileurl="file://$PROJECT_DIR$/YIke.iml" filepath="$PROJECT_DIR$/YIke.iml" />
+      <module fileurl="file://F:\Dayi\YIke\YiKeZhong.iml" filepath="F:\Dayi\YIke\YiKeZhong.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://F:\Dayi\YIke\app\app.iml" filepath="F:\Dayi\YIke\app\app.iml" />
     </modules>
   </component>
 </project>

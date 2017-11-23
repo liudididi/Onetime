@@ -1,5 +1,8 @@
 package com.liu.asus.yikezhong;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -21,8 +24,10 @@ public class MainActivity extends BaseActivity implements Lognview {
             return list;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public int getid() {
+        initztl("#03A9F4");
         return R.layout.activity_main;
     }
 

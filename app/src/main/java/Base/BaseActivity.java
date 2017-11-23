@@ -14,6 +14,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.zhy.autolayout.AutoLayoutActivity;
+
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ import java.util.List;
  * 邮箱：461211527@qq.com.
  */
 
-public abstract  class BaseActivity extends AppCompatActivity {
+public abstract  class BaseActivity extends AutoLayoutActivity{
     private  boolean isStatus=false;
     private  boolean  isFullScreen=false;
     @Override
