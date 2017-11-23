@@ -7,11 +7,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import Base.BaseActivity;
-import Base.Basepresent;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mybase.BaseActivity;
+import mybase.Basepresent;
 
 public class LoginActivity extends BaseActivity {
 

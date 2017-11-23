@@ -1,6 +1,4 @@
-package Base;
-
-import android.widget.BaseAdapter;
+package mybase;
 
 /**
  * Created by 地地 on 2017/11/12.

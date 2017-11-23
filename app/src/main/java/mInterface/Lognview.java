@@ -1,6 +1,7 @@
-package MyInterface;
+package mInterface;
 
-import Base.Baseview;
+
+import mybase.Baseview;
 
 /**
  * Created by 地地 on 2017/11/12.

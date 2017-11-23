@@ -1,12 +1,10 @@
-package utils;
+package com.liu.asus.yikezhong;
 
 import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
 import com.igexin.sdk.PushManager;
-import com.liu.asus.yikezhong.DemoIntentService;
-import com.liu.asus.yikezhong.DemoPushService;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
@@ -15,8 +13,6 @@ import com.zhy.autolayout.config.AutoLayoutConifg;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-
 
 import static utils.L.isDebug;
 
@@ -54,7 +50,7 @@ public class Myapp extends Application {
         CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
         strategy.setUploadProcess(processName == null || processName.equals(packageName));
 // 初始化Bugly
-        CrashReport.initCrashReport(context, "636455fdc3", isDebug, strategy);
+        CrashReport.initCrashReport(context, "636455fdc3", true, strategy);
 
     }
     private static String getProcessName(int pid) {

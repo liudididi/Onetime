@@ -2,8 +2,10 @@ package utils;
 
 import java.util.concurrent.TimeUnit;
 
-import Base.BaseApi;
-import MyInterface.QuestInterface;
+
+
+import mInterface.QuestInterface;
+import mybase.BaseApi;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

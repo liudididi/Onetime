@@ -8,9 +8,11 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.BaseActivity;
-import Base.Basepresent;
-import MyInterface.Lognview;
+
+
+import mInterface.Lognview;
+import mybase.BaseActivity;
+import mybase.Basepresent;
 import present.LognP;
 
 public class MainActivity extends BaseActivity implements Lognview {

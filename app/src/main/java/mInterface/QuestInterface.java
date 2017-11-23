@@ -1,11 +1,7 @@
-package MyInterface;
-
-import java.util.List;
-import java.util.Observable;
+package mInterface;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
 
