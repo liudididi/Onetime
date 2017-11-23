@@ -78,4 +78,10 @@ dependencies {
     compile 'com.getui:sdk:2.11.1.0'
 
     compile 'com.zhy:autolayout:1.4.5'
+
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    //butterknife的新版插件必须在此处作配置
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

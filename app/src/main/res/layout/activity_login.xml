@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/raw_1500974494"
+    tools:context="com.liu.asus.yikezhong.LoginActivity">
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="75px"
+        android:layout_height="75px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="15px"
+        android:src="@drawable/raw_1500019926" />
+    <ImageView
+        android:layout_width="240px"
+        android:layout_height="240px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240px"
+        android:src="@drawable/raw_1500977101"
+        android:id="@+id/imageView" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="633px"
+        android:layout_height="120px"
+        android:layout_above="@+id/rela_qq"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="26px"
+        android:background="@drawable/but_weixin">
+
+
+        <ImageView
+            android:layout_marginTop="15px"
+            android:layout_marginLeft="189px"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:src="@drawable/weiixin"/>
+        <TextView
+            android:layout_width="171px"
+            android:layout_height="135px"
+            android:layout_marginLeft="285px"
+            android:text="微信登录"
+            android:textColor="#FFF"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rela_qq"
+        android:layout_width="633px"
+        android:layout_height="120px"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/relativeLayout2"
+        android:layout_marginBottom="276px"
+        android:background="@drawable/but_qq">
+
+        <ImageView
+            android:layout_marginTop="15px"
+            android:layout_marginLeft="189px"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:src="@drawable/raw_1500022714"/>
+        <TextView
+            android:layout_width="171px"
+            android:layout_height="135px"
+            android:layout_marginLeft="285px"
+            android:text="QQ登录"
+            android:textColor="#FFF"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/login_tv"
+        android:layout_width="255px"
+        android:layout_height="135px"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_marginBottom="105px"
+        android:gravity="center"
+        android:textColor="@color/colorziti"
+        android:text="其他登录方式" />
+</RelativeLayout>
