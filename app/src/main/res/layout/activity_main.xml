@@ -6,79 +6,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.liu.asus.yikezhong.MainActivity">
-
-    <include android:id="@+id/include"
-        layout="@layout/headerlayout"
-        ></include>
-
-    <FrameLayout
-        android:id="@+id/frame_main"
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/dw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_gravity="left"
+        android:background="#f00"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/linearlaout"
-        android:layout_below="@+id/include">
+        android:layout_height="match_parent">
 
-    </FrameLayout>
-    <LinearLayout
-        android:id="@+id/linearlaout"
-        android:weightSum="3"
-        android:layout_alignParentBottom="true"
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160px">
-        <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+        android:layout_height="match_parent">
+        <include android:id="@+id/include"
+            layout="@layout/headerlayout"
+            ></include>
+        <FrameLayout
+            android:id="@+id/frame_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/linearlaout"
+            android:layout_below="@+id/include">
 
-            <ImageView
-                android:id="@+id/img_tuijian"
-                android:layout_width="90px"
-                android:layout_height="90px"
-                android:src="@drawable/tuijian2" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="推荐"
-                />
-        </LinearLayout>
+        </FrameLayout>
         <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+            android:id="@+id/linearlaout"
+            android:weightSum="3"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="160px">
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/img_duanzi"
-                android:layout_width="90px"
-                android:layout_height="90px"
-                android:src="@drawable/duanzi1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="段子"
-                />
+                <ImageView
+                    android:id="@+id/img_tuijian"
+                    android:layout_width="90px"
+                    android:layout_height="90px"
+                    android:src="@drawable/tuijian2" />
+                <TextView
+                    android:textColor="#03A9F4"
+                    android:id="@+id/tv_tuijian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="推荐"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_duanzi"
+                    android:layout_width="90px"
+                    android:layout_height="90px"
+                    android:src="@drawable/duanzi1" />
+                <TextView
+                    android:id="@+id/tv_duanzi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="段子"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/img_shiping"
+                    android:layout_width="90px"
+                    android:layout_height="90px"
+                    android:src="@drawable/shiping1" />
+                <TextView
+                    android:id="@+id/tv_shiping"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="视频"
+                    />
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/img_shiping"
-                android:layout_width="90px"
-                android:layout_height="90px"
-                android:src="@drawable/shiping1" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="视频"
-                />
-        </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
+
+
+
+</android.support.v4.widget.DrawerLayout>
+
 </RelativeLayout>

@@ -18,7 +18,7 @@ public class StartActivity extends BaseActivity {
 
     private Handler handler;
     private Runnable task;
-    private  int i=3;
+    private  int i=2;
 
     @Override
     public List<Basepresent> initp() {

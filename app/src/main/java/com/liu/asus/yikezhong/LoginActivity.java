@@ -69,12 +69,13 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.rela_qq)
     public void onViewClicked() {
-     /*  Toast("登录QQ");
-       intent(LoginActivity.this,MainActivity.class);*/
+       Toast("登录QQ");
+       intent(LoginActivity.this,MainActivity.class);
 
-        if (!mTencent.isSessionValid()) {
+
+     /*   if (!mTencent.isSessionValid()) {
             mTencent.login(this, "all", mListener);
-        }
+        }*/
     }
 
     private class QQLoginListener implements IUiListener {

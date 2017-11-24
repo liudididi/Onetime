@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -55,7 +55,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //统计
     compile 'com.umeng.analytics:analytics:latest.integration'
-
     compile 'com.jcodecraeer:xrecyclerview:1.2.6'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.1'
@@ -65,23 +64,14 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
-
-
-
-
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-
-
-
     compile 'com.getui:sdk:2.11.1.0'
-
     compile 'com.zhy:autolayout:1.4.5'
-
-
     implementation 'com.jakewharton:butterknife:8.8.1'
     //butterknife的新版插件必须在此处作配置
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.android.support:design:27.0.1'
 }
