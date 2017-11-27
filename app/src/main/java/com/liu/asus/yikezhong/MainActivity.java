@@ -3,11 +3,15 @@ package com.liu.asus.yikezhong;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
@@ -18,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import fragment.Celeft;
 import fragment.Duanzi;
 import fragment.Shiping;
 import fragment.Tuijian;
@@ -26,7 +31,7 @@ import mybase.BaseActivity;
 import mybase.Basepresent;
 import present.LognP;
 
-public class MainActivity extends BaseActivity implements Lognview {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.img_icon)
     ImageView imgIcon;
     @BindView(R.id.img_biji)
@@ -47,14 +52,14 @@ public class MainActivity extends BaseActivity implements Lognview {
     TextView tvShiping;
     @BindView(R.id.linearlaout)
     LinearLayout linearlaout;
-    private LognP lognp;
+    @BindView(R.id.frame_left)
+    FrameLayout frameLeft;
+
+    private DrawerLayout dw;
 
     @Override
     public List<Basepresent> initp() {
-        List<Basepresent> list = new ArrayList<>();
-        lognp = new LognP(this);
-        list.add(lognp);
-        return list;
+        return null;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -66,9 +71,32 @@ public class MainActivity extends BaseActivity implements Lognview {
 
     @Override
     public void init() {
-        lognp = new LognP(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,new Tuijian()).commit();
+        dw = findViewById(R.id.dw);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_left,new Celeft()).commit();
+        dw.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
 
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                drawerView.setClickable(true);
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+       dw.setScrimColor(Color.TRANSPARENT);
     }
 
     public void onResume() {
@@ -82,21 +110,6 @@ public class MainActivity extends BaseActivity implements Lognview {
     }
 
     @Override
-    public void success() {
-
-    }
-
-    @Override
-    public void fail() {
-
-    }
-
-    @Override
-    public void lognsuess() {
-
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
@@ -107,15 +120,16 @@ public class MainActivity extends BaseActivity implements Lognview {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_icon:
-
-
+                FrameLayout rela_left = findViewById(R.id.frame_left);
+                dw.openDrawer(rela_left);
                 break;
             case R.id.img_biji:
 
 
                 break;
+
             case R.id.img_tuijian:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,new Tuijian()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
                 imgTuijian.setImageResource(R.drawable.tuijian2);
                 imgDuanzi.setImageResource(R.drawable.duanzi1);
                 imgShiping.setImageResource(R.drawable.shiping1);
@@ -125,7 +139,7 @@ public class MainActivity extends BaseActivity implements Lognview {
 
                 break;
             case R.id.img_duanzi:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,new Duanzi()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Duanzi()).commit();
                 imgTuijian.setImageResource(R.drawable.tuijian1);
                 imgDuanzi.setImageResource(R.drawable.duanzi2);
                 imgShiping.setImageResource(R.drawable.shiping1);
@@ -134,7 +148,7 @@ public class MainActivity extends BaseActivity implements Lognview {
                 tvShiping.setTextColor(Color.parseColor("#cccccc"));
                 break;
             case R.id.img_shiping:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,new Shiping()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Shiping()).commit();
                 imgTuijian.setImageResource(R.drawable.tuijian1);
                 imgDuanzi.setImageResource(R.drawable.duanzi1);
                 imgShiping.setImageResource(R.drawable.shiping2);

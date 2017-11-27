@@ -6,7 +6,7 @@ package mybase;
  */
 
 public class BaseApi {
-    public  static  String Api="";
+    public  static  String Api="https://www.zhaoapi.cn/";
 
 
 }

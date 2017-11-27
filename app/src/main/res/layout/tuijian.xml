@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:clickable="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="1620px">
+    <RelativeLayout
+        android:id="@+id/rela_remen"
+        android:paddingLeft="130px"
+        android:paddingRight="130px"
+        android:weightSum="1"
+        android:layout_width="540px"
+        android:layout_height="100px">
+            <TextView
+                android:id="@+id/tv_remen"
+                android:textColor="#03A9F4"
+                android:layout_marginTop="30px"
+                android:gravity="center"
+                android:text="热门"
+                android:textSize="40px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_alignParentBottom="true"
+                android:id="@+id/v_remen"
+                android:background="#03A9F4"
+                android:layout_width="match_parent"
+                android:layout_height="10px"></View>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_toRightOf="@id/rela_remen"
+        android:id="@+id/rela_guanzhu"
+        android:paddingLeft="130px"
+        android:paddingRight="130px"
+        android:weightSum="1"
+        android:layout_width="540px"
+        android:layout_height="100px">
+        <TextView
+            android:id="@+id/tv_guanzhu"
+            android:layout_marginTop="30px"
+            android:gravity="center"
+            android:text="关注"
+            android:textSize="40px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <View
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/v_guanzhu"
+            android:background="#03A9F4"
+            android:layout_width="match_parent"
+            android:layout_height="10px"></View>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_tuijian"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rela_remen">
+    </FrameLayout>
+
+</RelativeLayout>

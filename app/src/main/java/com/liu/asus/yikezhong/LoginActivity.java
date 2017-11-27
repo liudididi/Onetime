@@ -2,10 +2,10 @@ package com.liu.asus.yikezhong;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import com.tencent.connect.UserInfo;
 import com.tencent.tauth.IUiListener;
@@ -13,7 +13,6 @@ import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
 import java.util.List;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +35,7 @@ public class LoginActivity extends BaseActivity {
     private Tencent mTencent;
     private UserInfo mInfo;
     private QQLoginListener mListener;
+
     @Override
     public List<Basepresent> initp() {
         return null;
@@ -56,10 +56,12 @@ public class LoginActivity extends BaseActivity {
         }
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mTencent.onActivityResultData(requestCode, resultCode, data, mListener);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,15 +69,20 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.rela_qq)
-    public void onViewClicked() {
-       Toast("登录QQ");
-       intent(LoginActivity.this,MainActivity.class);
 
 
-     /*   if (!mTencent.isSessionValid()) {
-            mTencent.login(this, "all", mListener);
-        }*/
+    @OnClick({R.id.rela_qq, R.id.login_tv})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rela_qq:
+                if (!mTencent.isSessionValid()) {
+                    mTencent.login(this, "all", mListener);
+                }
+                break;
+            case R.id.login_tv:
+                intent(LoginActivity.this, OtherloginActivity.class);
+                break;
+        }
     }
 
     private class QQLoginListener implements IUiListener {
@@ -93,7 +100,7 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onError(UiError uiError) {  //登录失败
-            Toast(""+uiError.toString());
+            Toast("" + uiError.toString());
         }
 
         @Override

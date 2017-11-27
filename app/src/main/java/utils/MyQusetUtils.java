@@ -24,12 +24,12 @@ public class MyQusetUtils {
   public MyQusetUtils(QuestInterface questInterface) {
     this.questInterface = questInterface;
   }
+public  QuestInterface getQuestInterface(){
+    return  questInterface;
+}
 
-  public static MyQusetUtils getMyQusetUtils() {
-    return myQusetUtils;
-  }
 
-  public  class  Builder{
+  public static class  Builder{
     OkHttpClient okHttpClient=new OkHttpClient.Builder()
             .addInterceptor(new MyInterceptor())
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)

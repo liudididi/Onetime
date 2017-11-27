@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.igexin.sdk.PushManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -25,6 +26,7 @@ public class Myapp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fresco.initialize(this);
         AutoLayoutConifg.getInstance().useDeviceSize();
         //个推
         PushManager.getInstance().initialize(this.getApplicationContext(), DemoPushService.class);

@@ -28,7 +28,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
 
-
         </activity>
 
         <service
@@ -55,33 +54,31 @@
 
         <meta-data
             android:name="design_width"
-            android:value="1080"></meta-data>
+            android:value="1080" />
         <meta-data
             android:name="design_height"
-            android:value="1730"></meta-data>
+            android:value="1730" />
 
-        <activity android:name=".LoginActivity"></activity>
-
+        <activity android:name=".LoginActivity" />
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- 这地方需要用你在开放平台申请的appid:tencent+appid -->
                 <data android:scheme="tencent1104796216" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-
+        <activity android:name=".OtherloginActivity"></activity>
     </application>
 
 </manifest>

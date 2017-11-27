@@ -2,9 +2,14 @@ package present;
 
 
 
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import m.LognModle;
 import mInterface.Lognview;
 import mybase.Basepresent;
+import okhttp3.ResponseBody;
 
 
 /**
@@ -14,11 +19,40 @@ import mybase.Basepresent;
 
 public class   LognP  extends Basepresent {
     private LognModle lognModle;
-    public LognP(Lognview viewmodel) {
-        super(viewmodel);
+     private  Lognview lognview;
+    public LognP(Lognview viewmode) {
+        super(viewmode);
+        this.lognview=viewmode;
         if(lognModle==null){
             lognModle=new LognModle();
         }
+    }
+    public  void  login(String user,String pass){
+        lognModle.getlogndata(user, pass, new LognModle.requestBack() {
+            @Override
+            public void success(ResponseBody value) {
+                try {
+                    String json = value.string();
+                    JSONObject jsonObject=new JSONObject(json);
+
+                    String code = jsonObject.getString("code");
+                    String msg = jsonObject.getString("msg");
+                    if(code.equals("0")){
+                        lognview.lognsuess();
+                    }else {
+                        lognview.lognfail(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void fail(Throwable e) {
+                lognview.fail(e.toString());
+            }
+        });
     }
 
 }

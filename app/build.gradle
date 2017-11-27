@@ -55,6 +55,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //统计
     compile 'com.umeng.analytics:analytics:latest.integration'
+
     compile 'com.jcodecraeer:xrecyclerview:1.2.6'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.1'
@@ -62,6 +63,7 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.2'
+
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
@@ -74,4 +76,9 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.android.support:design:27.0.1'
+
+
+    implementation 'com.facebook.fresco:fresco:1.5.0'
+
+
 }

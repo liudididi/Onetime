@@ -7,5 +7,5 @@ package mybase;
 
 public interface Baseview {
    void  success();
-   void  fail();
+   void  fail(String msg);
 }

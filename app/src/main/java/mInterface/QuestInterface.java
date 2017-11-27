@@ -1,8 +1,13 @@
 package mInterface;
 
+import java.util.Map;
+
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.POST;
+import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
 /**
@@ -11,6 +16,7 @@ import retrofit2.http.Url;
  */
 
 public interface QuestInterface {
-    @POST()
-    Call<RequestBody> hh(@Url String url);
+    @POST("/user/login")
+    Observable<ResponseBody> login(@QueryMap Map<String, Object> maps);
+
 }
