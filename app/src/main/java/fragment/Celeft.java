@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.liu.asus.yikezhong.R;
 
+import java.util.List;
+
 import mybase.Basefragment;
+import mybase.Basepresent;
 
 /**
  * Created by 地地 on 2017/11/24.
@@ -34,5 +37,10 @@ public class Celeft extends Basefragment{
         ce_icon = view.findViewById(R.id.ce_icon);
         ce_icon.setImageURI(Uri.parse("res://"+getActivity().getPackageName()+"/" + R.drawable.raw_1499936862));
 
+    }
+
+    @Override
+    public List<Basepresent> inip() {
+        return null;
     }
 }

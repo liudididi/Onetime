@@ -31,20 +31,21 @@ public class MyInterceptor implements Interceptor {
             Log.d(TAG, "| "+request.toString());
             String method=request.method();
             if("POST".equals(method)){
-                StringBuilder sb = new StringBuilder();
+                FormBody.Builder sb = new FormBody.Builder();
+
                 if (request.body() instanceof FormBody) {
                     FormBody body = (FormBody) request.body();
                     for (int i = 0; i < body.size(); i++) {
-                        sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + ",");
+                        sb.add(body.encodedName(i) , body.encodedValue(i));
                     }
-                    sb.delete(sb.length() - 1, sb.length());
+                    body=sb.add("source","android").add("appVersion","101").build();
+                    request=request.newBuilder().post(body).build();
+
                     Log.d(TAG, "| RequestParams:{"+sb.toString()+"}");
                 }
             }
             Log.d(TAG, "| Response:" + content);
             Log.d(TAG,"----------End:"+duration+"毫秒----------");
-            return response.newBuilder()
-                    .body(ResponseBody.create(mediaType, content))
-                    .build();
+            return    chain.proceed(request);
     }
 }

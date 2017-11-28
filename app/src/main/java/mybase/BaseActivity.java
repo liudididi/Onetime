@@ -86,7 +86,8 @@ public abstract  class BaseActivity extends AutoLayoutActivity{
         if(initp!=null){
             for (Basepresent basepresent : initp()) {
                 basepresent.ondeach();
-            }
+        }
+        initp=null;
         }
         super.onDestroy();
     }

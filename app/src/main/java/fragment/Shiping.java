@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 import com.liu.asus.yikezhong.R;
 
+import java.util.List;
+
 import mybase.Basefragment;
+import mybase.Basepresent;
 
 /**
  * Created by 地地 on 2017/11/24.
@@ -62,5 +65,10 @@ public class Shiping extends Basefragment{
             }
         });
 
+    }
+
+    @Override
+    public List<Basepresent> inip() {
+        return null;
     }
 }

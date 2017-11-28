@@ -11,7 +11,4 @@ import mybase.Baseview;
 public interface Lognview extends Baseview {
    void  lognsuess();
    void  lognfail(String msg);
-
-
-
 }

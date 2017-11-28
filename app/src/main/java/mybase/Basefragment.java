@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * Created by 地地 on 2017/11/25.
  * 邮箱：461211527@qq.com.
@@ -32,4 +34,11 @@ public abstract  class Basefragment extends Fragment {
     }
     public  abstract int getlayoutid();
     public  abstract void  init();
+    public  abstract List<Basepresent> inip();
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+    }
 }

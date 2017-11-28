@@ -62,7 +62,7 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
                 break;
             case R.id.tv_ykdl:
 
-
+                intent(OtherloginActivity.this,MainActivity.class);
 
                 break;
         }

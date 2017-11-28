@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-       dw.setScrimColor(Color.TRANSPARENT);
+      // dw.setScrimColor(Color.TRANSPARENT);  去除阴影
     }
 
     public void onResume() {

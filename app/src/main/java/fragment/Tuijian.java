@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.liu.asus.yikezhong.R;
 
+import java.util.List;
+
 import mybase.Basefragment;
+import mybase.Basepresent;
 
 /**
  * Created by 地地 on 2017/11/24.
@@ -59,5 +62,10 @@ public class Tuijian  extends Basefragment{
                 v_remen.setVisibility(View.VISIBLE);
             }
         });
+    }
+
+    @Override
+    public List<Basepresent> inip() {
+        return null;
     }
 }

@@ -1,5 +1,8 @@
 package m;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +23,6 @@ public class LognModle {
       Map<String,Object> map=new HashMap<>();
       map.put("mobile",user);
       map.put("password",pass);
-
       new MyQusetUtils.Builder().addConverterFactory()
               .addCallAdapterFactory().build().getQuestInterface().login(map)
               .subscribeOn(Schedulers.io())
@@ -33,7 +35,15 @@ public class LognModle {
 
           @Override
           public void onNext(ResponseBody value) {
-              requestBack.success(value);
+              try {
+                  String json  = value.string();
+                  JSONObject jsonObject=new JSONObject(json);
+                  String code = jsonObject.getString("code");
+                  String msg = jsonObject.getString("msg");
+                  requestBack.logsuccess(code,msg);
+              } catch (Exception e) {
+                  e.printStackTrace();
+              }
           }
 
           @Override
@@ -49,7 +59,7 @@ public class LognModle {
   }
 
   public  interface  requestBack{
-      void  success(ResponseBody value);
+      void  logsuccess(String code,String msg);
       void  fail(Throwable e);
   }
 

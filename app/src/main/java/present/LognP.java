@@ -18,7 +18,7 @@ import okhttp3.ResponseBody;
  */
 
 public class   LognP  extends Basepresent {
-    private LognModle lognModle;
+     private LognModle lognModle;
      private  Lognview lognview;
     public LognP(Lognview viewmode) {
         super(viewmode);
@@ -29,23 +29,15 @@ public class   LognP  extends Basepresent {
     }
     public  void  login(String user,String pass){
         lognModle.getlogndata(user, pass, new LognModle.requestBack() {
+
+
             @Override
-            public void success(ResponseBody value) {
-                try {
-                    String json = value.string();
-                    JSONObject jsonObject=new JSONObject(json);
-
-                    String code = jsonObject.getString("code");
-                    String msg = jsonObject.getString("msg");
-                    if(code.equals("0")){
-                        lognview.lognsuess();
-                    }else {
-                        lognview.lognfail(msg);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+            public void logsuccess(String code, String msg) {
+                if(code.equals("0")){
+                    lognview.lognsuess();
+                }else {
+                    lognview.lognfail(msg);
                 }
-
             }
 
             @Override
