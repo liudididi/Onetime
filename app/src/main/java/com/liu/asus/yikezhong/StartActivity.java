@@ -42,7 +42,6 @@ public class StartActivity extends BaseActivity {
               i--;
               if(i==0){
                  intent(StartActivity.this,LoginActivity.class);
-
               }else {
                   handler.postDelayed(task,1000);
               }

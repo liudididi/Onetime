@@ -1,6 +1,7 @@
 package mInterface;
 
 
+import bean.UserBean;
 import mybase.Baseview;
 
 /**
@@ -9,6 +10,6 @@ import mybase.Baseview;
  */
 
 public interface Lognview extends Baseview {
-   void  lognsuess();
+   void  lognsuess(UserBean userBean);
    void  lognfail(String msg);
 }

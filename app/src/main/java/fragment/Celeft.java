@@ -16,6 +16,7 @@ import java.util.List;
 
 import mybase.Basefragment;
 import mybase.Basepresent;
+import utils.SPUtils;
 
 /**
  * Created by 地地 on 2017/11/24.
@@ -35,8 +36,15 @@ public class Celeft extends Basefragment{
     @Override
     public void init() {
         ce_icon = view.findViewById(R.id.ce_icon);
-        ce_icon.setImageURI(Uri.parse("res://"+getActivity().getPackageName()+"/" + R.drawable.raw_1499936862));
-
+        String icon = (String) SPUtils.get(getActivity(), "icon", "");
+        int uid = (int) SPUtils.get(getActivity(), "uid", 0);
+        if(uid!=0){
+        if (icon != null && icon.length() >= 3) {
+            ce_icon.setImageURI(Uri.parse(icon));
+        }else {
+            ce_icon.setImageURI(Uri.parse("res://"+getActivity().getPackageName()+"/" + R.drawable.raw_1499936862));
+            }
+        }
     }
 
     @Override

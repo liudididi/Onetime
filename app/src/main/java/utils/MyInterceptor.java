@@ -25,7 +25,7 @@ public class MyInterceptor implements Interceptor {
             long endTime = System.currentTimeMillis();
             long duration=endTime-startTime;
             MediaType mediaType = response.body().contentType();
-            String content = response.body().string();
+
             Log.d(TAG,"\n");
             Log.d(TAG,"----------Start----------------");
             Log.d(TAG, "| "+request.toString());
@@ -40,11 +40,11 @@ public class MyInterceptor implements Interceptor {
                     }
                     body=sb.add("source","android").add("appVersion","101").build();
                     request=request.newBuilder().post(body).build();
-
                     Log.d(TAG, "| RequestParams:{"+sb.toString()+"}");
                 }
             }
-            Log.d(TAG, "| Response:" + content);
+        String content = response.body().string();
+        Log.d(TAG, "| Response:" + content);
             Log.d(TAG,"----------End:"+duration+"毫秒----------");
             return    chain.proceed(request);
     }

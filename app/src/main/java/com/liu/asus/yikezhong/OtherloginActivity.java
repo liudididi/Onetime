@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.UserBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,6 +19,7 @@ import mInterface.Lognview;
 import mybase.BaseActivity;
 import mybase.Basepresent;
 import present.LognP;
+import utils.SPUtils;
 
 public class OtherloginActivity extends BaseActivity implements Lognview {
 
@@ -78,9 +80,15 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
 
     }
 
+
+
     @Override
-    public void lognsuess() {
+    public void lognsuess(UserBean userBean) {
         Toast("登录成功");
+        SPUtils.put(this,"token",userBean.token);
+        SPUtils.put(this,"icon",userBean.icon);
+        SPUtils.put(this,"uid",userBean.uid);
+        System.out.println("tokeno==="+userBean.token);
         intent(OtherloginActivity.this,MainActivity.class);
     }
 

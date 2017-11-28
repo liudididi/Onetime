@@ -6,8 +6,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import bean.UserBean;
 import m.LognModle;
 import mInterface.Lognview;
+import mybase.Basebean;
 import mybase.Basepresent;
 import okhttp3.ResponseBody;
 
@@ -29,13 +31,14 @@ public class   LognP  extends Basepresent {
     }
     public  void  login(String user,String pass){
         lognModle.getlogndata(user, pass, new LognModle.requestBack() {
-
-
             @Override
-            public void logsuccess(String code, String msg) {
+            public void logsuccess(Basebean<UserBean> value) {
+                String code = value.code;
                 if(code.equals("0")){
-                    lognview.lognsuess();
+                    UserBean data = value.data;
+                    lognview.lognsuess(data);
                 }else {
+                    String msg = value.msg;
                     lognview.lognfail(msg);
                 }
             }
@@ -43,6 +46,28 @@ public class   LognP  extends Basepresent {
             @Override
             public void fail(Throwable e) {
                 lognview.fail(e.toString());
+            }
+        });
+    }
+    public  void  getuser(int uid,String token){
+        lognModle.getuser(uid, token, new LognModle.requestBack() {
+            @Override
+            public void logsuccess(Basebean<UserBean> value) {
+                String code = value.code;
+                System.out.println("code=="+code);
+                System.out.println("msg"+value.msg);
+                if(code.equals("0")){
+                    lognview.lognsuess(value.data);
+                }else if(code.equals("2")){
+                    lognview.fail("身份过期，请重新登录");
+                }else {
+                    lognview.lognfail(value.msg);
+                }
+            }
+
+            @Override
+            public void fail(Throwable e) {
+
             }
         });
     }

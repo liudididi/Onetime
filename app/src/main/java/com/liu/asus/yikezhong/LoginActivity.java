@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import mybase.BaseActivity;
 import mybase.Basepresent;
+import utils.SPUtils;
 
 public class LoginActivity extends BaseActivity {
 
@@ -49,7 +50,11 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void init() {
         ButterKnife.bind(this);
-
+        String token = (String) SPUtils.get(this, "token", "");
+        if(token!=null&&token.length()>3){
+            intent(LoginActivity.this,MainActivity.class);
+            return;
+        }
         mListener = new QQLoginListener();
         if (mTencent == null) {
             mTencent = Tencent.createInstance("1104796216", this);

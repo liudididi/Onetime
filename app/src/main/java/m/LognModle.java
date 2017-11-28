@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import bean.UserBean;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import mybase.Basebean;
 import okhttp3.ResponseBody;
 import utils.MyQusetUtils;
+import utils.SPUtils;
 
 /**
  * Created by 地地 on 2017/11/12.
@@ -27,40 +30,61 @@ public class LognModle {
               .addCallAdapterFactory().build().getQuestInterface().login(map)
               .subscribeOn(Schedulers.io())
               .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(new Observer<ResponseBody>() {
-          @Override
-          public void onSubscribe(Disposable d) {
+              .subscribe(new Observer<Basebean<UserBean>>() {
+                  @Override
+                  public void onSubscribe(Disposable d) {
 
-          }
+                  }
 
-          @Override
-          public void onNext(ResponseBody value) {
-              try {
-                  String json  = value.string();
-                  JSONObject jsonObject=new JSONObject(json);
-                  String code = jsonObject.getString("code");
-                  String msg = jsonObject.getString("msg");
-                  System.out.println("result=="+json);
-                  requestBack.logsuccess(code,msg);
-              } catch (Exception e) {
-                  e.printStackTrace();
-              }
-          }
+                  @Override
+                  public void onNext(Basebean<UserBean> value) {
+                      requestBack.logsuccess(value);
+                  }
 
-          @Override
-          public void onError(Throwable e) {
-              requestBack.fail(e);
-          }
+                  @Override
+                  public void onError(Throwable e) {
+                      requestBack.fail(e);
+                  }
 
-          @Override
-          public void onComplete() {
+                  @Override
+                  public void onComplete() {
 
-          }
-      });
+                  }
+              });
   }
+    public  void  getuser(int  uid, String token, final requestBack requestBack){
+        Map<String,Object> map=new HashMap<>();
+        map.put("uid",uid);
+        map.put("token",token);
+        new MyQusetUtils.Builder().addConverterFactory()
+                .addCallAdapterFactory().build().getQuestInterface().getuser(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Basebean<UserBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Basebean<UserBean> value) {
+                        requestBack.logsuccess(value);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        requestBack.fail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
   public  interface  requestBack{
-      void  logsuccess(String code,String msg);
+      void  logsuccess(Basebean<UserBean> value);
       void  fail(Throwable e);
   }
 

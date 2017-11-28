@@ -26,13 +26,15 @@ import retrofit2.http.Url;
 public interface QuestInterface {
     @POST("/user/login")
     @FormUrlEncoded
-    Observable<ResponseBody> login(@FieldMap Map<String, Object> maps);
+    Observable<Basebean<UserBean>> login(@FieldMap Map<String, Object> maps);
 
     @POST("/quarter/getJokes")
     @FormUrlEncoded
     Observable<Basebean<List<Duanzibean>>> getdata(@Field("page") int page);
 
-
+    @POST("user/getUserInfo")
+    @FormUrlEncoded
+    Observable<Basebean<UserBean>> getuser(@FieldMap Map<String, Object> maps);
 
 
 

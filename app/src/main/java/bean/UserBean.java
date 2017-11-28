@@ -6,10 +6,11 @@ package bean;
  */
 
 public class UserBean{
-public  String icon;
-public  String mobile;
-public  String nickname;
-public  String password;
-
-
+    public  String icon;
+    public  String mobile;
+    public  String nickname;
+    public  String password;
+    public  String username;
+    public String token ;
+    public int uid;
 }

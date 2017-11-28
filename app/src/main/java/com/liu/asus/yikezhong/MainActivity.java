@@ -1,24 +1,25 @@
 package com.liu.asus.yikezhong;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.UserBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,10 +31,10 @@ import mInterface.Lognview;
 import mybase.BaseActivity;
 import mybase.Basepresent;
 import present.LognP;
+import utils.SPUtils;
 
-public class MainActivity extends BaseActivity {
-    @BindView(R.id.img_icon)
-    ImageView imgIcon;
+public class MainActivity extends BaseActivity implements Lognview {
+
     @BindView(R.id.img_biji)
     ImageView imgBiji;
     @BindView(R.id.frame_main)
@@ -54,12 +55,18 @@ public class MainActivity extends BaseActivity {
     LinearLayout linearlaout;
     @BindView(R.id.frame_left)
     FrameLayout frameLeft;
+    @BindView(R.id.img_icon)
+    SimpleDraweeView imgIcon;
+
 
     private DrawerLayout dw;
+    private LognP lognP;
 
     @Override
     public List<Basepresent> initp() {
-        return null;
+        List<Basepresent> list=new ArrayList<>();
+         list.add(lognP);
+        return list;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -71,9 +78,21 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
+        ButterKnife.bind(this);
         dw = findViewById(R.id.dw);
+        lognP=new LognP(this);
+       int uid = (int) SPUtils.get(this, "uid", 0);
+
+       String token = (String) SPUtils.get(this, "token", "");
+
+           if(uid!=0){
+           lognP.getuser(uid,token);
+           }else {
+            imgIcon.setImageURI(Uri.parse("res://"+getPackageName()+"/" + R.drawable.raw_1499936862));
+            }
+
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_left,new Celeft()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_left, new Celeft()).commit();
         dw.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -96,7 +115,7 @@ public class MainActivity extends BaseActivity {
 
             }
         });
-      // dw.setScrimColor(Color.TRANSPARENT);  去除阴影
+        // dw.setScrimColor(Color.TRANSPARENT);  去除阴影
     }
 
     public void onResume() {
@@ -157,5 +176,32 @@ public class MainActivity extends BaseActivity {
                 tvShiping.setTextColor(Color.parseColor("#03A9F4"));
                 break;
         }
+    }
+
+    @Override
+    public void success() {
+
+    }
+
+    @Override
+    public void fail(String msg) {
+        Toast(msg);
+        intent(MainActivity.this,LoginActivity.class);
+    }
+
+    @Override
+    public void lognsuess(UserBean userBean) {
+        SPUtils.put(this,"token",userBean.token);
+        SPUtils.put(this,"icon",userBean.icon);
+        if (userBean.icon != null && userBean.icon.length() >= 3) {
+            imgIcon.setImageURI(Uri.parse(userBean.icon));
+        }else {
+            imgIcon.setImageURI(Uri.parse("res://"+getPackageName()+"/" + R.drawable.raw_1499936862));
+        }
+    }
+
+    @Override
+    public void lognfail(String msg) {
+
     }
 }
