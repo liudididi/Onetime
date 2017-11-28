@@ -8,5 +8,5 @@ package mybase;
 public class Basebean<Data>{
     public String msg;
     public String code;
-    public Data  T;
+     public Data  data;
 }

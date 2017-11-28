@@ -8,7 +8,7 @@
     android:id="@+id/rl1"
     android:padding="20px"
     android:layout_width="match_parent"
-    android:layout_height="170px">
+    android:layout_height="180px">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_touxiang"
@@ -33,18 +33,86 @@
             android:text="sssss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/duanzi_item_iv_bianji"
-        android:layout_width="120px"
-        android:layout_height="225px"
-        android:layout_gravity="center"
-        android:padding="15px"
+    <LinearLayout
+        android:id="@+id/line_jia"
+        android:orientation="vertical"
+        android:layout_width="160px"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_launcher_background" />
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/duanzi_item_iv_bianji"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_jia" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/line_2"
+        android:orientation="vertical"
+        android:layout_width="160px"
+        android:layout_alignParentRight="true"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_jia" />
+        <TextView
+            android:text="121"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/line_3"
+        android:orientation="vertical"
+        android:layout_width="160px"
+        android:layout_alignParentRight="true"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_jia" />
+        <TextView
+            android:text="121"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/line_4"
+        android:orientation="vertical"
+        android:layout_width="160px"
+        android:layout_alignParentRight="true"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:layout_gravity="center"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_jia" />
+        <TextView
+            android:text="121"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
 </RelativeLayout>
 <TextView
     android:layout_marginLeft="24px"
     android:layout_below="@+id/rl1"
+    android:layout_marginTop="10px"
     android:text="ssssssssss"
     android:id="@+id/duanzi_tv_content"
     android:layout_width="wrap_content"

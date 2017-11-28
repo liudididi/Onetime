@@ -3,6 +3,7 @@ package present;
 import java.util.List;
 
 import bean.Duanzibean;
+import bean.UserBean;
 import m.Getdatamodle;
 import mInterface.Duanziview;
 import mybase.Basepresent;
@@ -28,8 +29,6 @@ public class Getdatap extends Basepresent {
             @Override
             public void success(List<Duanzibean> list) {
                 duanziview.getdatasuess(list);
-
-
             }
 
             @Override

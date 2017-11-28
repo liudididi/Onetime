@@ -19,6 +19,7 @@ import java.util.List;
 
 import adapter.Duanziapter;
 import bean.Duanzibean;
+import bean.UserBean;
 import mInterface.Duanziview;
 import mybase.Basefragment;
 import mybase.Basepresent;
@@ -34,18 +35,37 @@ public class Duanzi extends Basefragment implements Duanziview{
 
     private XRecyclerView recyclerView;
     private Getdatap getdatap;
+    private Duanziapter duanziapter;
+    private  int type=0;
+    private  int page=1;
 
     @Override
     public int getlayoutid() {
         return R.layout.duanzi;
     }
-
     @Override
     public void init() {
         recyclerView = view.findViewById(R.id.recycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                type=0;
+                page=1;
+                getdatap.getduanzidata(page);
+                recyclerView.refreshComplete();
+            }
+
+            @Override
+            public void onLoadMore() {
+                type=1;
+                page++;
+                getdatap.getduanzidata(page);
+                recyclerView.loadMoreComplete();
+            }
+        });
         getdatap = new Getdatap(this);
-        getdatap.getduanzidata(1);
+        getdatap.getduanzidata(page);
     }
 
     @Override
@@ -55,11 +75,23 @@ public class Duanzi extends Basefragment implements Duanziview{
         return list;
     }
 
+
+
     @Override
     public void getdatasuess(List<Duanzibean> list) {
-        Duanziapter duanziapter=new Duanziapter(list,getActivity());
-        recyclerView.setAdapter(duanziapter);
+        if(duanziapter==null){
+            duanziapter = new Duanziapter(list,getActivity());
+            recyclerView.setAdapter(duanziapter);
+        }else {
+            if(type==0){
+                duanziapter.Refresh(list);
+            }else {
+                duanziapter.LoadMore(list);
+            }
+        }
     }
+
+
 
     @Override
     public void getdatafail(String msg) {

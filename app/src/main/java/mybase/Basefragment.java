@@ -38,7 +38,13 @@ public abstract  class Basefragment extends Fragment {
 
     @Override
     public void onDestroy() {
-
+        List<Basepresent> inip = inip();
+        if(inip!=null){
+            for (Basepresent basepresent : inip) {
+                basepresent.ondeach();
+            }
+            inip=null;
+        }
         super.onDestroy();
     }
 }

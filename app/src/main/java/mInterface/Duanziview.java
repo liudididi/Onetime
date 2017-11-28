@@ -3,6 +3,7 @@ package mInterface;
 import java.util.List;
 
 import bean.Duanzibean;
+import bean.UserBean;
 import mybase.Baseview;
 
 /**

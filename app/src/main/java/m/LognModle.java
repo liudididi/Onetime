@@ -40,6 +40,7 @@ public class LognModle {
                   JSONObject jsonObject=new JSONObject(json);
                   String code = jsonObject.getString("code");
                   String msg = jsonObject.getString("msg");
+                  System.out.println("result=="+json);
                   requestBack.logsuccess(code,msg);
               } catch (Exception e) {
                   e.printStackTrace();

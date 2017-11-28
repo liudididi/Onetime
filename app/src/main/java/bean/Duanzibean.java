@@ -12,4 +12,5 @@ public  String content;
 public  String createTime;
 public  int jid;
 public  int uid;
+public  UserBean user;
 }

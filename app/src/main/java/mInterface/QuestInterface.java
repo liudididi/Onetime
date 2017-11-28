@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import bean.Duanzibean;
+import bean.UserBean;
 import io.reactivex.Observable;
 import mybase.Basebean;
 import okhttp3.RequestBody;
@@ -26,9 +27,6 @@ public interface QuestInterface {
     @POST("/user/login")
     @FormUrlEncoded
     Observable<ResponseBody> login(@FieldMap Map<String, Object> maps);
-
-
-
 
     @POST("/quarter/getJokes")
     @FormUrlEncoded

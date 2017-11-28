@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import bean.Duanzibean;
+import bean.UserBean;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -34,13 +35,13 @@ public class Getdatamodle {
 
                     @Override
                     public void onNext(Basebean<List<Duanzibean>> value) {
-                        System.out.println("msg==="+value.msg);
-                        requestBack.success(value.T);
+                          System.out.println("msg=="+value.msg);
+                           requestBack.success(value.data);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        requestBack.fail(e);
                     }
 
                     @Override
