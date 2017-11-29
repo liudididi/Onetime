@@ -23,9 +23,11 @@ import static utils.L.isDebug;
  */
 
 public class Myapp extends Application {
+    public  static Context context;
     @Override
     public void onCreate() {
         super.onCreate();
+        context=this;
         Fresco.initialize(this);
         AutoLayoutConifg.getInstance().useDeviceSize();
         //个推

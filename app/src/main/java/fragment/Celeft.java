@@ -41,10 +41,17 @@ public class Celeft extends Basefragment{
         if(uid!=0){
         if (icon != null && icon.length() >= 3) {
             ce_icon.setImageURI(Uri.parse(icon));
-        }else {
+            }else {
             ce_icon.setImageURI(Uri.parse("res://"+getActivity().getPackageName()+"/" + R.drawable.raw_1499936862));
             }
+        }else {
+            ce_icon.setImageURI(Uri.parse("res://"+getActivity().getPackageName()+"/" + R.drawable.raw_1499936862));
         }
+    }
+
+    @Override
+    public void ondistory() {
+
     }
 
     @Override

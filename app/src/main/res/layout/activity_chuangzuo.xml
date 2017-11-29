@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/huanghun"
+    tools:context="com.liu.asus.yikezhong.ChuangzuoActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:background="#03A9F4">
+
+        <TextView
+            android:id="@+id/tv_quxiao"
+            android:layout_width="200px"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10px"
+            android:src="@mipmap/ic_launcher_round"
+            android:text="取消"
+            android:textColor="#fff"
+            android:textSize="50px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="创作"
+            android:textColor="#fff"
+            android:textSize="50px" />
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_shipin"
+        android:layout_width="330px"
+        android:layout_height="300px"
+        android:layout_below="@+id/include"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="85dp"
+        android:background="@drawable/image_bag"
+        android:paddingLeft="100px"
+        android:paddingTop="80px"
+        android:paddingRight="80px"
+        android:paddingBottom="80px"
+        android:src="@drawable/shipin" />
+
+    <ImageView
+        android:id="@+id/iv_duanzi"
+        android:layout_width="330px"
+        android:layout_height="300px"
+        android:layout_alignLeft="@+id/iv_shipin"
+        android:layout_alignStart="@+id/iv_shipin"
+        android:layout_below="@+id/iv_shipin"
+        android:layout_marginTop="65dp"
+        android:background="@drawable/image_bag"
+
+        android:paddingLeft="100px"
+        android:paddingTop="80px"
+        android:paddingRight="80px"
+        android:paddingBottom="80px"
+        android:src="@drawable/duanzi" />
+
+
+
+</RelativeLayout>
+
+
+
+
+</LinearLayout>

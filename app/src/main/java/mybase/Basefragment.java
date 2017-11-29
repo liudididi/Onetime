@@ -34,10 +34,12 @@ public abstract  class Basefragment extends Fragment {
     }
     public  abstract int getlayoutid();
     public  abstract void  init();
+    public  abstract void  ondistory();
     public  abstract List<Basepresent> inip();
 
     @Override
     public void onDestroy() {
+        ondistory();
         List<Basepresent> inip = inip();
         if(inip!=null){
             for (Basepresent basepresent : inip) {

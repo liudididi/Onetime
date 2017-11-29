@@ -26,9 +26,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
 
         <service
             android:name=".DemoPushService"
@@ -78,7 +76,9 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="behind"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".OtherloginActivity"></activity>
+        <activity android:name=".OtherloginActivity" />
+        <activity android:name=".ChuangzuoActivity" />
+        <activity android:name=".FaduanziActivity"></activity>
     </application>
 
 </manifest>

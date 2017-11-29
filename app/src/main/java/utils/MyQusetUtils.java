@@ -35,7 +35,8 @@ public  QuestInterface getQuestInterface(){
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .retryOnConnectionFailure(false).build();
+            .retryOnConnectionFailure(false)
+            .build();
     Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BaseApi.Api).client(okHttpClient);
     public  Builder addConverterFactory(){
       builder.addConverterFactory(GsonConverterFactory.create());

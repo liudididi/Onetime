@@ -68,6 +68,11 @@ public class Shiping extends Basefragment{
     }
 
     @Override
+    public void ondistory() {
+
+    }
+
+    @Override
     public List<Basepresent> inip() {
         return null;
     }

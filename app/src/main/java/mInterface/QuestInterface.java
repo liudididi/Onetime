@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -35,6 +36,11 @@ public interface QuestInterface {
     @POST("user/getUserInfo")
     @FormUrlEncoded
     Observable<Basebean<UserBean>> getuser(@FieldMap Map<String, Object> maps);
+
+
+    @FormUrlEncoded
+    @POST("/quarter/publishJoke")
+    Observable<Basebean> faduanzi(@Field("uid") int uid,@Field("content") String  content);
 
 
 

@@ -15,6 +15,8 @@ import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by 地地 on 2017/11/12.
  * 邮箱：461211527@qq.com.
@@ -23,13 +25,15 @@ import java.util.List;
 public abstract  class BaseActivity extends AutoLayoutActivity{
     private  boolean isStatus=false;
     private  boolean  isFullScreen=false;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 // 状态栏颜色
-
+        initztl("#03A9F4");
         setContentView(getid());
+        ButterKnife.bind(this);
         init();
 
     }
@@ -37,6 +41,7 @@ public abstract  class BaseActivity extends AutoLayoutActivity{
     public   abstract  List<Basepresent> initp() ;
     public  abstract int getid();
     public  abstract  void init();
+    public  abstract  void ondestory();
 
     /**
      * 设置状态栏
@@ -78,10 +83,11 @@ public abstract  class BaseActivity extends AutoLayoutActivity{
    public   void  intent(Context packageContext, Class<?> cls){
          Intent intent=new Intent(packageContext,cls);
          startActivity(intent);
-         finish();
+
    }
     @Override
     protected void onDestroy() {
+        ondestory();
         List<Basepresent> initp = initp();
         if(initp!=null){
             for (Basepresent basepresent : initp()) {

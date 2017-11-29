@@ -50,6 +50,11 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
         lognp = new LognP(this);
     }
 
+    @Override
+    public void ondestory() {
+
+    }
+
     @OnClick({R.id.but_log, R.id.tv_ykdl})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -59,7 +64,7 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
                 if(TextUtils.isEmpty(user)||TextUtils.isEmpty(pass)){
                   Toast("用户名或密码为空");
                      return;
-          }
+                 }
                 lognp.login(etUser.getText().toString(),etPsd.getText().toString());
                 break;
             case R.id.tv_ykdl:
@@ -80,16 +85,15 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
 
     }
 
-
-
     @Override
     public void lognsuess(UserBean userBean) {
         Toast("登录成功");
         SPUtils.put(this,"token",userBean.token);
         SPUtils.put(this,"icon",userBean.icon);
         SPUtils.put(this,"uid",userBean.uid);
-        System.out.println("tokeno==="+userBean.token);
+        System.out.println("token==="+userBean.token);
         intent(OtherloginActivity.this,MainActivity.class);
+        finish();
     }
 
     @Override

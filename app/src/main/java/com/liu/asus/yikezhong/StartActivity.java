@@ -42,6 +42,7 @@ public class StartActivity extends BaseActivity {
               i--;
               if(i==0){
                  intent(StartActivity.this,LoginActivity.class);
+                 finish();
               }else {
                   handler.postDelayed(task,1000);
               }
@@ -49,6 +50,11 @@ public class StartActivity extends BaseActivity {
         };
         handler.postDelayed(task,1000);
 
+
+    }
+
+    @Override
+    public void ondestory() {
 
     }
 

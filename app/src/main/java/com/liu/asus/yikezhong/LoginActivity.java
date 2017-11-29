@@ -53,11 +53,20 @@ public class LoginActivity extends BaseActivity {
         String token = (String) SPUtils.get(this, "token", "");
         if(token!=null&&token.length()>3){
             intent(LoginActivity.this,MainActivity.class);
-            return;
+            finish();
         }
         mListener = new QQLoginListener();
         if (mTencent == null) {
+            mListener=null;
             mTencent = Tencent.createInstance("1104796216", this);
+        }
+
+    }
+
+    @Override
+    public void ondestory() {
+        if(mTencent!=null){
+            mTencent=null;
         }
 
     }
@@ -66,15 +75,6 @@ public class LoginActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mTencent.onActivityResultData(requestCode, resultCode, data, mListener);
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-
 
     @OnClick({R.id.rela_qq, R.id.login_tv})
     public void onViewClicked(View view) {

@@ -42,7 +42,6 @@ public class   LognP  extends Basepresent {
                     lognview.lognfail(msg);
                 }
             }
-
             @Override
             public void fail(Throwable e) {
                 lognview.fail(e.toString());
@@ -55,7 +54,6 @@ public class   LognP  extends Basepresent {
             public void logsuccess(Basebean<UserBean> value) {
                 String code = value.code;
                 System.out.println("code=="+code);
-                System.out.println("msg"+value.msg);
                 if(code.equals("0")){
                     lognview.lognsuess(value.data);
                 }else if(code.equals("2")){
