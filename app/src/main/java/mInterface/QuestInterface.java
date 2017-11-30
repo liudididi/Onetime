@@ -7,14 +7,18 @@ import bean.Duanzibean;
 import bean.UserBean;
 import io.reactivex.Observable;
 import mybase.Basebean;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
@@ -38,9 +42,10 @@ public interface QuestInterface {
     Observable<Basebean<UserBean>> getuser(@FieldMap Map<String, Object> maps);
 
 
-    @FormUrlEncoded
+
+    @Multipart
     @POST("/quarter/publishJoke")
-    Observable<Basebean> faduanzi(@Field("uid") int uid,@Field("content") String  content);
+    Observable<Basebean> faduanzi(@Part()  List<MultipartBody.Part>  file);
 
 
 

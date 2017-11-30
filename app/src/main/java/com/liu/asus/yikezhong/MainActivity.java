@@ -12,7 +12,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.meg7.widget.CircleImageView;
+import com.meg7.widget.CustomShapeImageView;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -55,7 +60,7 @@ public class MainActivity extends BaseActivity implements Lognview {
     @BindView(R.id.frame_left)
     FrameLayout frameLeft;
     @BindView(R.id.img_icon)
-    SimpleDraweeView imgIcon;
+    CircleImageView imgIcon;
     @BindView(R.id.line_tuijian)
     LinearLayout lineTuijian;
     @BindView(R.id.line_duanzi)
@@ -66,6 +71,7 @@ public class MainActivity extends BaseActivity implements Lognview {
 
     private DrawerLayout dw;
     private LognP lognP;
+    private int uid;
 
     @Override
     public List<Basepresent> initp() {
@@ -85,12 +91,15 @@ public class MainActivity extends BaseActivity implements Lognview {
         ButterKnife.bind(this);
         dw = findViewById(R.id.dw);
         lognP = new LognP(this);
-        int uid = (int) SPUtils.get(this, "uid", 0);
-        String token = (String) SPUtils.get(this, "token", "");
+        uid = (int) SPUtils.get(this, "uid", 0);
+          String token = (String) SPUtils.get(this, "token", "");
+
+
         if (uid != 0) {
             lognP.getuser(uid, token);
         } else {
-            imgIcon.setImageURI(Uri.parse("res://" + getPackageName() + "/" + R.drawable.raw_1499936862));
+            Glide.with(this).load(R.drawable.raw_1499936862)
+                    .into(imgIcon);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_left, new Celeft()).commit();
@@ -125,8 +134,10 @@ public class MainActivity extends BaseActivity implements Lognview {
     }
 
     public void onResume() {
-        super.onResume();
+
         MobclickAgent.onResume(this);
+
+        super.onResume();
     }
 
     public void onPause() {
@@ -188,18 +199,26 @@ public class MainActivity extends BaseActivity implements Lognview {
     @Override
     public void lognsuess(UserBean userBean) {
         SPUtils.put(this, "token", userBean.token);
-        SPUtils.put(this, "icon", userBean.icon);
+
         if (userBean.icon != null && userBean.icon.length() >= 3) {
-            imgIcon.setImageURI(Uri.parse(userBean.icon));
+            SPUtils.put(this, "icon", userBean.icon);
+            Glide.with(this).load(userBean.icon)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .dontAnimate()
+                    .into(imgIcon);
         } else {
-            imgIcon.setImageURI(Uri.parse("res://" + getPackageName() + "/" + R.drawable.raw_1499936862));
+            Glide.with(this).load(R.drawable.raw_1499936862)
+                    .into(imgIcon);
         }
     }
 
     @Override
     public void lognfail(String msg) {
 
+
+
+
+
     }
-
-
 }

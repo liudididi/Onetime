@@ -10,7 +10,9 @@ import mybase.Basebean;
 public class Duanzibean extends Basebean {
 public  String content;
 public  String createTime;
+public  String imgUrls;
 public  int jid;
 public  int uid;
 public  UserBean user;
+
 }

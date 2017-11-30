@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class MyQusetUtils {
-  public static final int TIMEOUT=1000*60;
+  public static final int TIMEOUT=1000*100;
   public static  MyQusetUtils myQusetUtils;
   private QuestInterface questInterface;
 

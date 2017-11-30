@@ -32,7 +32,7 @@ import present.Getdatap;
  * 邮箱：461211527@qq.com.
  */
 
-public class Duanzi extends Basefragment implements Duanziview{
+public class Duanzi extends Basefragment implements Duanziview, Duanziapter.DuanzicallBack {
 
     private XRecyclerView recyclerView;
     private Getdatap getdatap;
@@ -81,6 +81,7 @@ public class Duanzi extends Basefragment implements Duanziview{
         });
         getdatap = new Getdatap(this);
         getdatap.getduanzidata(page);
+
     }
 
     @Override
@@ -101,16 +102,20 @@ public class Duanzi extends Basefragment implements Duanziview{
 
     @Override
     public void getdatasuess(List<Duanzibean> list) {
-        if(duanziapter==null){
-            duanziapter = new Duanziapter(list,getActivity());
-            recyclerView.setAdapter(duanziapter);
-        }else {
-            if(type==0){
-                duanziapter.Refresh(list);
+        if(list!=null){
+            if(duanziapter==null){
+                duanziapter = new Duanziapter(list,getActivity());
+                duanziapter.setDuanzicallBack(this);
+                recyclerView.setAdapter(duanziapter);
             }else {
-                duanziapter.LoadMore(list);
+                if(type==0){
+                    duanziapter.Refresh(list);
+                }else {
+                    duanziapter.LoadMore(list);
+                }
             }
         }
+
     }
 
 
@@ -129,5 +134,10 @@ public class Duanzi extends Basefragment implements Duanziview{
     @Override
     public void fail(String msg) {
 
+    }
+
+    @Override
+    public void DuanziBack(View view) {
+        Toast.makeText(getActivity(), "你好", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,6 +1,9 @@
 package present;
 
+import java.util.List;
+
 import m.Fabiaomodle;
+import mInterface.Faduanziv;
 import mybase.Basepresent;
 import mybase.Baseview;
 
@@ -11,26 +14,26 @@ import mybase.Baseview;
 
 public class Fabiaop  extends Basepresent{
     private Fabiaomodle fabiaomodle;
-    private Baseview baseview;
+    private Faduanziv baseview;
 
     public Fabiaop(Object viewmodel) {
         super(viewmodel);
         if(fabiaomodle==null){
             fabiaomodle=new Fabiaomodle();
         }
-        this.baseview= (Baseview) viewmodel;
+        this.baseview= (Faduanziv) viewmodel;
     }
 
-    public  void  fabiao(int uid,String content){
-        fabiaomodle.fabiaodata(uid, content, new Fabiaomodle.requestfabiaoBack() {
+    public  void  fabiao(int uid, String content, List<String> list){
+        fabiaomodle.fabiaodata(uid, content,list,new Fabiaomodle.requestfabiaoBack() {
             @Override
             public void success(String msg, String code) {
-
-                System.out.println("msg==="+msg+code);
                 if(code.equals("0")){
-                    baseview.success();
+                    baseview.fabusuccess();
+                }else if(code.equals("2")){
+                    baseview.tokenout(msg);
                 }else {
-                    baseview.fail(msg);
+                    baseview.fabufail(msg);
                 }
             }
 

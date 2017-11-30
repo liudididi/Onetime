@@ -5,7 +5,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.net.Uri;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.liu.asus.yikezhong.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import bean.Duanzibean;
@@ -26,16 +24,11 @@ import bean.Duanzibean;
  * 邮箱：461211527@qq.com.
  */
 
-public class Duanziapter extends RecyclerView.Adapter{
+public class Tuijianapter extends RecyclerView.Adapter{
     private List<Duanzibean> list;
     private Context context;
-    private  DuanzicallBack duanzicallBack;
 
-    public void setDuanzicallBack(DuanzicallBack duanzicallBack) {
-        this.duanzicallBack = duanzicallBack;
-    }
-
-    public Duanziapter(List<Duanzibean> list, Context context) {
+    public Tuijianapter(List<Duanzibean> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -61,11 +54,12 @@ public class Duanziapter extends RecyclerView.Adapter{
         myviewholder.duanzi_tv_content=view.findViewById(R.id.duanzi_tv_content);
         myviewholder.duanzi_item_tv_time=view.findViewById(R.id.duanzi_item_tv_time);
         myviewholder.duanzi_item_iv_bianji=view.findViewById(R.id. duanzi_item_iv_bianji);
+
         myviewholder.iv_touxiang=view.findViewById(R.id.iv_touxiang);
+
         myviewholder.line_jia=view.findViewById(R.id.line_jia);
         myviewholder.line_2=view.findViewById(R.id.line_2);
         myviewholder.line_3=view.findViewById(R.id.line_3);
-        myviewholder.item_recycle=view.findViewById(R.id.item_recycle);
         myviewholder.line_4=view.findViewById(R.id.line_4);
         return myviewholder;
     }
@@ -73,47 +67,10 @@ public class Duanziapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Myviewholder myviewholder= (Myviewholder) holder;
-        if(list.get(position).imgUrls!=null){
-            List<String> result=new ArrayList<>();
-            String imgUrls = list.get(position).imgUrls;
-            System.out.println("imgUrls==="+imgUrls);
-            String[] split = imgUrls.split("\\|");
-            if(split.length>1){
-                System.out.println("imgUrls===|||");
-                for (int i = 0; i < split.length; i++) {
-                    result.add(split[i]);
-                }
-            }else {
-                result.add(imgUrls);
-            }
-            DitemAdapter ditemAdapter=new DitemAdapter(context,result);
-            if(result.size()==1){
-                myviewholder.item_recycle.setLayoutManager(new GridLayoutManager(context,1));
-            }else if(result.size()==2||result.size()==4){
-                myviewholder.item_recycle.setLayoutManager(new GridLayoutManager(context,2));
-            }else {
-                myviewholder.item_recycle.setLayoutManager(new GridLayoutManager(context,3));
-            }
-            myviewholder.item_recycle.setAdapter(ditemAdapter);
-        }
-
-
-        myviewholder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                duanzicallBack.DuanziBack(view);
-            }
-        });
-        myviewholder.setIsRecyclable(false);
         myviewholder.duanziz_item_tv_name.setText(list.get(position).user.nickname);
         myviewholder.duanzi_tv_content.setText(list.get(position).content);
         myviewholder.duanzi_item_tv_time.setText(list.get(position).createTime);
-        if(list.get(position).user.icon!=null){
-            myviewholder.iv_touxiang.setImageURI(Uri.parse(list.get(position).user.icon));
-        }else {
-            myviewholder.iv_touxiang.setImageURI(Uri.parse("res://"+context.getPackageName()+"/" + R.drawable.raw_1499936862));
-
-        }
+        myviewholder.iv_touxiang.setImageURI(Uri.parse(list.get(position).user.icon));
          final ObjectAnimator   animator = ObjectAnimator.ofFloat( myviewholder.duanzi_item_iv_bianji, "rotation", 0f, 180f);;
          final ObjectAnimator animator1= ObjectAnimator.ofFloat(myviewholder.line_2, "translationX", 0f,-100f);;
          final ObjectAnimator animator2= ObjectAnimator.ofFloat(myviewholder.line_3, "translationX", 0f,-200f);;
@@ -207,16 +164,8 @@ public class Duanziapter extends RecyclerView.Adapter{
          private LinearLayout line_3;
          private LinearLayout line_4;
          private  int a=0;
-         private  View view;
-         private  RecyclerView   item_recycle;
         public Myviewholder(View itemView) {
             super(itemView);
-            this.view=itemView;
         }
     }
-    public  interface  DuanzicallBack{
-        void  DuanziBack(View view);
-    }
-
-
 }

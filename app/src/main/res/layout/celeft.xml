@@ -14,11 +14,11 @@
             android:layout_height="480px"
             android:background="@drawable/drawerlayout" />
 
-        <com.facebook.drawee.view.SimpleDraweeView
+        <com.meg7.widget.CircleImageView
             app:roundAsCircle="true"
             android:id="@+id/ce_icon"
             android:layout_width="180px"
-            android:layout_height="180px"
+            android:layout_height="160px"
             android:layout_marginLeft="30px"
             android:layout_marginTop="210px"
             android:src="@drawable/raw_1499936862" />

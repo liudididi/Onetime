@@ -35,7 +35,6 @@ public class Getdatamodle {
 
                     @Override
                     public void onNext(Basebean<List<Duanzibean>> value) {
-
                            requestBack.success(value.data);
                     }
 

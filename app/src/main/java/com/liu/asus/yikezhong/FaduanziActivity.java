@@ -1,31 +1,48 @@
 package com.liu.asus.yikezhong;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.yancy.imageselector.ImageConfig;
+import com.yancy.imageselector.ImageSelector;
+import com.yancy.imageselector.ImageSelectorActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import adapter.Adapter;
+import adapter.GlideLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mInterface.Faduanziv;
 import mybase.BaseActivity;
 import mybase.Basepresent;
 import mybase.Baseview;
 import present.Fabiaop;
 import utils.SPUtils;
 
-public class FaduanziActivity extends BaseActivity implements Baseview {
-
+public class FaduanziActivity extends BaseActivity implements Faduanziv, Adapter.Imgdele {
+    @BindView(R.id.img_add)
+    ImageView imgAdd;
+    @BindView(R.id.recycle)
+    RecyclerView recycle;
+    private ArrayList<String> path = new ArrayList<>();
+    private Adapter adapter;
     @BindView(R.id.tv_duanzi_quxiao)
     TextView tvDuanziQuxiao;
     @BindView(R.id.tv_fabiao)
@@ -64,20 +81,20 @@ public class FaduanziActivity extends BaseActivity implements Baseview {
         pop_baocun = contentView.findViewById(R.id.pop_baocun);
         pop_finish = contentView.findViewById(R.id.pop_finish);
         caogao = (String) SPUtils.get(this, "caogao", "");
-        if(caogao !=null&& caogao.length()>=2){
+        if (caogao != null && caogao.length() >= 2) {
             edFabiao.setText(caogao);
         }
         pop_bubaocun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SPUtils.remove(FaduanziActivity.this,"caogao");
+                SPUtils.remove(FaduanziActivity.this, "caogao");
                 finish();
             }
         });
         pop_baocun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               SPUtils.put(FaduanziActivity.this,"caogao",edFabiao.getText().toString());
+                SPUtils.put(FaduanziActivity.this, "caogao", edFabiao.getText().toString());
                 finish();
             }
         });
@@ -91,6 +108,14 @@ public class FaduanziActivity extends BaseActivity implements Baseview {
             }
         });
 
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recycle.setLayoutManager(gridLayoutManager);
+        adapter = new Adapter(this, path);
+        adapter.setImgdele(this);
+        recycle.setAdapter(adapter);
+
+
+
     }
 
     @Override
@@ -98,26 +123,60 @@ public class FaduanziActivity extends BaseActivity implements Baseview {
 
     }
 
-    @OnClick({R.id.tv_duanzi_quxiao, R.id.tv_fabiao})
+    @OnClick({R.id.tv_duanzi_quxiao, R.id.tv_fabiao, R.id.img_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_duanzi_quxiao:
-                if(TextUtils.isEmpty(edFabiao.getText().toString())){
+                if (TextUtils.isEmpty(edFabiao.getText().toString())) {
                     finish();
-                }else {
+                } else {
                     showPopupWindow();
                 }
 
                 break;
             case R.id.tv_fabiao:
                 if (uid != 0) {
-                    fabiaop.fabiao(uid, edFabiao.getText().toString());
+                        fabiaop.fabiao(uid, edFabiao.getText().toString(),path);
                 } else {
                     Toast("请先去登录");
                 }
                 break;
+            case R.id.img_add:
+                ImageConfig imageConfig
+                        = new ImageConfig.Builder(
+                        // GlideLoader 可用自己用的缓存库
+                        new GlideLoader())
+                        // 如果在 4.4 以上，则修改状态栏颜色 （默认黑色）
+                        .steepToolBarColor(getResources().getColor(R.color.status))
+                        // 标题的背景颜色 （默认黑色）
+                        .titleBgColor(getResources().getColor(R.color.status))
+                        // 提交按钮字体的颜色  （默认白色）
+                        .titleSubmitTextColor(getResources().getColor(R.color.white))
+                        // 标题颜色 （默认白色）
+                        .titleTextColor(getResources().getColor(R.color.white))
+                        // 开启多选   （默认为多选）  (单选 为 singleSelect)
+                        .mutiSelect()
+//                        .crop()
+                        // 多选时的最大数量   （默认 9 张）
+                        .mutiSelectMaxSize(9)
+                        // 已选择的图片路径
+                        .pathList(path)
+                        // 拍照后存放的图片路径（默认 /temp/picture）
+                        .filePath("/ImageSelector/Pictures")
+                        // 开启拍照功能 （默认开启）
+                        .showCamera()
+                        .requestCode(100)
+                        .crop()
+                        .build();
+
+
+                ImageSelector.open(FaduanziActivity.this, imageConfig);   // 开启图片选择器
+
+                break;
         }
     }
+
+
 
     private void showPopupWindow() {
         View rootview = LayoutInflater.from(this).inflate(R.layout.activity_faduanzi, null);
@@ -127,15 +186,55 @@ public class FaduanziActivity extends BaseActivity implements Baseview {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+            for (String path : pathList) {
+                Log.i("ImagePathList", path);
+            }
+            path.clear();
+            path.addAll(pathList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     public void success() {
-        Toast("发表成功");
+
     }
 
     @Override
     public void fail(String msg) {
+
+    }
+
+
+    @Override
+    public void imgdele(ImageView view,int postion) {
+         if(path.get(postion)!=null){
+             path.remove(postion);
+             adapter.notifyDataSetChanged();
+         }
+    }
+
+    @Override
+    public void fabusuccess() {
+        Toast("发表成功");
+        edFabiao.setText("");
+        path.clear();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void fabufail(String msg) {
+        Toast(msg);
+    }
+
+    @Override
+    public void tokenout(String msg) {
         Toast(msg);
         SPUtils.remove(this, "token");
         intent(FaduanziActivity.this, LoginActivity.class);
     }
-
 }

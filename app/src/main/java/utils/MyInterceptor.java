@@ -5,10 +5,12 @@ import android.util.Log;
 import com.liu.asus.yikezhong.Myapp;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -38,6 +40,18 @@ public class MyInterceptor implements Interceptor {
                             .build();
                     request=request.newBuilder().post(body).build();
                     Log.d(TAG, "| "+request.toString());
+                }else {
+                    MultipartBody body=(MultipartBody)request.body();
+                    MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                    build  .addFormDataPart("source","android");
+                    build  .addFormDataPart("appVersion","101");
+                    build  .addFormDataPart("token",token);
+                    List<MultipartBody.Part> parts = body.parts();
+                    for (MultipartBody.Part part : parts) {
+                        build.addPart(part);
+                    }
+                    request =request.newBuilder().post(build.build()).build();
+
                 }
             }
 
