@@ -78,7 +78,8 @@ dependencies {
     implementation 'com.android.support:design:27.0.1'
 
 
-    implementation 'com.facebook.fresco:fresco:1.5.0'
+    compile 'com.facebook.fresco:fresco:1.5.0'
+    compile 'com.facebook.fresco:animated-gif:1.5.0'
 
 
     compile 'com.xhb:xbanner:1.2.2'

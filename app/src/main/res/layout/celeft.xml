@@ -3,15 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff">
+
         <ImageView
             android:id="@+id/relativeLayout4"
             android:layout_width="match_parent"
             android:layout_height="480px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:background="@drawable/drawerlayout" />
 
         <com.meg7.widget.CircleImageView
@@ -31,21 +36,50 @@
             android:layout_below="@+id/ce_icon"
             android:gravity="center"
             android:text="编辑个性签名"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:id="@+id/textView3" />
+
+        <ImageView
+            android:layout_marginTop="13px"
+            android:id="@+id/img_xiugai"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:layout_alignTop="@+id/tv_name"
+            android:layout_marginLeft="20px"
+            android:layout_marginStart="24px"
+            android:layout_toEndOf="@+id/tv_name"
+            android:layout_toRightOf="@+id/tv_name"
+            android:src="@drawable/xiugai" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:padding="20px"
+            android:id="@+id/tv_zhuxiao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="270px"
-            android:layout_marginTop="280px"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="注销"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_zhuxiao"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_toEndOf="@+id/ce_icon"
+            android:layout_toRightOf="@+id/ce_icon"
             android:text="椰果奶茶"
-            android:textColor="#fff" />
+            android:textColor="#fff"
+            android:textSize="60px" />
 
         <ImageView
             android:layout_width="100px"
             android:layout_height="100px"
-            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignBottom="@+id/tv_name"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/sex" />

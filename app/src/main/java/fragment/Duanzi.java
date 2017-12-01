@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.liu.asus.yikezhong.R;
 
@@ -47,6 +48,11 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
     }
     @Override
     public void init() {
+        Fresco.getImagePipeline().clearCaches();
+        //清空硬盘缓存，一般是用户手动清理
+        Fresco.getImagePipeline().clearDiskCaches();
+        //清空内存缓存（包括Bitmap缓存和未解码图片的缓存）
+        Fresco.getImagePipeline().clearMemoryCaches();
         recyclerView = view.findViewById(R.id.recycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setRefreshProgressStyle(16);//刷新样式

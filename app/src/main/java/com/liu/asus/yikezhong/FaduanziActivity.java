@@ -136,6 +136,7 @@ public class FaduanziActivity extends BaseActivity implements Faduanziv, Adapter
                 break;
             case R.id.tv_fabiao:
                 if (uid != 0) {
+                    Toast("a");
                         fabiaop.fabiao(uid, edFabiao.getText().toString(),path);
                 } else {
                     Toast("请先去登录");
@@ -155,7 +156,7 @@ public class FaduanziActivity extends BaseActivity implements Faduanziv, Adapter
                         // 标题颜色 （默认白色）
                         .titleTextColor(getResources().getColor(R.color.white))
                         // 开启多选   （默认为多选）  (单选 为 singleSelect)
-                        .mutiSelect()
+                        .singleSelect()
 //                        .crop()
                         // 多选时的最大数量   （默认 9 张）
                         .mutiSelectMaxSize(9)
@@ -166,7 +167,6 @@ public class FaduanziActivity extends BaseActivity implements Faduanziv, Adapter
                         // 开启拍照功能 （默认开启）
                         .showCamera()
                         .requestCode(100)
-                        .crop()
                         .build();
 
 

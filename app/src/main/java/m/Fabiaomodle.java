@@ -52,7 +52,6 @@ public class Fabiaomodle {
 
                   @Override
                   public void onNext(Basebean value) {
-
                       System.out.println("msgaa==="+value.msg);
                       requestBack.success(value.msg,value.code);
 

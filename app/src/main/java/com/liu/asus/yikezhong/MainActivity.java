@@ -1,11 +1,13 @@
 package com.liu.asus.yikezhong;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,10 +21,15 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.meg7.widget.CircleImageView;
 import com.meg7.widget.CustomShapeImageView;
 import com.umeng.analytics.MobclickAgent;
+import com.yancy.imageselector.ImageConfig;
+import com.yancy.imageselector.ImageSelector;
+import com.yancy.imageselector.ImageSelectorActivity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapter.GlideLoader;
 import bean.UserBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,13 +38,22 @@ import fragment.Celeft;
 import fragment.Duanzi;
 import fragment.Shiping;
 import fragment.Tuijian;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import mInterface.Lognview;
 import mybase.BaseActivity;
+import mybase.Basebean;
 import mybase.Basepresent;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import present.LognP;
+import utils.MyQusetUtils;
 import utils.SPUtils;
 
-public class MainActivity extends BaseActivity implements Lognview {
+public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_iconback {
 
     @BindView(R.id.img_biji)
     ImageView imgBiji;
@@ -72,6 +88,8 @@ public class MainActivity extends BaseActivity implements Lognview {
     private DrawerLayout dw;
     private LognP lognP;
     private int uid;
+    private ArrayList<String> path ;
+    private  CircleImageView ce_icon;
 
     @Override
     public List<Basepresent> initp() {
@@ -89,6 +107,7 @@ public class MainActivity extends BaseActivity implements Lognview {
     @Override
     public void init() {
         ButterKnife.bind(this);
+        path = new ArrayList<>();
         dw = findViewById(R.id.dw);
         lognP = new LognP(this);
         uid = (int) SPUtils.get(this, "uid", 0);
@@ -102,7 +121,9 @@ public class MainActivity extends BaseActivity implements Lognview {
                     .into(imgIcon);
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_left, new Celeft()).commit();
+        Celeft celeft = new Celeft();
+        celeft.setCe_iconback(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_left, celeft).commit();
         dw.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -130,7 +151,9 @@ public class MainActivity extends BaseActivity implements Lognview {
 
     @Override
     public void ondestory() {
-
+      if(path!=null){
+          path=null;
+      }
     }
 
     public void onResume() {
@@ -203,7 +226,7 @@ public class MainActivity extends BaseActivity implements Lognview {
         if (userBean.icon != null && userBean.icon.length() >= 3) {
             SPUtils.put(this, "icon", userBean.icon);
             Glide.with(this).load(userBean.icon)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .dontAnimate()
                     .into(imgIcon);
@@ -215,10 +238,101 @@ public class MainActivity extends BaseActivity implements Lognview {
 
     @Override
     public void lognfail(String msg) {
+  // 开启图片选择器
 
 
 
 
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 101 && resultCode == RESULT_OK && data != null) {
+            List<String> pathList = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT);
+            path.clear();
+            path.addAll(pathList);
+
+            if(pathList.size()>0){
+                MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                build.addFormDataPart("uid",uid+"");
+                File file=new File(path.get(0));
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                build.addFormDataPart("file", file.getName(), requestFile);
+                List<MultipartBody.Part> parts = build.build().parts();
+                new MyQusetUtils.Builder().addConverterFactory()
+                        .addCallAdapterFactory().build().getQuestInterface().changeicon(parts)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Basebean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Basebean value) {
+                        if(value.code.equals("0")){
+                            Toast(value.msg);
+                            SPUtils.put(MainActivity.this,"icon",path.get(0));
+                            Glide.with(MainActivity.this).load(path.get(0)).into(ce_icon);
+                            Glide.with(MainActivity.this).load(path.get(0)).into(imgIcon);
+                        }else {
+                            Toast(value.msg);
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+            }
+
+
+
+
+        }
+
+    }
+
+    @Override
+    public void Changge(CircleImageView icon) {
+        this.ce_icon=icon;
+        ImageConfig imageConfig
+                = new ImageConfig.Builder(
+                // GlideLoader 可用自己用的缓存库
+                new GlideLoader())
+                // 如果在 4.4 以上，则修改状态栏颜色 （默认黑色）
+                .steepToolBarColor(getResources().getColor(R.color.status))
+                // 标题的背景颜色 （默认黑色）
+                .titleBgColor(getResources().getColor(R.color.status))
+                // 提交按钮字体的颜色  （默认白色）
+                .titleSubmitTextColor(getResources().getColor(R.color.white))
+                // 标题颜色 （默认白色）
+                .titleTextColor(getResources().getColor(R.color.white))
+                // 开启多选   （默认为多选）  (单选 为 singleSelect)
+                .singleSelect()
+//                        .crop()
+                // 多选时的最大数量   （默认 9 张）
+                .mutiSelectMaxSize(1)
+                // 已选择的图片路径
+                .pathList(path)
+                // 拍照后存放的图片路径（默认 /temp/picture）
+                .filePath("/ImageSelector/Pictures")
+                // 开启拍照功能 （默认开启）
+                .showCamera()
+                .crop()
+                .requestCode(101)
+                .build();
+
+
+        ImageSelector.open(MainActivity.this, imageConfig);
     }
 }

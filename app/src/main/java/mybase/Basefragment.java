@@ -18,11 +18,21 @@ import java.util.List;
 public abstract  class Basefragment extends Fragment {
 
     public View view;
+   // 缓存Fragment view
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-     view= View.inflate(getContext(),getlayoutid(),null);
+        if (view == null)
+        {
+            view= View.inflate(getContext(),getlayoutid(),null);
+        }
+        // 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (parent != null)
+        {
+            parent.removeView(view);
+        }
         return view;
     }
 

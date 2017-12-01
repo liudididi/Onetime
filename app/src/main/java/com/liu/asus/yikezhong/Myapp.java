@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.igexin.sdk.PushManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -28,6 +29,9 @@ public class Myapp extends Application {
     public void onCreate() {
         super.onCreate();
         context=this;
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setDownsampleEnabled(true)
+                .build();
         Fresco.initialize(this);
         AutoLayoutConifg.getInstance().useDeviceSize();
         //个推

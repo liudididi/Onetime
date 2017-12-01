@@ -86,7 +86,7 @@ public class Duanziapter extends RecyclerView.Adapter{
             }else {
                 result.add(imgUrls);
             }
-            DitemAdapter ditemAdapter=new DitemAdapter(context,result);
+
             if(result.size()==1){
                 myviewholder.item_recycle.setLayoutManager(new GridLayoutManager(context,1));
             }else if(result.size()==2||result.size()==4){
@@ -94,6 +94,7 @@ public class Duanziapter extends RecyclerView.Adapter{
             }else {
                 myviewholder.item_recycle.setLayoutManager(new GridLayoutManager(context,3));
             }
+            DitemAdapter ditemAdapter=new DitemAdapter(context,result);
             myviewholder.item_recycle.setAdapter(ditemAdapter);
         }
 

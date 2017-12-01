@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="900px"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/popw"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_height="120px"
+            android:textColor="#fff"
+            android:background="@color/status"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="修改昵称"
+            android:textSize="50px"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+
+        <EditText
+            android:maxLines="1"
+            style="?android:attr/textViewStyle"
+            android:id="@+id/pop_ed"
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:gravity="center"
+            android:hint="请输入要修改的昵称"
+            android:textSize="50px" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#c4c4c4" />
+
+        <TextView
+            android:textColor="#fff"
+            android:background="@color/status"
+            android:id="@+id/pop_queding"
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:layout_alignBottom="@+id/linearLayout2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="50px" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/pop_finish"
+        android:layout_width="900px"
+        android:layout_height="120px"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignStart="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout2"
+        android:background="@drawable/popw"
+        android:gravity="center"
+        android:text="取消" />
+</RelativeLayout>

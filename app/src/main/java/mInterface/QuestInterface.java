@@ -47,7 +47,12 @@ public interface QuestInterface {
     @POST("/quarter/publishJoke")
     Observable<Basebean> faduanzi(@Part()  List<MultipartBody.Part>  file);
 
+    @Multipart
+    @POST("/file/upload")
+    Observable<Basebean> changeicon(@Part()  List<MultipartBody.Part>  file);
 
 
-
+    @POST("/user/updateNickName")
+    @FormUrlEncoded
+    Observable<Basebean> xiunicheng(@Field("uid") int page,@Field("nickname") String nickname);
 }

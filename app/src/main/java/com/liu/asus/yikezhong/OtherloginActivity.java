@@ -91,6 +91,7 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
         SPUtils.put(this,"token",userBean.token);
         SPUtils.put(this,"icon",userBean.icon);
         SPUtils.put(this,"uid",userBean.uid);
+        SPUtils.put(this,"nickname",userBean.nickname);
         System.out.println("token==="+userBean.token);
         intent(OtherloginActivity.this,MainActivity.class);
         finish();
