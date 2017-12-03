@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import bean.Duanzibean;
+import bean.Guanggao;
 import bean.UserBean;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -49,6 +50,33 @@ public class Getdatamodle {
                     }
                 });
     }
+    public  void  getad(final AdBack adBack){
+        new MyQusetUtils.Builder().addConverterFactory()
+                .addCallAdapterFactory().build().getQuestInterface().getad()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Basebean<List<Guanggao>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Basebean<List<Guanggao>> value) {
+                        adBack.success(value.data,value.msg,value.code);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     public  void  changenicheng(int uid ,String nickname,final XiuniBack requestBack){
         new MyQusetUtils.Builder().addConverterFactory()
                 .addCallAdapterFactory().build().getQuestInterface().xiunicheng(uid,nickname)
@@ -66,7 +94,7 @@ public class Getdatamodle {
 
                     @Override
                     public void onError(Throwable e) {
-
+                          requestBack.fail(e);
                     }
 
                     @Override
@@ -84,6 +112,12 @@ public class Getdatamodle {
         void  success(String code,String msg);
         void  fail(Throwable e);
     }
+    public  interface  AdBack{
+        void  success(List<Guanggao> list,String msg ,String code);
+        void  fail(Throwable e);
+    }
+
+
 
 
 

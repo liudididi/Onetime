@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import bean.Duanzibean;
+import bean.Guanggao;
 import bean.UserBean;
 import io.reactivex.Observable;
 import mybase.Basebean;
@@ -15,6 +16,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -55,4 +57,7 @@ public interface QuestInterface {
     @POST("/user/updateNickName")
     @FormUrlEncoded
     Observable<Basebean> xiunicheng(@Field("uid") int page,@Field("nickname") String nickname);
+
+    @GET("/quarter/getAd")
+    Observable<Basebean<List<Guanggao>>> getad();
 }

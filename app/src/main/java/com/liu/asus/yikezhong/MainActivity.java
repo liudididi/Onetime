@@ -2,12 +2,10 @@ package com.liu.asus.yikezhong;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,10 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.meg7.widget.CircleImageView;
-import com.meg7.widget.CustomShapeImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.yancy.imageselector.ImageConfig;
 import com.yancy.imageselector.ImageSelector;
@@ -83,13 +78,15 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
     LinearLayout lineDuanzi;
     @BindView(R.id.line_shiping)
     LinearLayout lineShiping;
+    @BindView(R.id.main_title)
+    TextView mainTitle;
 
 
     private DrawerLayout dw;
     private LognP lognP;
     private int uid;
-    private ArrayList<String> path ;
-    private  CircleImageView ce_icon;
+    private ArrayList<String> path;
+    private CircleImageView ce_icon;
 
     @Override
     public List<Basepresent> initp() {
@@ -111,7 +108,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         dw = findViewById(R.id.dw);
         lognP = new LognP(this);
         uid = (int) SPUtils.get(this, "uid", 0);
-          String token = (String) SPUtils.get(this, "token", "");
+        String token = (String) SPUtils.get(this, "token", "");
 
 
         if (uid != 0) {
@@ -151,9 +148,9 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
     @Override
     public void ondestory() {
-      if(path!=null){
-          path=null;
-      }
+        if (path != null) {
+            path = null;
+        }
     }
 
     public void onResume() {
@@ -168,7 +165,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         MobclickAgent.onPause(this);
     }
 
-    @OnClick({R.id.img_icon, R.id.img_biji,R.id.line_tuijian, R.id.line_duanzi, R.id.line_shiping})
+    @OnClick({R.id.img_icon, R.id.img_biji, R.id.line_tuijian, R.id.line_duanzi, R.id.line_shiping})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_icon:
@@ -178,33 +175,36 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             case R.id.img_biji:
                 intent(MainActivity.this, ChuangzuoActivity.class);
                 break;
-                case R.id.line_tuijian:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
-                    imgTuijian.setImageResource(R.drawable.tuijian2);
-                    imgDuanzi.setImageResource(R.drawable.duanzi1);
-                    imgShiping.setImageResource(R.drawable.shiping1);
-                    tvTuijian.setTextColor(Color.parseColor("#03A9F4"));
-                    tvDuanzi.setTextColor(Color.parseColor("#cccccc"));
-                    tvShiping.setTextColor(Color.parseColor("#cccccc"));
-                    break;
-                case R.id.line_duanzi:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Duanzi()).commit();
-                    imgTuijian.setImageResource(R.drawable.tuijian1);
-                    imgDuanzi.setImageResource(R.drawable.duanzi2);
-                    imgShiping.setImageResource(R.drawable.shiping1);
-                    tvTuijian.setTextColor(Color.parseColor("#cccccc"));
-                    tvDuanzi.setTextColor(Color.parseColor("#03A9F4"));
-                    tvShiping.setTextColor(Color.parseColor("#cccccc"));
-                    break;
-                case R.id.line_shiping:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Shiping()).commit();
-                    imgTuijian.setImageResource(R.drawable.tuijian1);
-                    imgDuanzi.setImageResource(R.drawable.duanzi1);
-                    imgShiping.setImageResource(R.drawable.shiping2);
-                    tvTuijian.setTextColor(Color.parseColor("#cccccc"));
-                    tvDuanzi.setTextColor(Color.parseColor("#cccccc"));
-                    tvShiping.setTextColor(Color.parseColor("#03A9F4"));
-                    break;
+            case R.id.line_tuijian:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
+                imgTuijian.setImageResource(R.drawable.tuijian2);
+                imgDuanzi.setImageResource(R.drawable.duanzi1);
+                imgShiping.setImageResource(R.drawable.shiping1);
+                tvTuijian.setTextColor(Color.parseColor("#03A9F4"));
+                tvDuanzi.setTextColor(Color.parseColor("#cccccc"));
+                tvShiping.setTextColor(Color.parseColor("#cccccc"));
+                mainTitle.setText("推荐");
+                break;
+            case R.id.line_duanzi:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Duanzi()).commit();
+                imgTuijian.setImageResource(R.drawable.tuijian1);
+                imgDuanzi.setImageResource(R.drawable.duanzi2);
+                imgShiping.setImageResource(R.drawable.shiping1);
+                tvTuijian.setTextColor(Color.parseColor("#cccccc"));
+                tvDuanzi.setTextColor(Color.parseColor("#03A9F4"));
+                tvShiping.setTextColor(Color.parseColor("#cccccc"));
+                mainTitle.setText("段子");
+                break;
+            case R.id.line_shiping:
+                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Shiping()).commit();
+                imgTuijian.setImageResource(R.drawable.tuijian1);
+                imgDuanzi.setImageResource(R.drawable.duanzi1);
+                imgShiping.setImageResource(R.drawable.shiping2);
+                tvTuijian.setTextColor(Color.parseColor("#cccccc"));
+                tvDuanzi.setTextColor(Color.parseColor("#cccccc"));
+                tvShiping.setTextColor(Color.parseColor("#03A9F4"));
+                mainTitle.setText("视频");
+                break;
         }
     }
 
@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         if (userBean.icon != null && userBean.icon.length() >= 3) {
             SPUtils.put(this, "icon", userBean.icon);
             Glide.with(this).load(userBean.icon)
-                     .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .dontAnimate()
                     .into(imgIcon);
@@ -238,9 +238,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
     @Override
     public void lognfail(String msg) {
-  // 开启图片选择器
-
-
+        // 开启图片选择器
 
 
     }
@@ -253,10 +251,10 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             path.clear();
             path.addAll(pathList);
 
-            if(pathList.size()>0){
+            if (pathList.size() > 0) {
                 MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM);
-                build.addFormDataPart("uid",uid+"");
-                File file=new File(path.get(0));
+                build.addFormDataPart("uid", uid + "");
+                File file = new File(path.get(0));
                 RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 build.addFormDataPart("file", file.getName(), requestFile);
                 List<MultipartBody.Part> parts = build.build().parts();
@@ -271,12 +269,12 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
                     @Override
                     public void onNext(Basebean value) {
-                        if(value.code.equals("0")){
+                        if (value.code.equals("0")) {
                             Toast(value.msg);
-                            SPUtils.put(MainActivity.this,"icon",path.get(0));
+                            SPUtils.put(MainActivity.this, "icon", path.get(0));
                             Glide.with(MainActivity.this).load(path.get(0)).into(ce_icon);
                             Glide.with(MainActivity.this).load(path.get(0)).into(imgIcon);
-                        }else {
+                        } else {
                             Toast(value.msg);
                         }
 
@@ -296,15 +294,13 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             }
 
 
-
-
         }
 
     }
 
     @Override
     public void Changge(CircleImageView icon) {
-        this.ce_icon=icon;
+        this.ce_icon = icon;
         ImageConfig imageConfig
                 = new ImageConfig.Builder(
                 // GlideLoader 可用自己用的缓存库
@@ -335,4 +331,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
         ImageSelector.open(MainActivity.this, imageConfig);
     }
+
+
 }

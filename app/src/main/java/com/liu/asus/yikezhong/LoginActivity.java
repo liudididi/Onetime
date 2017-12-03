@@ -86,6 +86,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.login_tv:
                 intent(LoginActivity.this, OtherloginActivity.class);
+                finish();
                 break;
         }
     }

@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="400px"
         app:AutoPlayTime="3000"
+        app:pointsVisibility="false"
+        app:tipTextSize="35px"
         >
     </com.stx.xhb.xbanner.XBanner>
 

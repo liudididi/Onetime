@@ -16,7 +16,6 @@ import mybase.Basepresent;
 public class Getdatap extends Basepresent {
     private Getdatamodle getdatamodle;
     private Duanziview duanziview;
-
     public Getdatap(Object viewmodel) {
         super(viewmodel);
         this.duanziview= (Duanziview) viewmodel;

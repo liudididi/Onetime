@@ -22,9 +22,12 @@ import java.util.List;
 
 import adapter.Tuijianapter;
 import bean.Duanzibean;
+import bean.Guanggao;
 import mInterface.Duanziview;
+import mInterface.Getadv;
 import mybase.Basefragment;
 import mybase.Basepresent;
+import present.Getadp;
 import present.Getdatap;
 
 /**
@@ -32,7 +35,7 @@ import present.Getdatap;
  * 邮箱：461211527@qq.com.
  */
 
-public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Duanziview {
+public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Duanziview, Getadv {
 
 
     private RelativeLayout rela_remen,rela_guanzhu;
@@ -43,6 +46,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
     private XRecyclerView xlist_tuijian,xlist_guanzhu;
     private List<String> imgesUrl;
     private Getdatap getdatap;
+    private Getadp getadp;
 
     @Override
     public int getlayoutid() {
@@ -52,9 +56,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
     @Override
     public void init() {
         getdatap=new Getdatap(this);
-
-
-
+        getadp=new Getadp(this);
 
         tv_remen = view.findViewById(R.id.tv_remen);
         tv_guanzhu = view.findViewById(R.id.tv_guanzhu);
@@ -64,12 +66,13 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
         rela_guanzhu = view.findViewById(R.id.rela_guanzhu);
         xlist_tuijian = view.findViewById(R.id.xlist_tuijian);
         xlist_tuijian.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initheader();
         xlist_guanzhu = view.findViewById(R.id.xlist_guanzhu);
         xlist_guanzhu.setLayoutManager(new LinearLayoutManager(getActivity()));
         rela_guanzhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                xlist_tuijian.setVisibility(View.GONE);
+                xlist_guanzhu.setVisibility(View.VISIBLE);
                 tv_guanzhu.setTextColor(Color.parseColor("#03A9F4"));
                 tv_remen.setTextColor(Color.parseColor("#cccccc"));
                 v_guanzhu.setVisibility(View.VISIBLE);
@@ -79,26 +82,20 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
         rela_remen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                xlist_tuijian.setVisibility(View.VISIBLE);
+                xlist_guanzhu.setVisibility(View.GONE);
                 tv_guanzhu.setTextColor(Color.parseColor("#cccccc"));
                 tv_remen.setTextColor(Color.parseColor("#03A9F4"));
                 v_guanzhu.setVisibility(View.GONE);
                 v_remen.setVisibility(View.VISIBLE);
             }
         });
-        getdatap.getduanzidata(1);
+        getadp.getad();
+
     }
 
-    private void initheader() {
-        View header = View.inflate(getActivity(), R.layout.xbanner, null);
-        XBanner mBanner = header.findViewById(R.id.banner);
-        imgesUrl = new ArrayList<>();
-        imgesUrl.add("http://pic1.cxtuku.com/00/06/78/b9903ad9ea2b.jpg");
-        imgesUrl.add("http://pic1.cxtuku.com/00/06/78/b9903ad9ea2b.jpg");
-        imgesUrl.add("http://pic1.cxtuku.com/00/06/78/b9903ad9ea2b.jpg");
-        imgesUrl.add("http://pic1.cxtuku.com/00/06/78/b9903ad9ea2b.jpg");
-        mBanner.setData(imgesUrl,null);
-        mBanner.setmAdapter(this);
-        xlist_tuijian.addHeaderView(header);
+    private void initheader(List<Guanggao> list) {
+
 
     }
 
@@ -111,7 +108,10 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
 
     @Override
     public List<Basepresent> inip() {
-        return null;
+        List<Basepresent> list=new ArrayList<>();
+        list.add(getadp);
+        list.add(getdatap);
+        return list;
     }
 
     @Override
@@ -131,13 +131,42 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
 
     @Override
     public void getdatasuess(List<Duanzibean> list) {
-       // Tuijianapter tuijianapter=new Tuijianapter(list,getActivity());
-        //xlist_tuijian.setAdapter(tuijianapter);
+       Tuijianapter tuijianapter=new Tuijianapter(list,getActivity());
+       xlist_tuijian.setAdapter(tuijianapter);
 
     }
 
     @Override
     public void getdatafail(String msg) {
+
+    }
+
+    @Override
+    public void adsuccess(List<Guanggao> list) {
+
+        System.out.println("adsuccess=====");
+        if(list!=null){
+            if(getActivity()!=null){
+                View header = View.inflate(getActivity(), R.layout.xbanner, null);
+                XBanner mBanner = header.findViewById(R.id.banner);
+                imgesUrl = new ArrayList<>();
+                List<String>  title=new ArrayList<>();
+                for (int i = 0; i <list.size() ; i++) {
+                    imgesUrl.add(list.get(i).icon);
+                    title.add(list.get(i).title);
+                }
+                mBanner.setData(imgesUrl,title);
+                mBanner.setmAdapter(this);
+                xlist_tuijian.addHeaderView(header);
+                getdatap.getduanzidata(1);
+
+            }
+        }
+
+    }
+
+    @Override
+    public void adfail(String msg) {
 
     }
 }

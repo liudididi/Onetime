@@ -76,10 +76,8 @@ public class Duanziapter extends RecyclerView.Adapter{
         if(list.get(position).imgUrls!=null){
             List<String> result=new ArrayList<>();
             String imgUrls = list.get(position).imgUrls;
-            System.out.println("imgUrls==="+imgUrls);
             String[] split = imgUrls.split("\\|");
             if(split.length>1){
-                System.out.println("imgUrls===|||");
                 for (int i = 0; i < split.length; i++) {
                     result.add(split[i]);
                 }

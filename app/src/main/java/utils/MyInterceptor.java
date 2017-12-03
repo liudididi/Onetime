@@ -26,7 +26,8 @@ public class MyInterceptor implements Interceptor {
             Request request = chain.request();
             String  token = (String) SPUtils.get(Myapp.context, "token", "");
             Log.d(TAG,"\n");
-            Log.d(TAG,"----------Start----------------");
+            Log.d(TAG,"----------Start----------------"+token);
+
             String method=request.method();
             if("POST".equals(method)){
                 FormBody.Builder sb = new FormBody.Builder();

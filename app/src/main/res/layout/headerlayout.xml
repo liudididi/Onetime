@@ -13,6 +13,7 @@
         android:id="@+id/img_icon" />
 
     <TextView
+        android:id="@+id/main_title"
         android:paddingRight="50px"
         android:textColor="#fff"
         android:textSize="50px"

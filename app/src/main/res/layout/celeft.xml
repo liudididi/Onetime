@@ -293,11 +293,12 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="90px"
-                    android:layout_height="90px"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
                     android:src="@drawable/raw_1499947056" />
 
                 <TextView
+                    android:layout_marginTop="10px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="我的作品" />
