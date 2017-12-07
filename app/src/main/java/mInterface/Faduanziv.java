@@ -11,9 +11,4 @@ public interface Faduanziv extends Baseview{
     void fabusuccess();
     void fabufail(String msg);
     void  tokenout(String msg);
-
-
-
-
-
 }

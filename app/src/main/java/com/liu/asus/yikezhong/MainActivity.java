@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.meg7.widget.CircleImageView;
 import com.umeng.analytics.MobclickAgent;
 import com.yancy.imageselector.ImageConfig;
@@ -225,10 +226,13 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
         if (userBean.icon != null && userBean.icon.length() >= 3) {
             SPUtils.put(this, "icon", userBean.icon);
+
+            RequestOptions options = new RequestOptions();
+            options.diskCacheStrategy(DiskCacheStrategy.NONE);
+            options .skipMemoryCache(true);
+            options .dontAnimate();
             Glide.with(this).load(userBean.icon)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .dontAnimate()
+                    .apply(options)
                     .into(imgIcon);
         } else {
             Glide.with(this).load(R.drawable.raw_1499936862)

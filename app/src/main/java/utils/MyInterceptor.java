@@ -52,14 +52,27 @@ public class MyInterceptor implements Interceptor {
                         build.addPart(part);
                     }
                     request =request.newBuilder().post(build.build()).build();
-
                 }
             }
+
+        Response proceed = chain.proceed(request);
+        if(MyNetUtils.isConnected(Myapp.context)){
+            return proceed.newBuilder()
+                    .header("Cache-Control", "public, max-age=" +60 * 60*24)
+                    .removeHeader("Pragma")
+                    .build();
+
+        }else {
+            return proceed.newBuilder()
+                    .header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 28)
+                    .removeHeader("Pragma")
+                    .build();
+        }
 
       /*   String content = proceed.body().string();
              long duration=endTime-startTime;
             Log.d(TAG, "| Response:" + content);
             Log.d(TAG,"----------End:"+duration+"毫秒----------");*/
-            return chain.proceed(request);
+
     }
 }

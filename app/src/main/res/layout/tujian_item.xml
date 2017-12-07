@@ -110,30 +110,17 @@
 
    </RelativeLayout>
 
-<TextView
-    android:layout_marginLeft="24px"
-    android:layout_below="@+id/rl1"
-    android:layout_marginTop="10px"
-    android:text="ssssssssss"
-    android:id="@+id/duanzi_tv_content"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/img_suoluetu"
-        android:src="@drawable/tuijianitemtu"
+    <RelativeLayout
+        android:id="@+id/re_ijk"
         android:scaleType="centerCrop"
-        android:layout_below="@+id/duanzi_tv_content"
+        android:layout_below="@+id/rl1"
         android:layout_width="match_parent"
-        android:layout_height="500px" />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/item_recycle"
-        android:layout_below="@+id/img_suoluetu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="800px"
+        android:showDividers = "end"
+        />
     <View
         android:layout_marginTop="5px"
-        android:layout_below="@id/item_recycle"
+        android:layout_below="@id/re_ijk"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#c4c4c4" />

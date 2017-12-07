@@ -136,7 +136,6 @@ public class FaduanziActivity extends BaseActivity implements Faduanziv, Adapter
                 break;
             case R.id.tv_fabiao:
                 if (uid != 0) {
-                    Toast("a");
                         fabiaop.fabiao(uid, edFabiao.getText().toString(),path);
                 } else {
                     Toast("请先去登录");
@@ -220,10 +219,11 @@ public class FaduanziActivity extends BaseActivity implements Faduanziv, Adapter
 
     @Override
     public void fabusuccess() {
-        Toast("发表成功");
         edFabiao.setText("");
         path.clear();
         adapter.notifyDataSetChanged();
+        intent(FaduanziActivity.this,FabusuccessActivity.class);
+
     }
 
     @Override

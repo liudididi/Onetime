@@ -1,11 +1,17 @@
 package utils;
 
+import android.app.Application;
+
+import com.liu.asus.yikezhong.Myapp;
+
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 
 
 import mInterface.QuestInterface;
 import mybase.BaseApi;
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -30,12 +36,15 @@ public  QuestInterface getQuestInterface(){
 
 
   public static class  Builder{
+    File cacheFile = new File(Myapp.context.getCacheDir(), "cache");
+    Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
     OkHttpClient okHttpClient=new OkHttpClient.Builder()
             .addInterceptor(new MyInterceptor())
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
             .retryOnConnectionFailure(false)
+            .cache(cache)
             .build();
     Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BaseApi.Api).client(okHttpClient);
     public  Builder addConverterFactory(){

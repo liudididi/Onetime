@@ -54,7 +54,7 @@ public class ChuangzuoActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_shipin:
-
+                intent(ChuangzuoActivity.this,FashipingActivity.class);
                 break;
             case R.id.iv_duanzi:
                 intent(ChuangzuoActivity.this,FaduanziActivity.class);

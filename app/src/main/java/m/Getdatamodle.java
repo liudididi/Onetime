@@ -8,7 +8,9 @@ import java.util.Map;
 
 import bean.Duanzibean;
 import bean.Guanggao;
+import bean.TuijianBean;
 import bean.UserBean;
+import fragment.Tuijian;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -103,6 +105,43 @@ public class Getdatamodle {
                     }
                 });
     }
+    public  void  gettuijian(String uid, int type, int page, final requesttuijianBack requesttuijianBack){
+
+        new MyQusetUtils.Builder().addConverterFactory()
+                .addCallAdapterFactory().build().getQuestInterface().gettuijian(uid,type,page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Basebean<List<TuijianBean>>>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(Basebean<List<TuijianBean>> value) {
+                    requesttuijianBack.success(value.data);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    requesttuijianBack.fail(e);
+                }
+                @Override
+                public void onComplete() {
+
+                }
+            });
+
+
+
+
+
+
+    }
+
+
+
+
 
     public  interface  requestBack{
         void  success(List<Duanzibean> list);
@@ -118,7 +157,10 @@ public class Getdatamodle {
     }
 
 
-
+    public  interface  requesttuijianBack{
+        void  success(List<TuijianBean> list);
+        void  fail(Throwable e);
+    }
 
 
 

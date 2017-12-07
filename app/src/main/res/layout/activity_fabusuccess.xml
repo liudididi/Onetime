@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.liu.asus.yikezhong.FabusuccessActivity">
+    <RelativeLayout
+        android:id="@+id/include"
+        android:layout_width="match_parent"
+        android:layout_height="150px"
+        android:background="#03A9F4">
+
+        <TextView
+            android:id="@+id/tv_quxiao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:text="返回"
+            android:textColor="#fff"
+            android:textSize="50px" />
+
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_wancheng"
+        android:layout_width="160px"
+        android:layout_height="160px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300px"
+        android:src="@drawable/raw_1500021052" />
+
+    <TextView
+        android:id="@+id/tv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_wancheng"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100px"
+        android:text="发表成功,快分享给好友捧场吧~!" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_share"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60px">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="180px"
+                android:layout_height="180px"
+                android:layout_margin="20px"
+                android:background="@drawable/success_bg"
+                android:padding="20px"
+                android:src="@drawable/sucessqq" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QQ好友" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="180px"
+                android:layout_height="180px"
+                android:layout_margin="20px"
+                android:background="@drawable/success_bg"
+                android:padding="20px"
+                android:src="@drawable/successkongjian" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QQ空间" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="180px"
+                android:layout_height="180px"
+                android:background="@drawable/success_bg"
+                android:padding="20px"
+                android:layout_margin="20px"
+                android:src="@drawable/successpengyou" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="朋友圈" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="180px"
+                android:layout_height="180px"
+                android:src="@drawable/successweixin"
+                android:background="@drawable/success_bg"
+                android:layout_margin="20px"
+                android:padding="30px"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QQ好友"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="700px"
+        android:layout_height="130px"
+        android:layout_below="@+id/ll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80px"
+        android:background="@drawable/bt_bg2"
+        android:text="前去看看!!!"
+        android:textColor="#fff" />
+</RelativeLayout>

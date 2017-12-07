@@ -6,17 +6,157 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.liu.asus.yikezhong.MymapActivity">
-    <TextView
-        android:background="#ffff00"
-        android:id="@+id/tv"
-        android:text="坐标"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
-    <com.amap.api.maps.MapView
-        android:layout_below="@+id/tv"
-        android:id="@+id/map"
+
+    <RelativeLayout
+        android:id="@+id/re_da"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="800px"
+       >
+<ImageView
+    android:scaleType="fitXY"
+    android:src="@drawable/raw_1499917357"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/img_da"
+    />
+        <ImageView
+            android:id="@+id/img_xiao"
+            android:layout_width="300px"
+            android:layout_height="300px"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="74dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/raw_1499917357" />
+
+        <TextView
+            android:id="@+id/tv_fengmian"
+            android:layout_width="300px"
+            android:layout_height="80px"
+            android:layout_below="@+id/img_xiao"
+            android:layout_centerHorizontal="true"
+            android:background="#53C2F5"
+            android:gravity="center"
+            android:text="设置封面"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30px"
+            android:drawableLeft="@drawable/fh"
+            android:gravity="center"
+            android:text="返回"
+            android:textColor="#fff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="预览"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout11"
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/re_da"
+        android:background="#8DA1F0">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40px"
+            android:gravity="center"
+            android:text="同步分享至----" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_alignEnd="@+id/textView3"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:src="@drawable/raw_1500022686" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_toEndOf="@+id/textView2"
+            android:layout_toRightOf="@+id/textView2"
+            android:text="QQ空间" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_alignEnd="@+id/textView4"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/textView4"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:src="@drawable/raw_1500022317" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
+            android:layout_toEndOf="@+id/textView3"
+            android:layout_toRightOf="@+id/textView3"
+            android:text="朋友圈" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp"
+            android:layout_toEndOf="@+id/imageView7"
+            android:layout_toRightOf="@+id/imageView7"
+            android:gravity="center"
+            android:text="----" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/ed_miaoshu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bt_shangchuan"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relativeLayout11"
+        android:background="@null"
+        android:gravity="top"
+        android:hint="请输入视频简介"
+        android:paddingTop="30px" />
+
+    <Button
+        android:id="@+id/bt_shangchuan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#29B6F6"
+        android:text="上传" />
+
 
 </RelativeLayout>

@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
@@ -69,10 +70,11 @@ public class DitemAdapter extends RecyclerView.Adapter<DitemAdapter.ViewHolder> 
                 /* setControllerListener(holder.image, result.get(position),
                 getScreenWidth(context));*/
 
-        Glide.with(context)
-                .load(result.get(position))
-                .placeholder(R.drawable.wait)
-                .into(holder.image);
+
+        RequestOptions options = new RequestOptions();
+        options.placeholder(R.drawable.wait);
+        Glide.with(context).load(result.get(position)).apply(options).into(holder.image);
+
     }
 
     @Override

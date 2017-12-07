@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.liu.asus.yikezhong">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -39,6 +40,7 @@
     <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".Myapp"
@@ -64,10 +66,10 @@
             android:name="UMENG_CHANNEL"
             android:value="${UMENG_CHANNEL_VALUE}" />
 
-        <activity android:name=".StartActivity">
+        <activity android:name=".StartActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -108,8 +110,10 @@
 
         <service android:name="com.amap.api.location.APSService" />
 
-        <activity android:name=".MymapActivity"></activity>
-        <activity android:name=".VideoActivity"></activity>
+        <activity android:name=".MymapActivity" />
+        <activity android:name=".VideoActivity" />
+        <activity android:name=".FashipingActivity" />
+        <activity android:name=".FabusuccessActivity" />
     </application>
 
 </manifest>

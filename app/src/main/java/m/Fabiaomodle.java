@@ -1,5 +1,7 @@
 package m;
 
+import com.dou361.ijkplayer.widget.IjkVideoView;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +54,7 @@ public class Fabiaomodle {
 
                   @Override
                   public void onNext(Basebean value) {
-                      System.out.println("msgaa==="+value.msg);
+                      System.out.println("value000"+value.msg);
                       requestBack.success(value.msg,value.code);
 
                   }
@@ -68,8 +70,58 @@ public class Fabiaomodle {
                   }
               });
     }
+    public  void  upshiping(int uid ,String videoFile,String coverFile,String videoDesc,
+                            String latitude,String longitude,final upshipinBack requestBack){
+     /*   Map<String,Object> map=new HashMap<>();
+        map.put("uid",uid);
+        map.put("content",content);*/
+        System.out.println("videofile0000000"+videoFile);
+        MultipartBody.Builder build = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        build.addFormDataPart("uid",uid+"");
+        build.addFormDataPart("videoDesc",videoDesc);
+        build.addFormDataPart("longitude",longitude);
+        build.addFormDataPart("latitude",latitude);
+        File file=new File(videoFile);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        build.addFormDataPart("videoFile", (Math.random()*9+1)*100000+"", requestFile);
+        File file1=new File(coverFile);
+        RequestBody requestFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), file1);
+        build.addFormDataPart("coverFile", file.getName(), requestFile1);
+        List<MultipartBody.Part> parts = build.build().parts();
+
+        new MyQusetUtils.Builder().addConverterFactory()
+                .addCallAdapterFactory().build().getQuestInterface().upvideo(parts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Basebean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Basebean value) {
+                        System.out.println("msgupvideo=="+value.msg);
+                        requestBack.success(value.msg,value.code);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        requestBack.fail(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 
     public  interface  requestfabiaoBack{
+        void  success(String msg,String code);
+        void  fail(Throwable e);
+    }
+    public  interface  upshipinBack{
         void  success(String msg,String code);
         void  fail(Throwable e);
     }

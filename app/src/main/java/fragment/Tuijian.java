@@ -2,6 +2,7 @@ package fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,19 +24,22 @@ import java.util.List;
 import adapter.Tuijianapter;
 import bean.Duanzibean;
 import bean.Guanggao;
+import bean.TuijianBean;
 import mInterface.Duanziview;
 import mInterface.Getadv;
+import mInterface.Tuijianview;
 import mybase.Basefragment;
 import mybase.Basepresent;
 import present.Getadp;
 import present.Getdatap;
+import present.Gettuiianp;
 
 /**
  * Created by 地地 on 2017/11/24.
  * 邮箱：461211527@qq.com.
  */
 
-public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Duanziview, Getadv {
+public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tuijianview, Getadv {
 
 
     private RelativeLayout rela_remen,rela_guanzhu;
@@ -45,8 +49,12 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
     private View v_remen;
     private XRecyclerView xlist_tuijian,xlist_guanzhu;
     private List<String> imgesUrl;
-    private Getdatap getdatap;
     private Getadp getadp;
+    private Gettuiianp gettuiianp;
+    private Tuijianapter tuijianapter;
+    private Handler handler=new Handler();
+    private  int   ttype;
+    private  int   tpage;
 
     @Override
     public int getlayoutid() {
@@ -55,9 +63,8 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
 
     @Override
     public void init() {
-        getdatap=new Getdatap(this);
         getadp=new Getadp(this);
-
+        gettuiianp=new Gettuiianp(this);
         tv_remen = view.findViewById(R.id.tv_remen);
         tv_guanzhu = view.findViewById(R.id.tv_guanzhu);
         v_guanzhu = view.findViewById(R.id.v_guanzhu);
@@ -66,6 +73,39 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
         rela_guanzhu = view.findViewById(R.id.rela_guanzhu);
         xlist_tuijian = view.findViewById(R.id.xlist_tuijian);
         xlist_tuijian.setLayoutManager(new LinearLayoutManager(getActivity()));
+        xlist_tuijian.setRefreshProgressStyle(14);//刷新样式
+        xlist_tuijian.setLaodingMoreProgressStyle(14);//加载样式
+        xlist_tuijian.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ttype=0;
+                        tpage=1;
+                        gettuiianp.getduanzidata("",1,tpage);
+                        xlist_tuijian.refreshComplete();
+                    }
+                }, 1000);
+
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ttype=1;
+                        tpage++;
+                        gettuiianp.getduanzidata("",1,tpage);
+                        xlist_tuijian.loadMoreComplete();
+                    }
+                }, 1000);
+            }
+        });
         xlist_guanzhu = view.findViewById(R.id.xlist_guanzhu);
         xlist_guanzhu.setLayoutManager(new LinearLayoutManager(getActivity()));
         rela_guanzhu.setOnClickListener(new View.OnClickListener() {
@@ -94,23 +134,24 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
 
     }
 
-    private void initheader(List<Guanggao> list) {
 
-
-    }
 
     @Override
     public void ondistory() {
 
+        if(tuijianapter!=null){
+            tuijianapter=null;
+            }
+
+
+
     }
-
-
 
     @Override
     public List<Basepresent> inip() {
         List<Basepresent> list=new ArrayList<>();
         list.add(getadp);
-        list.add(getdatap);
+        list.add(gettuiianp);
         return list;
     }
 
@@ -129,10 +170,21 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
 
     }
 
+
+
     @Override
-    public void getdatasuess(List<Duanzibean> list) {
-       Tuijianapter tuijianapter=new Tuijianapter(list,getActivity());
-       xlist_tuijian.setAdapter(tuijianapter);
+    public void getdatasuess(List<TuijianBean> list) {
+        if(tuijianapter==null){
+            tuijianapter = new Tuijianapter(list,getActivity());
+            xlist_tuijian.setAdapter(tuijianapter);
+        }else {
+            if(ttype==0){
+                tuijianapter.Refresh(list);
+
+            }else {
+                tuijianapter.LoadMore(list);
+            }
+        }
 
     }
 
@@ -143,8 +195,6 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
 
     @Override
     public void adsuccess(List<Guanggao> list) {
-
-        System.out.println("adsuccess=====");
         if(list!=null){
             if(getActivity()!=null){
                 View header = View.inflate(getActivity(), R.layout.xbanner, null);
@@ -158,8 +208,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Du
                 mBanner.setData(imgesUrl,title);
                 mBanner.setmAdapter(this);
                 xlist_tuijian.addHeaderView(header);
-                getdatap.getduanzidata(1);
-
+                gettuiianp.getduanzidata("",1,tpage);
             }
         }
 

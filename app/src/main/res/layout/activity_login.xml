@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="1080px"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/raw_1500974494"
     tools:context="com.liu.asus.yikezhong.LoginActivity">

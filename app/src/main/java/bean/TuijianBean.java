@@ -10,6 +10,10 @@ import mybase.Basebean;
 public class TuijianBean extends Basebean {
 
 
+    public  String cover;
+    public  String createTime;
+    public  String videoUrl;
+    public  UserBean user;
 
 
 }

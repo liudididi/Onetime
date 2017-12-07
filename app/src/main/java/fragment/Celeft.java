@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.liu.asus.yikezhong.LoginActivity;
 import com.liu.asus.yikezhong.MainActivity;
@@ -163,10 +164,14 @@ public class Celeft extends Basefragment implements Baseview{
         if(uid !=0){
             String icon = (String) SPUtils.get(getActivity(), "icon", "");
             if (icon != null && icon.length() >= 3) {
+
+
+                RequestOptions options = new RequestOptions();
+                options.diskCacheStrategy(DiskCacheStrategy.NONE);
+                options .skipMemoryCache(true);
+                options .dontAnimate();
                 Glide.with(getActivity()).load(icon)
-                       .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(true)
-                        .dontAnimate()
+                        .apply(options)
                         .into(ce_icon);
             }else {
                 Glide.with(this).load(R.drawable.raw_1499936862)

@@ -44,4 +44,25 @@ public class Fabiaop  extends Basepresent{
         });
 
     }
+    public  void  upvideo(int uid ,String videoFile,String coverFile,String videoDesc,
+                          String latitude,String longitude){
+     fabiaomodle.upshiping(uid, videoFile, coverFile, videoDesc, latitude, longitude, new Fabiaomodle.upshipinBack() {
+         @Override
+         public void success(String msg, String code) {
+             if(code.equals("0")){
+                 baseview.fabusuccess();
+             }else if(code.equals("2")){
+                 baseview.tokenout(msg);
+             }else {
+                 baseview.fabufail(msg);
+             }
+         }
+
+         @Override
+         public void fail(Throwable e) {
+
+         }
+     });
+
+    }
 }

@@ -5,7 +5,9 @@ import java.util.Map;
 
 import bean.Duanzibean;
 import bean.Guanggao;
+import bean.TuijianBean;
 import bean.UserBean;
+import fragment.Tuijian;
 import io.reactivex.Observable;
 import mybase.Basebean;
 import okhttp3.MultipartBody;
@@ -56,8 +58,20 @@ public interface QuestInterface {
 
     @POST("/user/updateNickName")
     @FormUrlEncoded
-    Observable<Basebean> xiunicheng(@Field("uid") int page,@Field("nickname") String nickname);
+    Observable<Basebean> xiunicheng(@Field("uid") int uid,@Field("nickname") String nickname);
 
     @GET("/quarter/getAd")
     Observable<Basebean<List<Guanggao>>> getad();
+
+
+    @POST("/quarter/getVideos")
+    @FormUrlEncoded
+    Observable<Basebean<List<TuijianBean>>> gettuijian(@Field("uid") String uid, @Field("type") int type, @Field("page") int page);
+
+
+    @Multipart
+    @POST("/quarter/publishVideo")
+    Observable<Basebean> upvideo(@Part()  List<MultipartBody.Part>  file);
+
+
 }
