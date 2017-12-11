@@ -52,22 +52,10 @@
             android:src="@drawable/xiugai" />
 
         <TextView
-            android:padding="20px"
-            android:id="@+id/tv_zhuxiao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="注销"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-
-        <TextView
+            android:layout_marginTop="260px"
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tv_zhuxiao"
             android:layout_marginLeft="30px"
             android:layout_marginStart="30px"
             android:layout_toEndOf="@+id/ce_icon"
@@ -305,6 +293,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/left_shezhi"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -316,6 +305,7 @@
                     android:src="@drawable/raw_1499947157" />
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="设置" />

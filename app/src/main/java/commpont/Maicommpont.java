@@ -1,6 +1,7 @@
 package commpont;
 
 import com.liu.asus.yikezhong.MainActivity;
+import com.liu.asus.yikezhong.UserActivity;
 
 import dagger.Component;
 import mymodules.Mainmoudule;
@@ -10,8 +11,8 @@ import mymodules.Mainmoudule;
  * 邮箱：461211527@qq.com.
  */
 
-@Component(modules = Mainmoudule.class)
+@Component(modules = {Mainmoudule.class})
 public interface Maicommpont {
-
     void  inject(MainActivity mainActivity);
+    void  injecta(UserActivity userActivity);
 }

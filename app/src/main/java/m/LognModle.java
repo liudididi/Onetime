@@ -6,11 +6,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import bean.UserBean;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DisposableSubscriber;
 import mybase.Basebean;
 import okhttp3.ResponseBody;
 import utils.MyQusetUtils;
@@ -22,36 +26,36 @@ import utils.SPUtils;
  */
 
 public class LognModle {
-  public  void  getlogndata(String user, String pass, final requestBack requestBack){
+    private CompositeDisposable compositeDisposable=new CompositeDisposable();
+    @Inject
+    public LognModle() {
+    }
+    public  void  getlogndata(String user, String pass, final requestBack requestBack){
       Map<String,Object> map=new HashMap<>();
       map.put("mobile",user);
       map.put("password",pass);
-      new MyQusetUtils.Builder().addConverterFactory()
-              .addCallAdapterFactory().build().getQuestInterface().login(map)
-              .subscribeOn(Schedulers.io())
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(new Observer<Basebean<UserBean>>() {
-                  @Override
-                  public void onSubscribe(Disposable d) {
+      DisposableSubscriber<Basebean<UserBean>> disposableSubscriber = new MyQusetUtils.Builder().addConverterFactory()
+                .addCallAdapterFactory().build().getQuestInterface().login(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSubscriber<Basebean<UserBean>>() {
+                    @Override
+                    public void onNext(Basebean<UserBean> userBeanBasebean) {
 
-                  }
+                    }
 
-                  @Override
-                  public void onNext(Basebean<UserBean> value) {
-                      requestBack.logsuccess(value);
-                  }
+                    @Override
+                    public void onError(Throwable t) {
 
-                  @Override
-                  public void onError(Throwable e) {
-                      requestBack.fail(e);
-                  }
+                    }
 
-                  @Override
-                  public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-                  }
-              });
-  }
+                    }
+                });
+        compositeDisposable.add(disposableSubscriber);
+    }
     public  void  getuser(int  uid, String token, final requestBack requestBack){
         Map<String,Object> map=new HashMap<>();
         map.put("uid",uid);
@@ -87,5 +91,9 @@ public class LognModle {
       void  logsuccess(Basebean<UserBean> value);
       void  fail(Throwable e);
   }
-
+  public void   ondestory(){
+        if(!compositeDisposable.isDisposed()){
+            compositeDisposable.dispose();
+        }
+  }
 }

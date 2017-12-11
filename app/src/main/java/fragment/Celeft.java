@@ -30,6 +30,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.liu.asus.yikezhong.LoginActivity;
 import com.liu.asus.yikezhong.MainActivity;
 import com.liu.asus.yikezhong.R;
+import com.liu.asus.yikezhong.ShezhiActivity;
 import com.meg7.widget.CircleImageView;
 import com.meg7.widget.CustomShapeImageView;
 
@@ -53,7 +54,7 @@ public class Celeft extends Basefragment implements Baseview{
 
 
     private CircleImageView ce_icon;
-    private TextView tv_name,tv_zhuxiao;
+    private TextView tv_name;
     private int uid;
     private  Ce_iconback ce_iconback;
     private ImageView img_xiugai;
@@ -62,6 +63,7 @@ public class Celeft extends Basefragment implements Baseview{
     private EditText pop_ed;
     private TextView pop_queding;
     private Nichengp nichengp;
+    private LinearLayout tv_shezhi;
 
 
     public void setCe_iconback(Ce_iconback ce_iconback) {
@@ -81,6 +83,7 @@ public class Celeft extends Basefragment implements Baseview{
         pop_ed = contentView.findViewById(R.id.pop_ed);
         pop_queding = contentView.findViewById(R.id.pop_queding);
         pop_finish = contentView.findViewById(R.id.pop_finish);
+        tv_shezhi = view.findViewById(R.id.left_shezhi);
         pop_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,16 +102,9 @@ public class Celeft extends Basefragment implements Baseview{
         });
         ce_icon = view.findViewById(R.id.ce_icon);
         tv_name = view.findViewById(R.id.tv_name);
-        tv_zhuxiao = view.findViewById(R.id.tv_zhuxiao);
+
         img_xiugai= view.findViewById(R.id.img_xiugai);
-        tv_zhuxiao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SPUtils.clear(getActivity());
-                Intent intent=new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+
         img_xiugai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +125,13 @@ public class Celeft extends Basefragment implements Baseview{
                     }
                 });
                 builder.create().show();
+            }
+        });
+        tv_shezhi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), ShezhiActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -164,8 +167,6 @@ public class Celeft extends Basefragment implements Baseview{
         if(uid !=0){
             String icon = (String) SPUtils.get(getActivity(), "icon", "");
             if (icon != null && icon.length() >= 3) {
-
-
                 RequestOptions options = new RequestOptions();
                 options.diskCacheStrategy(DiskCacheStrategy.NONE);
                 options .skipMemoryCache(true);

@@ -18,8 +18,6 @@ import mybase.Basepresent;
 
 import static com.liu.asus.yikezhong.Myapp.context;
 
-//import com.dou361.ijkplayer.widget.IjkVideoView;
-
 public class VideoActivity extends BaseActivity {
 
 
@@ -44,7 +42,7 @@ public class VideoActivity extends BaseActivity {
         Intent intent = getIntent();
         String videourl = intent.getStringExtra("videourl");
         String replace = videourl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
-        boolean setUp = xqJiecao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
+        xqJiecao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
         xqJiecao.startPlayLogic();
 
     }
@@ -63,7 +61,7 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (xqJiecao.backPress()) {
+    if (xqJiecao.backPress()) {
             return;
         }
         super.onBackPressed();
@@ -71,7 +69,7 @@ public class VideoActivity extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        xqJiecao.releaseAllVideos();
+    xqJiecao.releaseAllVideos();
     }
 
 

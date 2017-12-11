@@ -121,8 +121,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         DaggerMaicommpont.builder().mainmoudule(new Mainmoudule(this)).build().inject(this);
         uid = (int) SPUtils.get(this, "uid", 0);
         String token = (String) SPUtils.get(this, "token", "");
-
-
         if (uid != 0) {
             lognP.getuser(uid, token);
         } else {
@@ -135,6 +133,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         switchFragment(tuijian).commit();
         Celeft celeft = new Celeft();
         celeft.setCe_iconback(this);
+        dw.closeDrawers();
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_left, celeft).commit();
         dw.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -163,14 +162,33 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
     @Override
     public void ondestory() {
+        lognP.destoiry();
         if (path != null) {
             path = null;
         }
     }
-
     public void onResume() {
 
         MobclickAgent.onResume(this);
+
+        if(uid !=0){
+            String icon = (String) SPUtils.get(this, "icon", "");
+            if (icon != null && icon.length() >= 3) {
+                RequestOptions options = new RequestOptions();
+                options.diskCacheStrategy(DiskCacheStrategy.NONE);
+                options .skipMemoryCache(true);
+                options .dontAnimate();
+                Glide.with(this).load(icon)
+                        .apply(options)
+                        .into(imgIcon);
+            }else {
+                Glide.with(this).load(R.drawable.raw_1499936862)
+                        .into(imgIcon);
+            }
+        }else {
+            Glide.with(this).load(R.drawable.raw_1499936862)
+                    .into(imgIcon);
+        }
 
         super.onResume();
     }

@@ -22,15 +22,13 @@ import okhttp3.ResponseBody;
  */
 
 public class   LognP  extends Basepresent {
-     private LognModle lognModle;
+       @Inject
+      LognModle lognModle;
      private  Lognview lognview;
-     @Inject
+       @Inject
       public LognP(Lognview viewmode) {
         super(viewmode);
         this.lognview=viewmode;
-        if(lognModle==null){
-            lognModle=new LognModle();
-        }
     }
     public  void  login(String user,String pass){
         lognModle.getlogndata(user, pass, new LognModle.requestBack() {
@@ -50,6 +48,10 @@ public class   LognP  extends Basepresent {
                 lognview.fail(e.toString());
             }
         });
+    }
+
+    public   void  destoiry(){
+        lognModle.ondestory();
     }
     public  void  getuser(int uid,String token){
         lognModle.getuser(uid, token, new LognModle.requestBack() {

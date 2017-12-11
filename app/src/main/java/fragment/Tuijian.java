@@ -39,7 +39,7 @@ import present.Gettuiianp;
  * 邮箱：461211527@qq.com.
  */
 
-public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tuijianview, Getadv {
+public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter,Tuijianview, Getadv {
 
 
     private RelativeLayout rela_remen,rela_guanzhu;

@@ -1,6 +1,7 @@
 package utils;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.liu.asus.yikezhong.Myapp;
 
@@ -13,6 +14,7 @@ import mInterface.QuestInterface;
 import mybase.BaseApi;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -38,8 +40,10 @@ public  QuestInterface getQuestInterface(){
   public static class  Builder{
     File cacheFile = new File(Myapp.context.getCacheDir(), "cache");
     Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
+
     OkHttpClient okHttpClient=new OkHttpClient.Builder()
             .addInterceptor(NetInterceptor.REWRITE_RESPONSE_MYINTERCEPTOR)
+            .addInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR_LOG)
             .addInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
             .addNetworkInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR)
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)

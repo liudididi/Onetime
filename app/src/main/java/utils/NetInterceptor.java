@@ -13,6 +13,7 @@ import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Created by 地地 on 2017/12/10.
@@ -59,6 +60,13 @@ public class NetInterceptor {
             return chain.proceed(request);
         }
     };
+  public static final Interceptor REWRITE_RESPONSE_INTERCEPTOR_LOG = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+      @Override
+      public void log(String message) {
+          System.out.println("MYOKTTP==="+message);
+      }
+     }).setLevel(HttpLoggingInterceptor.Level.BODY);
+
 
     public static final Interceptor REWRITE_RESPONSE_MYINTERCEPTOR=new Interceptor() {
         public String TAG = "LogInterceptor";

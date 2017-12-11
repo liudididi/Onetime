@@ -8,6 +8,7 @@ import bean.Guanggao;
 import bean.TuijianBean;
 import bean.UserBean;
 import fragment.Tuijian;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import mybase.Basebean;
 import okhttp3.MultipartBody;
@@ -35,7 +36,7 @@ import retrofit2.http.Url;
 public interface QuestInterface {
     @POST("/user/login")
     @FormUrlEncoded
-    Observable<Basebean<UserBean>> login(@FieldMap Map<String, Object> maps);
+    Flowable<Basebean<UserBean>> login(@FieldMap Map<String, Object> maps);
 
     @GET("/quarter/getJokes")
     Observable<Basebean<List<Duanzibean>>> getdata(@Query("page") int page);
