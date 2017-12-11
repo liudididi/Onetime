@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.liu.asus.yikezhong.VideoActivity">
-    <com.dou361.ijkplayer.widget.IjkVideoView
-        android:id="@+id/video_view"
+    <RelativeLayout
+        android:background="#03A9F4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-</RelativeLayout>
+        android:layout_height="150px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_marginTop="30px"
+            android:id="@+id/tv_fanhui"
+            android:layout_width="wrap_content"
+            android:layout_height="100px"
+            android:layout_marginLeft="30px"
+            android:drawableLeft="@drawable/fh"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="40px"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="详情"
+            android:textColor="#fff"
+            android:textSize="50px" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:padding="10px"
+            android:src="@mipmap/ic_launcher_round" />
+    </RelativeLayout>
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+
+        android:id="@+id/xq_jiecao"
+        android:layout_width="match_parent"
+        android:layout_height="900px"
+        ></fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
+
+</LinearLayout>

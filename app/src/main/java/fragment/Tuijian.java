@@ -55,6 +55,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
     private Handler handler=new Handler();
     private  int   ttype;
     private  int   tpage;
+    private XBanner mBanner;
 
     @Override
     public int getlayoutid() {
@@ -86,7 +87,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
                         ttype=0;
                         tpage=1;
                         gettuiianp.getduanzidata("",1,tpage);
-                        xlist_tuijian.refreshComplete();
+
                     }
                 }, 1000);
 
@@ -101,7 +102,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
                         ttype=1;
                         tpage++;
                         gettuiianp.getduanzidata("",1,tpage);
-                        xlist_tuijian.loadMoreComplete();
+
                     }
                 }, 1000);
             }
@@ -143,7 +144,9 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
             tuijianapter=null;
             }
 
-
+          if(mBanner!=null){
+            mBanner=null;
+          }
 
     }
 
@@ -159,7 +162,22 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
     public void loadBanner(XBanner banner, View view, int position) {
         Glide.with(this).load(imgesUrl.get(position)).into((ImageView) view);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mBanner!=null){
+            mBanner.startAutoPlay();
+        }
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mBanner!=null) {
+            mBanner.stopAutoPlay();
+        }
+    }
     @Override
     public void success() {
 
@@ -180,9 +198,10 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
         }else {
             if(ttype==0){
                 tuijianapter.Refresh(list);
-
+                xlist_tuijian.refreshComplete();
             }else {
                 tuijianapter.LoadMore(list);
+                xlist_tuijian.loadMoreComplete();
             }
         }
 
@@ -198,7 +217,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
         if(list!=null){
             if(getActivity()!=null){
                 View header = View.inflate(getActivity(), R.layout.xbanner, null);
-                XBanner mBanner = header.findViewById(R.id.banner);
+                mBanner = header.findViewById(R.id.banner);
                 imgesUrl = new ArrayList<>();
                 List<String>  title=new ArrayList<>();
                 for (int i = 0; i <list.size() ; i++) {
@@ -211,7 +230,6 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter, Tu
                 gettuiianp.getduanzidata("",1,tpage);
             }
         }
-
     }
 
     @Override

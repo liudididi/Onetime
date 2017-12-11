@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,19 +18,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
-import com.dou361.ijkplayer.widget.PlayStateParams;
-import com.dou361.ijkplayer.widget.PlayerView;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.liu.asus.yikezhong.MainActivity;
 import com.liu.asus.yikezhong.R;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import bean.Duanzibean;
+
 import bean.TuijianBean;
-import fragment.Tuijian;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+
 
 /**
  * Created by 地地 on 2017/11/28.
@@ -54,7 +56,6 @@ public class Tuijianapter extends RecyclerView.Adapter{
             list.addAll(newlist);
             this.notifyDataSetChanged();
         }
-
     }
     public void LoadMore(List<TuijianBean> newlist) {
         if(list!=null){
@@ -69,12 +70,12 @@ public class Tuijianapter extends RecyclerView.Adapter{
         myviewholder.duanziz_item_tv_name=view.findViewById(R.id.duanziz_item_tv_name);
         myviewholder.duanzi_item_tv_time=view.findViewById(R.id.duanzi_item_tv_time);
         myviewholder.duanzi_item_iv_bianji=view.findViewById(R.id. duanzi_item_iv_bianji);
-        myviewholder.re_ijk= view.findViewById(R.id.re_ijk);
         myviewholder.iv_touxiang=view.findViewById(R.id.iv_touxiang);
         myviewholder.line_jia=view.findViewById(R.id.line_jia);
         myviewholder.line_2=view.findViewById(R.id.line_2);
         myviewholder.line_3=view.findViewById(R.id.line_3);
         myviewholder.line_4=view.findViewById(R.id.line_4);
+        myviewholder.jicao=view.findViewById(R.id.jiecao);
         return myviewholder;
     }
 
@@ -89,33 +90,16 @@ public class Tuijianapter extends RecyclerView.Adapter{
         });
 
 
-        View inflate = LayoutInflater.from(context).inflate(R.layout.simple_player_view_player, myviewholder.re_ijk);
+      //  View inflate = LayoutInflater.from(context).inflate(R.layout.simple_player_view_player, myviewholder.re_ijk);
 
         String videoUrl = list.get(position).videoUrl;
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
-        System.out.println("replace=="+replace);
 
-        PlayerView playerVie=new PlayerView((MainActivity)context,inflate)
-                .setTitle("什么")
-                .setScaleType(PlayStateParams.wrapcontent)
-                .hideMenu(true)
-                .forbidTouch(false)
-                .showThumbnail(new OnShowThumbnailListener() {
-                    @Override
-                    public void onShowThumbnail(ImageView ivThumbnail) {
-                        /**加载前显示的缩略图*/
-                        Glide.with(context)
-                                .load(list.get(position).cover)
-                                .into(ivThumbnail);
-                    }
-                })
-                .setPlaySource(replace);
+        boolean setUp = myviewholder.jicao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
+        if (setUp) {
+                Glide.with((MainActivity) context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
+        }
 
-        playerVie.hideBack(true);
-        playerVie.hideRotation(true);
-        playerVie.hideCenterPlayer(false);
-        playerVie.hideFullscreen(true);
-        myviewholder.setIsRecyclable(false);
 
         myviewholder.duanziz_item_tv_name.setText(list.get(position).user.nickname);
         myviewholder.duanzi_item_tv_time.setText(list.get(position).createTime);
@@ -140,7 +124,7 @@ public class Tuijianapter extends RecyclerView.Adapter{
                     myviewholder.line_2.setVisibility(View.VISIBLE);
                     myviewholder.line_3.setVisibility(View.VISIBLE);
                     myviewholder.line_4.setVisibility(View.VISIBLE);
-                    AnimatorSet animSet = new AnimatorSet();//动画集合
+                    final AnimatorSet animSet = new AnimatorSet();//动画集合
                     animSet.play(animator).with(animator1).with(animator2).with(animator3);
                     animSet.setDuration(500);
                     animSet.start();
@@ -154,7 +138,7 @@ public class Tuijianapter extends RecyclerView.Adapter{
                         public void onAnimationEnd(Animator animator) {
 
                             myviewholder.duanzi_item_iv_bianji.setImageResource(R.drawable.icon_jian);
-
+                            animSet.cancel();
                         }
 
                         @Override
@@ -168,7 +152,7 @@ public class Tuijianapter extends RecyclerView.Adapter{
                         }
                     });
                 }else{//再点击一次实现缩回效果
-                    AnimatorSet animSet1 = new AnimatorSet();//动画集合
+                    final AnimatorSet animSet1 = new AnimatorSet();//动画集合
                     animSet1.play(fanimator).with(fanimator1).with(fanimator2).with(fanimator3);
                     animSet1.setDuration(500);
                     animSet1.start();
@@ -184,6 +168,7 @@ public class Tuijianapter extends RecyclerView.Adapter{
                             myviewholder.line_2.setVisibility(View.GONE);
                             myviewholder.line_3.setVisibility(View.GONE);
                             myviewholder.line_4.setVisibility(View.GONE);
+                            animSet1.cancel();
                         }
 
                         @Override
@@ -201,6 +186,23 @@ public class Tuijianapter extends RecyclerView.Adapter{
         });
 
     }
+    public static Bitmap getNetVideoBitmap(String videoUrl) {
+        Bitmap bitmap = null;
+
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            //根据url获取缩略图
+            retriever.setDataSource(videoUrl, new HashMap());
+            //获得第一帧图片
+            bitmap = retriever.getFrameAtTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            retriever.release();
+        }
+        return bitmap;
+    }
 
     @Override
     public int getItemCount() {
@@ -216,6 +218,7 @@ public class Tuijianapter extends RecyclerView.Adapter{
          private LinearLayout line_3;
          private LinearLayout line_4;
          private  int a=0;
+         private JCVideoPlayerStandard jicao;
          private  View view;
          private RelativeLayout re_ijk;
         public Myviewholder(View itemView) {

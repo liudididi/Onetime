@@ -103,14 +103,14 @@ dependencies {
     //定位功能
     compile 'com.amap.api:location:latest.integration'
 
-    compile 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.6'
-
-    //对应 ijkplayer 的  compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.0'
-    compile 'com.dou361.ijkplayer-armv7a:jjdxm-ijkplayer-armv7a:1.0.0'
-//对应 ijkplayer 的  compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.6.0'
-    compile 'com.dou361.ijkplayer-armv5:jjdxm-ijkplayer-armv5:1.0.0'
-
     //上传视频
     compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
+
+    //节操
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
+
+    //dagger
+    compile 'com.google.dagger:dagger:2.9'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
 
 }

@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     android:background="#A2defa"
     tools:context="com.liu.asus.yikezhong.FashipingActivity">
-    <ImageView
-        android:id="@+id/iv_shipin_gif"
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_result"
         android:layout_width="match_parent"
         android:layout_height="1000px"
         android:scaleType="centerCrop"
@@ -22,15 +22,15 @@
         android:layout_alignParentTop="true">
 
         <TextView
+            android:layout_marginTop="30px"
+            android:id="@+id/tv_fanhui"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="100px"
             android:layout_marginLeft="30px"
             android:drawableLeft="@drawable/fh"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="返回"
             android:textColor="#fff"
-            android:textSize="50px" />
+            android:textSize="40px" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,13 +48,6 @@
             android:layout_marginRight="30px"
             android:padding="10px"
             android:src="@drawable/xiangji" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/img_result"
-        android:layout_width="match_parent"
-        android:layout_height="800px"
-        >
-
     </RelativeLayout>
 
     <ImageView

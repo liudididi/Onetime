@@ -132,11 +132,32 @@ public class Getdatamodle {
                 }
             });
 
+    }
 
 
+    public  void  getspremen(int page, final requesttuijianBack requesttuijianBack){
+        new MyQusetUtils.Builder().addConverterFactory()
+                .addCallAdapterFactory().build().getQuestInterface().spremen(page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Basebean<List<TuijianBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+                    @Override
+                    public void onNext(Basebean<List<TuijianBean>> value) {
+                        requesttuijianBack.success(value.data);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        requesttuijianBack.fail(e);
+                    }
+                    @Override
+                    public void onComplete() {
 
-
+                    }
+                });
     }
 
 

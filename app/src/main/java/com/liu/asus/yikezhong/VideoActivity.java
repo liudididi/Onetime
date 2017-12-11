@@ -1,21 +1,32 @@
 package com.liu.asus.yikezhong;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
-import com.dou361.ijkplayer.widget.IjkVideoView;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import mybase.BaseActivity;
 import mybase.Basepresent;
+
+import static com.liu.asus.yikezhong.Myapp.context;
+
+//import com.dou361.ijkplayer.widget.IjkVideoView;
 
 public class VideoActivity extends BaseActivity {
 
 
-    @BindView(R.id.video_view)
-    IjkVideoView videoView;
+    @BindView(R.id.tv_fanhui)
+    TextView tvFanhui;
+    @BindView(R.id.xq_jiecao)
+    JCVideoPlayerStandard xqJiecao;
 
     @Override
     public List<Basepresent> initp() {
@@ -29,13 +40,38 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     public void init() {
-        videoView.setVideoPath("http://112.253.22.157/17/z/z/y/u/zzyuasjwufnqerzvyxgkuigrkcatxr/hc.yinyuetai.com/D046015255134077DDB3ACA0D7E68D45.flv");
-        videoView.start();
+
+        Intent intent = getIntent();
+        String videourl = intent.getStringExtra("videourl");
+        String replace = videourl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
+        boolean setUp = xqJiecao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
+        xqJiecao.startPlayLogic();
+
     }
 
     @Override
     public void ondestory() {
+        xqJiecao.releaseAllVideos();
+        xqJiecao=null;
+    }
 
+
+    @OnClick(R.id.tv_fanhui)
+    public void onViewClicked() {
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (xqJiecao.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        xqJiecao.releaseAllVideos();
     }
 
 

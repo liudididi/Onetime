@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -25,11 +27,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import adapter.GlideLoader;
 import bean.UserBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import commpont.DaggerMaicommpont;
 import fragment.Celeft;
 import fragment.Duanzi;
 import fragment.Shiping;
@@ -42,6 +47,7 @@ import mInterface.Lognview;
 import mybase.BaseActivity;
 import mybase.Basebean;
 import mybase.Basepresent;
+import mymodules.Mainmoudule;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -84,10 +90,15 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
 
     private DrawerLayout dw;
-    private LognP lognP;
+    @Inject
+    LognP lognP;
     private int uid;
     private ArrayList<String> path;
     private CircleImageView ce_icon;
+    private  Tuijian tuijian;
+    private  Duanzi duanzi;
+    private  Shiping shiping;
+    private Fragment currentFragment;
 
     @Override
     public List<Basepresent> initp() {
@@ -107,7 +118,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         ButterKnife.bind(this);
         path = new ArrayList<>();
         dw = findViewById(R.id.dw);
-        lognP = new LognP(this);
+        DaggerMaicommpont.builder().mainmoudule(new Mainmoudule(this)).build().inject(this);
         uid = (int) SPUtils.get(this, "uid", 0);
         String token = (String) SPUtils.get(this, "token", "");
 
@@ -118,7 +129,10 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             Glide.with(this).load(R.drawable.raw_1499936862)
                     .into(imgIcon);
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
+        tuijian=new Tuijian();
+        shiping=new Shiping();
+        duanzi=new Duanzi();
+        switchFragment(tuijian).commit();
         Celeft celeft = new Celeft();
         celeft.setCe_iconback(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_left, celeft).commit();
@@ -177,7 +191,11 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                 intent(MainActivity.this, ChuangzuoActivity.class);
                 break;
             case R.id.line_tuijian:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Tuijian()).commit();
+                switchFragment(tuijian).commit();
+               /* getSupportFragmentManager().beginTransaction().show(tuijian).commit();
+                getSupportFragmentManager().beginTransaction().hide(duanzi).commit();
+                getSupportFragmentManager().beginTransaction().hide(shiping).commit();*/
+
                 imgTuijian.setImageResource(R.drawable.tuijian2);
                 imgDuanzi.setImageResource(R.drawable.duanzi1);
                 imgShiping.setImageResource(R.drawable.shiping1);
@@ -187,7 +205,10 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                 mainTitle.setText("推荐");
                 break;
             case R.id.line_duanzi:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Duanzi()).commit();
+                switchFragment(duanzi).commit();
+                /*getSupportFragmentManager().beginTransaction().show(duanzi).commit();
+                getSupportFragmentManager().beginTransaction().hide(tuijian).commit();
+                getSupportFragmentManager().beginTransaction().hide(shiping).commit();*/
                 imgTuijian.setImageResource(R.drawable.tuijian1);
                 imgDuanzi.setImageResource(R.drawable.duanzi2);
                 imgShiping.setImageResource(R.drawable.shiping1);
@@ -197,7 +218,10 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                 mainTitle.setText("段子");
                 break;
             case R.id.line_shiping:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_main, new Shiping()).commit();
+                switchFragment(shiping).commit();
+            /*    getSupportFragmentManager().beginTransaction().show(shiping).commit();
+                getSupportFragmentManager().beginTransaction().hide(tuijian).commit();
+                getSupportFragmentManager().beginTransaction().hide(duanzi).commit();*/
                 imgTuijian.setImageResource(R.drawable.tuijian1);
                 imgDuanzi.setImageResource(R.drawable.duanzi1);
                 imgShiping.setImageResource(R.drawable.shiping2);
@@ -223,10 +247,8 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
     @Override
     public void lognsuess(UserBean userBean) {
         SPUtils.put(this, "token", userBean.token);
-
         if (userBean.icon != null && userBean.icon.length() >= 3) {
             SPUtils.put(this, "icon", userBean.icon);
-
             RequestOptions options = new RequestOptions();
             options.diskCacheStrategy(DiskCacheStrategy.NONE);
             options .skipMemoryCache(true);
@@ -335,6 +357,29 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
         ImageSelector.open(MainActivity.this, imageConfig);
     }
+
+
+
+
+    private FragmentTransaction switchFragment(Fragment targetFragment) {
+
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction();
+        if (!targetFragment.isAdded()) {
+            //第一次使用switchFragment()时currentFragment为null，所以要判断一下
+            if (currentFragment != null) {
+                transaction.hide(currentFragment);
+            }
+            transaction.add(R.id.frame_main, targetFragment,targetFragment.getClass().getName());
+        } else {
+            transaction
+                    .hide(currentFragment)
+                    .show(targetFragment);
+        }
+        currentFragment = targetFragment;
+        return   transaction;
+    }
+
 
 
 }

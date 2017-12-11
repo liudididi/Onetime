@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
 import bean.UserBean;
 import m.LognModle;
 import mInterface.Lognview;
@@ -22,7 +24,8 @@ import okhttp3.ResponseBody;
 public class   LognP  extends Basepresent {
      private LognModle lognModle;
      private  Lognview lognview;
-    public LognP(Lognview viewmode) {
+     @Inject
+      public LognP(Lognview viewmode) {
         super(viewmode);
         this.lognview=viewmode;
         if(lognModle==null){

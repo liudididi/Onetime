@@ -148,6 +148,7 @@ public class MymapActivity extends AppCompatActivity implements LocationSource, 
             mlocationClient.stopLocation();
             mlocationClient.onDestroy();
         }
+        mMapView=null;
         PictureFileUtils.deleteCacheDirFile(MymapActivity.this);
     }
 

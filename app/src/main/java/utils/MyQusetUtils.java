@@ -39,7 +39,9 @@ public  QuestInterface getQuestInterface(){
     File cacheFile = new File(Myapp.context.getCacheDir(), "cache");
     Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
     OkHttpClient okHttpClient=new OkHttpClient.Builder()
-            .addInterceptor(new MyInterceptor())
+            .addInterceptor(NetInterceptor.REWRITE_RESPONSE_MYINTERCEPTOR)
+            .addInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
+            .addNetworkInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR)
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)

@@ -109,18 +109,14 @@
     </LinearLayout>
 
    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/re_ijk"
-        android:scaleType="centerCrop"
-        android:layout_below="@+id/rl1"
-        android:layout_width="match_parent"
-        android:layout_height="800px"
-        android:showDividers = "end"
-        />
+<fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+    android:id="@+id/jiecao"
+    android:layout_width="match_parent"
+    android:layout_height="1000px"
+    android:layout_below="@+id/rl1"
+    ></fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
     <View
         android:layout_marginTop="5px"
-        android:layout_below="@id/re_ijk"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#c4c4c4" />

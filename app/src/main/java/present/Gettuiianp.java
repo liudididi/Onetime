@@ -29,10 +29,12 @@ public class Gettuiianp extends Basepresent {
         getdatamodle.gettuijian(uid, type, page, new Getdatamodle.requesttuijianBack() {
             @Override
             public void success(List<TuijianBean> list) {
+
                 tujianview.getdatasuess(list);
             }
             @Override
             public void fail(Throwable e) {
+
                 tujianview.getdatafail(e.toString());
             }
         });

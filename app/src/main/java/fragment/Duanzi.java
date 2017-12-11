@@ -66,9 +66,9 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
                         type=0;
                         page=1;
                         getdatap.getduanzidata(page);
-                        recyclerView.refreshComplete();
+
                     }
-                }, 1000);
+                }, 500);
 
             }
 
@@ -80,9 +80,9 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
                         type=1;
                         page++;
                         getdatap.getduanzidata(page);
-                        recyclerView.loadMoreComplete();
+
                     }
-                }, 1000);
+                }, 500);
             }
         });
         getdatap = new Getdatap(this);
@@ -116,8 +116,10 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
             }else {
                 if(type==0){
                     duanziapter.Refresh(list);
+                    recyclerView.refreshComplete();
                 }else {
                     duanziapter.LoadMore(list);
+                    recyclerView.loadMoreComplete();
                 }
             }
         }

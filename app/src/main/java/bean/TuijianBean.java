@@ -13,6 +13,7 @@ public class TuijianBean extends Basebean {
     public  String cover;
     public  String createTime;
     public  String videoUrl;
+    public   int hight;
     public  UserBean user;
 
 

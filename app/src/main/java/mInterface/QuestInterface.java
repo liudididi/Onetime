@@ -37,9 +37,8 @@ public interface QuestInterface {
     @FormUrlEncoded
     Observable<Basebean<UserBean>> login(@FieldMap Map<String, Object> maps);
 
-    @POST("/quarter/getJokes")
-    @FormUrlEncoded
-    Observable<Basebean<List<Duanzibean>>> getdata(@Field("page") int page);
+    @GET("/quarter/getJokes")
+    Observable<Basebean<List<Duanzibean>>> getdata(@Query("page") int page);
 
     @POST("user/getUserInfo")
     @FormUrlEncoded
@@ -64,14 +63,18 @@ public interface QuestInterface {
     Observable<Basebean<List<Guanggao>>> getad();
 
 
-    @POST("/quarter/getVideos")
-    @FormUrlEncoded
-    Observable<Basebean<List<TuijianBean>>> gettuijian(@Field("uid") String uid, @Field("type") int type, @Field("page") int page);
+    @GET("/quarter/getVideos")
+
+    Observable<Basebean<List<TuijianBean>>> gettuijian(@Query("uid") String uid, @Query("type") int type, @Query("page") int page);
 
 
     @Multipart
     @POST("/quarter/publishVideo")
     Observable<Basebean> upvideo(@Part()  List<MultipartBody.Part>  file);
 
+
+
+    @GET("/quarter/getHotVideos")
+    Observable<Basebean<List<TuijianBean>>> spremen(@Query("page") int page);
 
 }

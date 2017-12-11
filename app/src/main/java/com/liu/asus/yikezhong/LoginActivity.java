@@ -57,7 +57,6 @@ public class LoginActivity extends BaseActivity {
         }
         mListener = new QQLoginListener();
         if (mTencent == null) {
-            mListener=null;
             mTencent = Tencent.createInstance("1104796216", this);
         }
 
@@ -67,6 +66,7 @@ public class LoginActivity extends BaseActivity {
     public void ondestory() {
         if(mTencent!=null){
             mTencent=null;
+            mListener=null;
         }
 
     }

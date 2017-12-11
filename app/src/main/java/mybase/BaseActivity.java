@@ -25,6 +25,8 @@ import butterknife.ButterKnife;
 public abstract  class BaseActivity extends AutoLayoutActivity{
     private  boolean isStatus=false;
     private  boolean  isFullScreen=false;
+    private Toast toast;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +80,13 @@ public abstract  class BaseActivity extends AutoLayoutActivity{
         }
     }
     public  void  Toast(String s){
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+        if(toast==null){
+            toast = Toast.makeText(this, s, Toast.LENGTH_SHORT);
+            toast.show();
+        }else {
+            toast.show();
+        }
+
     }
    public   void  intent(Context packageContext, Class<?> cls){
          Intent intent=new Intent(packageContext,cls);
