@@ -28,6 +28,7 @@ import mInterface.SpHotv;
 import mybase.Basefragment;
 import mybase.Basepresent;
 import present.SpHotp;
+import utils.SPUtils;
 
 /**
  * Created by 地地 on 2017/11/24.
@@ -48,12 +49,15 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
     private SpHotAdapter remenadpter;
     private Handler handler=new Handler();
 
+
     @Override
     public int getlayoutid() {
         return R.layout.shiping;
     }
     @Override
     public void init() {
+
+
         tv_remen = view.findViewById(R.id.tv_remen);
         tv_fujin = view.findViewById(R.id.tv_fujin);
         v_fujin = view.findViewById(R.id.v_fujin);
@@ -90,7 +94,6 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
                         retype=1;
                         repage++;
                         spHotp.getSpHotdata(repage);
-
                     }
                 }, 500);
             }

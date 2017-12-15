@@ -174,6 +174,7 @@ public class Celeft extends Basefragment implements Baseview{
                 Glide.with(getActivity()).load(icon)
                         .apply(options)
                         .into(ce_icon);
+
             }else {
                 Glide.with(this).load(R.drawable.raw_1499936862)
                         .into(ce_icon);

@@ -3,16 +3,13 @@ package adapter;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,20 +18,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.liu.asus.yikezhong.MainActivity;
 import com.liu.asus.yikezhong.R;
 import com.liu.asus.yikezhong.UserActivity;
 
 import java.util.HashMap;
 import java.util.List;
 
-
 import bean.TuijianBean;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
-import utils.SPUtils;
 
 
 /**
@@ -42,26 +35,23 @@ import utils.SPUtils;
  * 邮箱：461211527@qq.com.
  */
 
-public class Tuijianapter extends RecyclerView.Adapter{
+public class Useradpter extends RecyclerView.Adapter{
     private List<TuijianBean> list;
     private Context context;
     private  TuijiancallBack duanzicallBack;
-
-
-    public Tuijianapter(List<TuijianBean> list, Context context, String username) {
-        this.list = list;
-        this.context = context;
-
-    }
-
+    private  String username;
+    private  String icon;
     public void setTuijiancallBack(TuijiancallBack tuijiancallBack) {
         this.duanzicallBack = tuijiancallBack;
     }
 
-    public Tuijianapter(List<TuijianBean> list, Context context) {
+    public Useradpter(List<TuijianBean> list, Context context, String username, String icon) {
         this.list = list;
         this.context = context;
+        this.username = username;
+        this.icon = icon;
     }
+
     public void Refresh(List<TuijianBean> newlist) {
         if(list!=null){
             list.clear();
@@ -100,34 +90,21 @@ public class Tuijianapter extends RecyclerView.Adapter{
                 duanzicallBack.TuijianBack(view);
             }
         });
+
         String videoUrl = list.get(position).videoUrl;
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
+        System.out.println("===raplace"+replace);
         boolean setUp = myviewholder.jicao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
         if (setUp) {
-
                 Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
-
         }
-
-        myviewholder.duanziz_item_tv_name.setText(list.get(position).user.nickname);
+        myviewholder.duanziz_item_tv_name.setText(username);
         myviewholder.duanzi_item_tv_time.setText(list.get(position).createTime);
-        if(list.get(position).user.icon!=null){
-            myviewholder.iv_touxiang.setImageURI(Uri.parse(list.get(position).user.icon));
+        if(icon!=null){
+            myviewholder.iv_touxiang.setImageURI(Uri.parse(icon));
         }else {
             myviewholder.iv_touxiang.setImageURI(Uri.parse("res://"+context.getPackageName()+"/" + R.drawable.raw_1499936862));
         }
-        myviewholder.iv_touxiang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(context, UserActivity.class);
-                Bundle bundle=new Bundle();
-                bundle.putInt("uid",list.get(position).uid);
-                bundle.putString("icon",list.get(position).user.icon);
-                bundle.putString("username",list.get(position).user.nickname);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-            }
-        });
          final ObjectAnimator   animator = ObjectAnimator.ofFloat( myviewholder.duanzi_item_iv_bianji, "rotation", 0f, 180f);;
          final ObjectAnimator animator1= ObjectAnimator.ofFloat(myviewholder.line_2, "translationX", 0f,-100f);;
          final ObjectAnimator animator2= ObjectAnimator.ofFloat(myviewholder.line_3, "translationX", 0f,-200f);;
@@ -208,7 +185,6 @@ public class Tuijianapter extends RecyclerView.Adapter{
     }
     public static Bitmap getNetVideoBitmap(String videoUrl) {
         Bitmap bitmap = null;
-
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         try {
             //根据url获取缩略图
@@ -240,6 +216,7 @@ public class Tuijianapter extends RecyclerView.Adapter{
          private  int a=0;
          private JCVideoPlayerStandard jicao;
          private  View view;
+         private RelativeLayout re_ijk;
         public Myviewholder(View itemView) {
             super(itemView);
             this.view=itemView;

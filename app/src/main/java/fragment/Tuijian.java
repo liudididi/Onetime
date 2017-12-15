@@ -52,7 +52,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter,Tui
     private Getadp getadp;
     private Gettuiianp gettuiianp;
     private Tuijianapter tuijianapter;
-    private Handler handler=new Handler();
+    private static  Handler handler=new Handler();
     private  int   ttype;
     private  int   tpage;
     private XBanner mBanner;

@@ -7,6 +7,7 @@ import bean.Duanzibean;
 import bean.Guanggao;
 import bean.TuijianBean;
 import bean.UserBean;
+import bean.VisionBean;
 import fragment.Tuijian;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
@@ -73,9 +74,17 @@ public interface QuestInterface {
     @POST("/quarter/publishVideo")
     Observable<Basebean> upvideo(@Part()  List<MultipartBody.Part>  file);
 
-
-
     @GET("/quarter/getHotVideos")
     Observable<Basebean<List<TuijianBean>>> spremen(@Query("page") int page);
 
+
+    @POST("/quarter/getUserVideos")
+    @FormUrlEncoded
+    Flowable<Basebean<List<TuijianBean>>> getuserdata(@Field("uid") int uid,@Field("page") int page);
+
+     @GET("/quarter/getVersion")
+     Flowable<Basebean<VisionBean>> upvision();
+
+    @GET("/quarter/follow")
+    Flowable<Basebean> guanzhu(@Query("uid") int uid,@Query("followId") String followId);
 }

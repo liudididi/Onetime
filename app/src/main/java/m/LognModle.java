@@ -41,12 +41,12 @@ public class LognModle {
                 .subscribeWith(new DisposableSubscriber<Basebean<UserBean>>() {
                     @Override
                     public void onNext(Basebean<UserBean> userBeanBasebean) {
-
+                        requestBack.logsuccess(userBeanBasebean);
                     }
 
                     @Override
                     public void onError(Throwable t) {
-
+                     requestBack.fail(t);
                     }
 
                     @Override
@@ -59,7 +59,6 @@ public class LognModle {
     public  void  getuser(int  uid, String token, final requestBack requestBack){
         Map<String,Object> map=new HashMap<>();
         map.put("uid",uid);
-        map.put("token",token);
         new MyQusetUtils.Builder().addConverterFactory()
                 .addCallAdapterFactory().build().getQuestInterface().getuser(map)
                 .subscribeOn(Schedulers.io())
@@ -89,7 +88,7 @@ public class LognModle {
 
   public  interface  requestBack{
       void  logsuccess(Basebean<UserBean> value);
-      void  fail(Throwable e);
+      void  fail(Throwable t);
   }
   public void   ondestory(){
         if(!compositeDisposable.isDisposed()){

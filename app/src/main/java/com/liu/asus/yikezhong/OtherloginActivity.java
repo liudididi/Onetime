@@ -11,13 +11,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import bean.UserBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import commpont.DaggerMaicommpont;
 import mInterface.Lognview;
 import mybase.BaseActivity;
 import mybase.Basepresent;
+import mymodules.Mainmoudule;
 import present.LognP;
 import utils.SPUtils;
 
@@ -33,7 +37,9 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
     TextView tvYkdl;
     @BindView(R.id.iv_fh1)
     ImageView ivFh1;
-    private LognP lognp;
+
+    @Inject
+    LognP lognp;
 
     @Override
     public List<Basepresent> initp() {
@@ -50,7 +56,8 @@ public class OtherloginActivity extends BaseActivity implements Lognview {
     @Override
     public void init() {
         ButterKnife.bind(this);
-        lognp = new LognP(this);
+        DaggerMaicommpont.builder().mainmoudule(new Mainmoudule(this)).build().inject(this);
+
     }
 
     @Override

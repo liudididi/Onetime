@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import bean.Duanzibean;
 import bean.Guanggao;
 import bean.TuijianBean;
@@ -13,8 +15,10 @@ import bean.UserBean;
 import fragment.Tuijian;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.DisposableSubscriber;
 import mybase.Basebean;
 import okhttp3.ResponseBody;
 import utils.MyQusetUtils;
@@ -25,6 +29,12 @@ import utils.MyQusetUtils;
  */
 
 public class Getdatamodle {
+    @Inject
+    public Getdatamodle() {
+
+    }
+
+    private CompositeDisposable compositeDisposable=new CompositeDisposable();
     public  void  getduanzidata(int page ,final requestBack requestBack){
         new MyQusetUtils.Builder().addConverterFactory()
                 .addCallAdapterFactory().build().getQuestInterface().getdata(page)
@@ -105,6 +115,51 @@ public class Getdatamodle {
                     }
                 });
     }
+
+    public  void  getuserdata(int uid ,int page,final  GetuserdataBack requestBack){
+
+        DisposableSubscriber<Basebean<List<TuijianBean>>> disposableSubscriber = new MyQusetUtils.Builder().addConverterFactory()
+                .addCallAdapterFactory().build().getQuestInterface().getuserdata(uid, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSubscriber<Basebean<List<TuijianBean>>>() {
+                    @Override
+                    public void onNext(Basebean<List<TuijianBean>> listBasebean) {
+                        requestBack.success(listBasebean.data);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        requestBack.fail(t);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        compositeDisposable.add(disposableSubscriber);
+    }
+    public void   ondestory(){
+
+        if(!compositeDisposable.isDisposed()){
+            compositeDisposable.dispose();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public  void  gettuijian(String uid, int type, int page, final requesttuijianBack requesttuijianBack){
 
         new MyQusetUtils.Builder().addConverterFactory()
@@ -182,7 +237,10 @@ public class Getdatamodle {
         void  success(List<TuijianBean> list);
         void  fail(Throwable e);
     }
-
+    public  interface  GetuserdataBack{
+        void  success(List<TuijianBean> list);
+        void  fail(Throwable e);
+    }
 
 
 

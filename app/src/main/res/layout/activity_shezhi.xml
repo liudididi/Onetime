@@ -23,6 +23,7 @@
             android:layout_height="40px" />
 
         <TextView
+            android:id="@+id/tv_back"
             android:layout_toRightOf="@+id/shezhi_back"
             android:textColor="#ffffff"
             android:text="返回"

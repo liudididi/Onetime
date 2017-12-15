@@ -3,6 +3,7 @@ package mymodules;
 import dagger.Module;
 import dagger.Provides;
 import mInterface.Lognview;
+import mInterface.Userv;
 
 /**
  * Created by 地地 on 2017/12/11.
@@ -10,14 +11,14 @@ import mInterface.Lognview;
  */
 @Module
 public class Usermoudule {
-    private  Lognview lognview;
-    public Usermoudule(Lognview lognview) {
-        this.lognview = lognview;
+    private Userv userv;
+    public Usermoudule(Userv userv) {
+        this.userv = userv;
     }
 
     @Provides
-    Lognview provideMainView() {
-        return lognview;
+    Userv provideUserView() {
+        return userv;
     }
 
 }

@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         ButterKnife.bind(this);
         path = new ArrayList<>();
         dw = findViewById(R.id.dw);
-        DaggerMaicommpont.builder().mainmoudule(new Mainmoudule(this)).build().inject(this);
+         DaggerMaicommpont.builder().mainmoudule(new Mainmoudule(this)).build().injectm(this);
         uid = (int) SPUtils.get(this, "uid", 0);
         String token = (String) SPUtils.get(this, "token", "");
         if (uid != 0) {
@@ -210,10 +210,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                 break;
             case R.id.line_tuijian:
                 switchFragment(tuijian).commit();
-               /* getSupportFragmentManager().beginTransaction().show(tuijian).commit();
-                getSupportFragmentManager().beginTransaction().hide(duanzi).commit();
-                getSupportFragmentManager().beginTransaction().hide(shiping).commit();*/
-
                 imgTuijian.setImageResource(R.drawable.tuijian2);
                 imgDuanzi.setImageResource(R.drawable.duanzi1);
                 imgShiping.setImageResource(R.drawable.shiping1);
@@ -224,9 +220,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                 break;
             case R.id.line_duanzi:
                 switchFragment(duanzi).commit();
-                /*getSupportFragmentManager().beginTransaction().show(duanzi).commit();
-                getSupportFragmentManager().beginTransaction().hide(tuijian).commit();
-                getSupportFragmentManager().beginTransaction().hide(shiping).commit();*/
                 imgTuijian.setImageResource(R.drawable.tuijian1);
                 imgDuanzi.setImageResource(R.drawable.duanzi2);
                 imgShiping.setImageResource(R.drawable.shiping1);
@@ -237,9 +230,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                 break;
             case R.id.line_shiping:
                 switchFragment(shiping).commit();
-            /*    getSupportFragmentManager().beginTransaction().show(shiping).commit();
-                getSupportFragmentManager().beginTransaction().hide(tuijian).commit();
-                getSupportFragmentManager().beginTransaction().hide(duanzi).commit();*/
                 imgTuijian.setImageResource(R.drawable.tuijian1);
                 imgDuanzi.setImageResource(R.drawable.duanzi1);
                 imgShiping.setImageResource(R.drawable.shiping2);

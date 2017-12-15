@@ -49,8 +49,11 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     public void ondestory() {
+
+        xqJiecao.release();
         xqJiecao.releaseAllVideos();
         xqJiecao=null;
+
     }
 
 

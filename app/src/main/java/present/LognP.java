@@ -24,13 +24,15 @@ import okhttp3.ResponseBody;
 public class   LognP  extends Basepresent {
        @Inject
       LognModle lognModle;
-     private  Lognview lognview;
+      private  Lognview lognview;
        @Inject
       public LognP(Lognview viewmode) {
         super(viewmode);
+
         this.lognview=viewmode;
     }
     public  void  login(String user,String pass){
+
         lognModle.getlogndata(user, pass, new LognModle.requestBack() {
             @Override
             public void logsuccess(Basebean<UserBean> value) {
@@ -54,6 +56,9 @@ public class   LognP  extends Basepresent {
         lognModle.ondestory();
     }
     public  void  getuser(int uid,String token){
+        if(lognModle==null){
+            lognModle=new LognModle();
+        }
         lognModle.getuser(uid, token, new LognModle.requestBack() {
             @Override
             public void logsuccess(Basebean<UserBean> value) {
@@ -67,12 +72,10 @@ public class   LognP  extends Basepresent {
                     lognview.lognfail(value.msg);
                 }
             }
-
             @Override
             public void fail(Throwable e) {
 
             }
         });
     }
-
 }

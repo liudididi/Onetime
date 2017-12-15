@@ -48,6 +48,7 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
     }
     @Override
     public void init() {
+
         Fresco.getImagePipeline().clearCaches();
         //清空硬盘缓存，一般是用户手动清理
         Fresco.getImagePipeline().clearDiskCaches();
