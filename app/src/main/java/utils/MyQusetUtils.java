@@ -40,7 +40,6 @@ public  QuestInterface getQuestInterface(){
   public static class  Builder{
     File cacheFile = new File(Myapp.context.getCacheDir(), "cache");
     Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
-
     OkHttpClient okHttpClient=new OkHttpClient.Builder()
             .addInterceptor(NetInterceptor.REWRITE_RESPONSE_MYINTERCEPTOR)
             .addInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR_LOG)
@@ -50,8 +49,10 @@ public  QuestInterface getQuestInterface(){
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
             .retryOnConnectionFailure(false)
-            .cache(cache)
-            .build();
+            .cache(cache).build();
+
+
+
     Retrofit.Builder builder = new Retrofit.Builder().baseUrl(BaseApi.Api).client(okHttpClient);
     public  Builder addConverterFactory(){
       builder.addConverterFactory(GsonConverterFactory.create());

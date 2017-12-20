@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.liu.asus.yikezhong.R;
+import com.meg7.widget.CircleImageView;
+import com.meg7.widget.CustomShapeImageView;
 
 import java.util.List;
 
@@ -61,8 +64,8 @@ public class SpHotAdapter extends  RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MyHotviewhoder  myHotviewhoder= (MyHotviewhoder) holder;
         myHotviewhoder.setIsRecyclable(false);
-        LinearLayout.LayoutParams para;
-        para = (LinearLayout.LayoutParams) myHotviewhoder.imageView.getLayoutParams();
+        RelativeLayout.LayoutParams para;
+        para = (RelativeLayout.LayoutParams) myHotviewhoder.imageView.getLayoutParams();
         para.height= list.get(position).hight;
         myHotviewhoder.imageView.setLayoutParams(para);
         RequestOptions options = new RequestOptions();
@@ -73,9 +76,15 @@ public class SpHotAdapter extends  RecyclerView.Adapter {
         myHotviewhoder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spHotBlack.getvideourl(list.get(position).videoUrl);
+                spHotBlack.getvideourl(list.get(position).wid);
             }
         });
+
+        if(list.get(position).user.icon!=null&&list.get(position).user.icon.length()>3){
+
+            Glide.with(context).load(list.get(position).user.icon).into(myHotviewhoder.sp_icon);
+        }
+
     }
 
     @Override
@@ -86,14 +95,16 @@ public class SpHotAdapter extends  RecyclerView.Adapter {
 
     public  class  MyHotviewhoder extends RecyclerView.ViewHolder {
         private ImageView imageView;
+        private CircleImageView sp_icon;
         public MyHotviewhoder(View itemView) {
             super(itemView);
             imageView=itemView.findViewById(R.id.sp_img);
+            sp_icon=itemView.findViewById(R.id.sp_icon);
         }
     }
 
     public  interface  SpHotBlack{
-        void  getvideourl(String videourl);
+        void  getvideourl(int wid);
     }
 
 }

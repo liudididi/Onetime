@@ -27,6 +27,7 @@ import mybase.Basefragment;
 import mybase.Basepresent;
 import mybase.Baseview;
 import present.Getdatap;
+import utils.AnimationLoading;
 
 /**
  * Created by 地地 on 2017/11/24.
@@ -41,6 +42,7 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
     private  int type=0;
     private  int page=1;
     private Handler handler=new Handler();
+    private AnimationLoading ani;
 
     @Override
     public int getlayoutid() {
@@ -54,6 +56,9 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
         Fresco.getImagePipeline().clearDiskCaches();
         //清空内存缓存（包括Bitmap缓存和未解码图片的缓存）
         Fresco.getImagePipeline().clearMemoryCaches();
+
+        ani = view.findViewById(R.id.ani);
+
         recyclerView = view.findViewById(R.id.recycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setRefreshProgressStyle(16);//刷新样式
@@ -110,6 +115,9 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
     @Override
     public void getdatasuess(List<Duanzibean> list) {
         if(list!=null){
+            ani.stopLoading();
+            ani.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
             if(duanziapter==null){
                 duanziapter = new Duanziapter(list,getActivity());
                 duanziapter.setDuanzicallBack(this);
@@ -123,6 +131,10 @@ public class Duanzi extends Basefragment implements Duanziview, Duanziapter.Duan
                     recyclerView.loadMoreComplete();
                 }
             }
+        }else {
+            ani.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+
         }
 
     }

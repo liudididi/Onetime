@@ -4,10 +4,10 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.liu.asus.yikezhong"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 101
+        versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         flavorDimensions "versionCode"
@@ -19,12 +19,6 @@ android {
 
     }
     signingConfigs {
-        debug {
-            keyAlias 'onetime'
-            keyPassword 'onetime1507c'
-            storeFile file('C:/Users/asus/Desktop/一刻钟签名/onetime.jks')
-            storePassword 'onetime1507c'
-        }
         release {
             storeFile file("jinlin.jks")
             storePassword "111111"
@@ -61,6 +55,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //统计
     compile 'com.umeng.analytics:analytics:latest.integration'
+
+    //retrofit 依赖
     compile 'com.jcodecraeer:xrecyclerview:1.2.6'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:retrofit:2.0.1'
@@ -68,11 +64,13 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.2'
+    //buglty
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //个推
     compile 'com.getui:sdk:2.11.1.0'
     compile 'com.zhy:autolayout:1.4.5'
     implementation 'com.jakewharton:butterknife:8.8.1'
@@ -99,4 +97,8 @@ dependencies {
     compile 'com.google.dagger:dagger:2.9'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+
+  //历史搜索
+    compile 'com.carson_ho:SearchLayout:1.0.1'
 }

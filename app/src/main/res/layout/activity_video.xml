@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,48 +8,140 @@
     android:layout_height="match_parent"
     tools:context="com.liu.asus.yikezhong.VideoActivity">
     <RelativeLayout
-        android:background="#03A9F4"
+        android:id="@+id/xq_titie"
+        android:background="#EBEBEB"
         android:layout_width="match_parent"
-        android:layout_height="150px"
+        android:layout_height="120px"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
-        <TextView
-            android:layout_marginTop="30px"
+        <ImageView
+            android:layout_marginTop="18px"
             android:id="@+id/tv_fanhui"
-            android:layout_width="wrap_content"
-            android:layout_height="100px"
+            android:layout_width="80px"
+            android:layout_height="80px"
             android:layout_marginLeft="30px"
-            android:drawableLeft="@drawable/fh"
-            android:gravity="center"
-            android:textColor="#fff"
+            android:src="@drawable/raw_1500019926"
+
             android:textSize="40px"
             />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="详情"
-            android:textColor="#fff"
-            android:textSize="50px" />
-
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_marginLeft="30px"
+            android:id="@+id/img_xihuan"
+             android:padding="20px"
+             android:src="@drawable/xihuan"
+            android:layout_toRightOf="@+id/tv_fanhui"
+            android:layout_width="150px"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/buxihuan"
+            android:padding="25px"
+            android:src="@drawable/buxihuan"
+            android:layout_toRightOf="@+id/img_xihuan"
+            android:layout_width="150px"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:padding="25px"
+            android:src="@drawable/fenxiang1"
+            android:layout_toRightOf="@+id/buxihuan"
+            android:layout_width="150px"
+            android:layout_height="wrap_content" />
+        <com.meg7.widget.CircleImageView
+            android:layout_width="100px"
+            android:layout_height="90px"
+            android:id="@+id/xq_icon"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
+            android:layout_marginTop="13px"
             android:padding="10px"
             android:src="@mipmap/ic_launcher_round" />
     </RelativeLayout>
-    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
-
-        android:id="@+id/xq_jiecao"
+    <ScrollView
+        android:background="#EBEBEB"
+        android:layout_above="@+id/linea_pl"
+        android:layout_below="@+id/xq_titie"
         android:layout_width="match_parent"
-        android:layout_height="900px"
-        ></fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
-
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+                android:id="@+id/xq_jiecao"
+                android:layout_width="match_parent"
+                android:layout_height="900px"
+                >
+            </fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
+            <TextView
+                android:text="楼主很懒,并没有设置标题"
+                android:gravity="center_vertical"
+                android:textSize="40px"
+                android:id="@+id/xq_count"
+                android:layout_below="@+id/xq_jiecao"
+                android:background="#EBEBEB"
+                android:layout_width="match_parent"
+                android:layout_height="90px"
+                android:textStyle="bold"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/pl_xlist"
+                android:layout_below="@+id/xq_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+            <ImageView
+                android:layout_marginLeft="350px"
+                android:id="@+id/xq_imgzhan"
+                android:src="@drawable/deng"
+                android:layout_below="@+id/xq_count"
+                android:layout_width="300px"
+                android:layout_height="300px">
+            </ImageView>
+            <TextView
+                android:textSize="50px"
+                android:layout_marginLeft="350px"
+                android:layout_below="@+id/xq_imgzhan"
+                android:id="@+id/xq_tishi"
+                android:text="来抢个沙发吧！~"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </ScrollView>
+<LinearLayout
+    android:background="#fff"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/linea_pl"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="100px"
+        android:layout_height="wrap_content"
+        android:src="@drawable/shen"
+        />
+    <EditText
+        android:textColor="#fff"
+        android:layout_gravity="center"
+        android:paddingLeft="20px"
+        android:background="@drawable/but_pinglun"
+        android:id="@+id/xq_edpl"
+        android:maxLines="3"
+        android:hint="期待你的神评---"
+        android:textColorHint="#fff"
+        android:layout_width="860px"
+        android:layout_height="wrap_content"
+        />
+    <ImageView
+        android:id="@+id/xq_fabiao"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fabiao"
+        />
 </LinearLayout>
+</RelativeLayout>

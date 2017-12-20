@@ -5,6 +5,7 @@ import java.util.Map;
 
 import bean.Duanzibean;
 import bean.Guanggao;
+import bean.GuanzhuBean;
 import bean.TuijianBean;
 import bean.UserBean;
 import bean.VisionBean;
@@ -87,4 +88,19 @@ public interface QuestInterface {
 
     @GET("/quarter/follow")
     Flowable<Basebean> guanzhu(@Query("uid") int uid,@Query("followId") String followId);
+
+     @GET("/quarter/getFollowUsers")
+    Flowable<Basebean<List<GuanzhuBean>>> Iguanzhudata(@Query("uid") int uid);
+
+    @GET("/quarter/searchFriends")
+    Flowable<Basebean<List<GuanzhuBean>>> sousuo(@Query("keywords") String keywords,@Query("page") String page);
+
+    @GET("/quarter/getVideoDetail")
+    Flowable<Basebean<TuijianBean>> Xiangqing(@Query("wid") int wid);
+
+    @POST("/quarter/comment")
+    @FormUrlEncoded
+    Flowable<Basebean>  pinglun(@FieldMap Map<String, Object> maps);
+
+
 }

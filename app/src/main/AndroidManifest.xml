@@ -50,10 +50,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:persistent="true"
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
+            android:persistent="true"
             android:screenOrientation="portrait" />
 
         <service
@@ -119,7 +119,9 @@
         <activity android:name=".FashipingActivity" />
         <activity android:name=".FabusuccessActivity" />
         <activity android:name=".ShezhiActivity" />
-        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".UserActivity" />
+        <activity android:name=".IGuanzhuActivity" />
+        <activity android:name=".SousuoActivity"></activity>
     </application>
 
 </manifest>

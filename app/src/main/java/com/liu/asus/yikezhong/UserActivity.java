@@ -1,6 +1,9 @@
 package com.liu.asus.yikezhong;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -28,17 +31,20 @@ import mInterface.Lognview;
 import mInterface.Userv;
 import mybase.BaseActivity;
 import mybase.Basepresent;
+import mybase.Baseview;
+import mymodules.Guanzhumoudule;
 import mymodules.Mainmoudule;
 import mymodules.Usermoudule;
+import present.Guanzhup;
 import present.LognP;
 import present.Userp;
 import utils.SPUtils;
 
-public class UserActivity extends BaseActivity implements Userv {
-   @Inject
+public class UserActivity extends BaseActivity implements Userv, Baseview {
+    @Inject
     Userp userp;
- /* @Inject
-    LognP lognP;*/
+
+    private  Guanzhup guanzhup;
     @BindView(R.id.xrv)
     XRecyclerView xrv;
     private Useradpter adpter;
@@ -49,6 +55,9 @@ public class UserActivity extends BaseActivity implements Userv {
     private String icon;
     private  int zuonum;
     private TextView zuopin_size;
+    private int myuid;
+    private TextView tv_guanzhu;
+    private TextView tv_userinfo;
 
     @Override
     public List<Basepresent> initp() {
@@ -62,22 +71,40 @@ public class UserActivity extends BaseActivity implements Userv {
 
     @Override
     public void init() {
-        DaggerUsercommpont.builder().usermoudule(new Usermoudule(this)).build().inject(this);
+       // Guanzhumoudule guanzhumoudule = new Guanzhumoudule(this);
+        DaggerUsercommpont.builder().usermoudule(new Usermoudule(this)).build().injectu(this);
+       // DaggerUsercommpont.builder().guanzhumoudule(guanzhumoudule).build().inject(this);
+        guanzhup=new Guanzhup(this);
+        myuid = (int) SPUtils.get(this, "uid", 0);
         Intent intent = getIntent();
         Bundle bundleExtra = intent.getExtras();
         icon = bundleExtra.getString("icon");
-        uid = bundleExtra.getInt("uid");
+        this.uid = bundleExtra.getInt("uid");
         username = bundleExtra.getString("username");
-        userp.getdatauser(uid,page);
+        userp.getdatauser(this.uid,page);
         xrv.setLayoutManager(new LinearLayoutManager(this));
         View inflate = View.inflate(this, R.layout.userheader, null);
         CircleImageView rouser= inflate.findViewById(R.id.ro_user);
-        TextView tv_guanzhu= inflate.findViewById(R.id.tv_guanzhu);
+        tv_userinfo= inflate.findViewById(R.id.tv_userinfo);
+        tv_guanzhu = inflate.findViewById(R.id.tv_guanzhu);
         tv_guanzhu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                if(myuid==0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
+                    builder.setTitle("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("去登录", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent=new Intent(UserActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.create().show();
+                    return;
+                }
+              guanzhup.guanzhu( myuid, uid+"");
             }
         });
         zuopin_size = inflate.findViewById(R.id.tv_zuopin_size);
@@ -91,14 +118,14 @@ public class UserActivity extends BaseActivity implements Userv {
                 type=0;
                 zuonum=0;
                 page=1;
-            userp.getdatauser(uid,page);
+            userp.getdatauser(UserActivity.this.uid,page);
             }
 
             @Override
             public void onLoadMore() {
                 type=1;
                 page++;
-          userp.getdatauser(uid,page);
+                userp.getdatauser(UserActivity.this.uid,page);
             }
         });
 
@@ -133,5 +160,25 @@ public class UserActivity extends BaseActivity implements Userv {
     @Override
     public void getdatafail(String msg) {
 
+    }
+
+    @Override
+    public void success() {
+        tv_guanzhu.setEnabled(false);
+        tv_guanzhu.setText("已关注");
+        tv_guanzhu.setTextColor(Color.WHITE);
+        tv_guanzhu.setBackgroundColor(android.graphics.Color.parseColor("#03A9F4"));
+        Toast("关注成功");
+    }
+
+    @Override
+    public void fail(String msg) {
+         if(msg.equals("此用户已关注")){
+             tv_guanzhu.setEnabled(false);
+             tv_guanzhu.setText("已关注");
+             tv_guanzhu.setTextColor(Color.WHITE);
+             tv_guanzhu.setBackgroundColor(android.graphics.Color.parseColor("#03A9F4"));
+         }
+        Toast(msg);
     }
 }

@@ -33,6 +33,7 @@ import mybase.Basepresent;
 import present.Getadp;
 import present.Getdatap;
 import present.Gettuiianp;
+import utils.AnimationLoading;
 
 /**
  * Created by 地地 on 2017/11/24.
@@ -56,6 +57,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter,Tui
     private  int   ttype;
     private  int   tpage;
     private XBanner mBanner;
+    private AnimationLoading ani;
 
     @Override
     public int getlayoutid() {
@@ -66,6 +68,7 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter,Tui
     public void init() {
         getadp=new Getadp(this);
         gettuiianp=new Gettuiianp(this);
+        ani = view.findViewById(R.id.ani);
         tv_remen = view.findViewById(R.id.tv_remen);
         tv_guanzhu = view.findViewById(R.id.tv_guanzhu);
         v_guanzhu = view.findViewById(R.id.v_guanzhu);
@@ -192,18 +195,28 @@ public class Tuijian  extends Basefragment implements XBanner.XBannerAdapter,Tui
 
     @Override
     public void getdatasuess(List<TuijianBean> list) {
-        if(tuijianapter==null){
-            tuijianapter = new Tuijianapter(list,getActivity());
-            xlist_tuijian.setAdapter(tuijianapter);
-        }else {
-            if(ttype==0){
-                tuijianapter.Refresh(list);
-                xlist_tuijian.refreshComplete();
+        if(list!=null){
+            ani.stopLoading();
+            ani.setVisibility(View.GONE);
+            xlist_tuijian.setVisibility(View.VISIBLE);
+            if(tuijianapter==null){
+                tuijianapter = new Tuijianapter(list,getActivity());
+                xlist_tuijian.setAdapter(tuijianapter);
             }else {
-                tuijianapter.LoadMore(list);
-                xlist_tuijian.loadMoreComplete();
+                if(ttype==0){
+                    tuijianapter.Refresh(list);
+                    xlist_tuijian.refreshComplete();
+                }else {
+                    tuijianapter.LoadMore(list);
+                    xlist_tuijian.loadMoreComplete();
+                }
             }
+
+        }else {
+            ani.setVisibility(View.VISIBLE);
+            xlist_tuijian.setVisibility(View.GONE);
         }
+
 
     }
 

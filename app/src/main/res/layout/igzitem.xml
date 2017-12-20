@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180px"
+        android:layout_marginTop="10px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px">
+
+        <com.meg7.widget.CircleImageView
+            android:id="@+id/igz_ce_icon"
+            android:layout_width="150px"
+            android:layout_height="130px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="9dp"
+            android:src="@drawable/raw_1499936862"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/igz_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:layout_alignTop="@+id/igz_ce_icon"
+            android:layout_marginLeft="26dp"
+            android:layout_marginStart="26dp"
+            android:layout_toEndOf="@+id/igz_ce_icon"
+            android:layout_toRightOf="@+id/igz_ce_icon"
+            android:text="图机房"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="60px"
+            android:layout_alignBottom="@+id/igz_ce_icon"
+            android:layout_alignLeft="@+id/igz_tv_name"
+            android:layout_alignStart="@+id/igz_tv_name"
+            android:maxLines="1"
+            android:text="吃货们来戳我" />
+
+        <ImageView
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_alignEnd="@+id/iv_xia"
+            android:layout_alignRight="@+id/iv_xia"
+            android:layout_marginRight="54px"
+           android:layout_marginTop="60px"
+            android:src="@drawable/raw_1499943790" />
+
+        <View
+            android:id="@+id/iv_xia"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/igz_title"
+            android:background="#03A9F4"></View>
+    </RelativeLayout>
+</LinearLayout>

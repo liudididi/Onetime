@@ -15,5 +15,5 @@ import mymodules.Upvisionmoudule;
 
 @Component(modules = {Upvisionmoudule.class})
 public interface Upvisioncommpont {
-    void   upject(ShezhiActivity activity);
+    void   upjects(ShezhiActivity activity);
 }

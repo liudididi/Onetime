@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="540px"
     android:paddingRight="6px"
@@ -16,5 +15,12 @@
         android:layout_marginBottom="6px"
         android:layout_marginLeft="6px"
         />
+    <com.meg7.widget.CircleImageView
+        android:layout_marginLeft="8px"
+        android:layout_marginTop="3px"
+        android:id="@+id/sp_icon"
+        android:src="@drawable/raw_1499936862"
+        android:layout_width="90px"
+        android:layout_height="80px" />
 
-</LinearLayout>
+</RelativeLayout>

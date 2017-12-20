@@ -17,6 +17,7 @@ public class Mainmoudule {
 
     @Provides
     Lognview provideMainView() {
+
         return lognview;
     }
 

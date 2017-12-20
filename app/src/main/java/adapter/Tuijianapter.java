@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -26,6 +27,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.liu.asus.yikezhong.MainActivity;
 import com.liu.asus.yikezhong.R;
 import com.liu.asus.yikezhong.UserActivity;
+import com.liu.asus.yikezhong.VideoActivity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -94,12 +96,6 @@ public class Tuijianapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final Myviewholder myviewholder= (Myviewholder) holder;
-        myviewholder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                duanzicallBack.TuijianBack(view);
-            }
-        });
         String videoUrl = list.get(position).videoUrl;
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
         boolean setUp = myviewholder.jicao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
@@ -108,7 +104,6 @@ public class Tuijianapter extends RecyclerView.Adapter{
                 Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
 
         }
-
         myviewholder.duanziz_item_tv_name.setText(list.get(position).user.nickname);
         myviewholder.duanzi_item_tv_time.setText(list.get(position).createTime);
         if(list.get(position).user.icon!=null){
@@ -116,6 +111,17 @@ public class Tuijianapter extends RecyclerView.Adapter{
         }else {
             myviewholder.iv_touxiang.setImageURI(Uri.parse("res://"+context.getPackageName()+"/" + R.drawable.raw_1499936862));
         }
+
+     //评论
+        myviewholder.img_pinglun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, VideoActivity.class);
+
+                intent.putExtra("wid",list.get(position).wid);
+                context.startActivity(intent);
+            }
+        });
         myviewholder.iv_touxiang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,8 +211,8 @@ public class Tuijianapter extends RecyclerView.Adapter{
             }
         });
 
-    }
-    public static Bitmap getNetVideoBitmap(String videoUrl) {
+                    }public
+     static Bitmap getNetVideoBitmap(String videoUrl) {
         Bitmap bitmap = null;
 
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -240,9 +246,11 @@ public class Tuijianapter extends RecyclerView.Adapter{
          private  int a=0;
          private JCVideoPlayerStandard jicao;
          private  View view;
+         private  ImageView img_pinglun;
         public Myviewholder(View itemView) {
             super(itemView);
             this.view=itemView;
+            img_pinglun=itemView.findViewById(R.id.img_pinglun);
         }
     }
     public  interface  TuijiancallBack{

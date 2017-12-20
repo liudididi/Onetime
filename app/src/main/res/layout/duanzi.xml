@@ -4,7 +4,12 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content">
+    <utils.AnimationLoading
+        android:id="@+id/ani"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
             <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:visibility="gone"
                 android:cacheColorHint="#00000000"
                 android:id="@+id/recycle"
                 android:layout_width="match_parent"

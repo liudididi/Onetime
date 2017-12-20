@@ -28,6 +28,7 @@ import mInterface.SpHotv;
 import mybase.Basefragment;
 import mybase.Basepresent;
 import present.SpHotp;
+import utils.AnimationLoading;
 import utils.SPUtils;
 
 /**
@@ -48,7 +49,7 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
     private  int retype;
     private SpHotAdapter remenadpter;
     private Handler handler=new Handler();
-
+    private AnimationLoading ani;
 
     @Override
     public int getlayoutid() {
@@ -57,7 +58,7 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
     @Override
     public void init() {
 
-
+        ani = view.findViewById(R.id.ani);
         tv_remen = view.findViewById(R.id.tv_remen);
         tv_fujin = view.findViewById(R.id.tv_fujin);
         v_fujin = view.findViewById(R.id.v_fujin);
@@ -133,7 +134,6 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
         list.add(spHotp);
         return list;
     }
-
     @Override
     public void success() {
 
@@ -150,6 +150,9 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
             tuijianBean.hight= (int)(400+(Math.random()*400));
              }
         if(list!=null){
+            ani.stopLoading();
+            ani.setVisibility(View.GONE);
+            sp_remen.setVisibility(View.VISIBLE);
             if(remenadpter==null){
                 remenadpter = new SpHotAdapter(list,getActivity());
                 remenadpter.setSpHotBlack(this);
@@ -163,8 +166,10 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
                     sp_remen.loadMoreComplete();
                 }
             }
+        }else {
+            ani.setVisibility(View.VISIBLE);
+            sp_remen.setVisibility(View.GONE);
         }
-
     }
 
     @Override
@@ -173,9 +178,9 @@ public class Shiping extends Basefragment implements SpHotv, SpHotAdapter.SpHotB
     }
 
     @Override
-    public void getvideourl(String videourl) {
+    public void getvideourl(int  wid) {
         Intent intent=new Intent(getActivity(), VideoActivity.class);
-        intent.putExtra("videourl",videourl);
+        intent.putExtra("wid",wid);
         startActivity(intent);
     }
 }

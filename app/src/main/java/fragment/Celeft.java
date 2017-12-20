@@ -27,10 +27,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.liu.asus.yikezhong.IGuanzhuActivity;
 import com.liu.asus.yikezhong.LoginActivity;
 import com.liu.asus.yikezhong.MainActivity;
 import com.liu.asus.yikezhong.R;
 import com.liu.asus.yikezhong.ShezhiActivity;
+import com.liu.asus.yikezhong.SousuoActivity;
 import com.meg7.widget.CircleImageView;
 import com.meg7.widget.CustomShapeImageView;
 
@@ -64,6 +66,7 @@ public class Celeft extends Basefragment implements Baseview{
     private TextView pop_queding;
     private Nichengp nichengp;
     private LinearLayout tv_shezhi;
+    private RelativeLayout iguanzhu,sousuo;
 
 
     public void setCe_iconback(Ce_iconback ce_iconback) {
@@ -84,6 +87,36 @@ public class Celeft extends Basefragment implements Baseview{
         pop_queding = contentView.findViewById(R.id.pop_queding);
         pop_finish = contentView.findViewById(R.id.pop_finish);
         tv_shezhi = view.findViewById(R.id.left_shezhi);
+        iguanzhu = view.findViewById(R.id.relativeLayout5);
+          sousuo = view.findViewById(R.id.relativeLayout7);
+        sousuo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), SousuoActivity.class);
+                startActivity(intent);
+            }
+        });
+        iguanzhu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(uid==0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("请先登录");
+                    builder.setNegativeButton("取消", null);
+                    builder.setPositiveButton("去登录", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent=new Intent(getActivity(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.create().show();
+                    return;
+                }
+                Intent intent=new Intent(getActivity(), IGuanzhuActivity.class);
+                startActivity(intent);
+            }
+        });
         pop_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

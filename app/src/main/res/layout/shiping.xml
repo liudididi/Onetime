@@ -51,13 +51,18 @@
             android:layout_width="match_parent"
             android:layout_height="10px"></View>
     </RelativeLayout>
+    <utils.AnimationLoading
+        android:layout_below="@+id/rela_remen"
+        android:id="@+id/ani"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </utils.AnimationLoading>
     <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:visibility="gone"
         android:layout_below="@+id/rela_remen"
         android:id="@+id/sp_remen"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
 

@@ -81,7 +81,7 @@ public class ShezhiActivity extends BaseActivity implements UpVisonv {
         m_progressDlg.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         // 设置ProgressDialog 的进度条是否不明确 false 就是不设置为不明确
         m_progressDlg.setIndeterminate(false);
-        DaggerUpvisioncommpont.builder().upvisionmoudule(new Upvisionmoudule(this)).build().upject(this);
+        DaggerUpvisioncommpont.builder().upvisionmoudule(new Upvisionmoudule(this)).build().upjects(this);
         try {
             String totalCacheSize = ClearCacheUtils.getdqSize(this);
             sheTvHcnum.setText(totalCacheSize);
