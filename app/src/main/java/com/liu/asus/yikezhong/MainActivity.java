@@ -1,7 +1,6 @@
 package com.liu.asus.yikezhong;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -12,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +21,8 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.meg7.widget.CircleImageView;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 import com.umeng.analytics.MobclickAgent;
 import com.yancy.imageselector.ImageConfig;
 import com.yancy.imageselector.ImageSelector;
@@ -66,43 +66,23 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
     ImageView imgBiji;
     @BindView(R.id.frame_main)
     FrameLayout frameMain;
-    @BindView(R.id.img_tuijian)
-    ImageView imgTuijian;
-    @BindView(R.id.img_duanzi)
-    ImageView imgDuanzi;
-    @BindView(R.id.img_shiping)
-    ImageView imgShiping;
-    @BindView(R.id.tv_tuijian)
-    TextView tvTuijian;
-    @BindView(R.id.tv_duanzi)
-    TextView tvDuanzi;
-    @BindView(R.id.tv_shiping)
-    TextView tvShiping;
-    @BindView(R.id.linearlaout)
-    LinearLayout linearlaout;
     @BindView(R.id.frame_left)
     FrameLayout frameLeft;
     @BindView(R.id.img_icon)
     CircleImageView imgIcon;
-    @BindView(R.id.line_tuijian)
-    LinearLayout lineTuijian;
-    @BindView(R.id.line_duanzi)
-    LinearLayout lineDuanzi;
-    @BindView(R.id.line_shiping)
-    LinearLayout lineShiping;
     @BindView(R.id.main_title)
     TextView mainTitle;
-
-
+    @BindView(R.id.bottomBar)
+    BottomBar bottomBar;
     private DrawerLayout dw;
     @Inject
     LognP lognP;
     private int uid;
     private ArrayList<String> path;
     private CircleImageView ce_icon;
-    private  Tuijian tuijian;
-    private  Duanzi duanzi;
-    private  Shiping shiping;
+    private Tuijian tuijian;
+    private Duanzi duanzi;
+    private Shiping shiping;
     private Fragment currentFragment;
 
     @Override
@@ -122,8 +102,11 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
     public void init() {
         path = new ArrayList<>();
         dw = findViewById(R.id.dw);
-        denglu();
+        tuijian = new Tuijian();
+        shiping = new Shiping();
+        duanzi = new Duanzi();
         DaggerMaicommpont.builder().mainmoudule(new Mainmoudule(this)).build().injectm(this);
+        denglu();
         uid = (int) SPUtils.get(this, "uid", 0);
         String token = (String) SPUtils.get(this, "token", "");
         if (uid != 0) {
@@ -132,10 +115,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             Glide.with(this).load(R.drawable.raw_1499936862)
                     .into(imgIcon);
         }
-        tuijian=new Tuijian();
-        shiping=new Shiping();
-        duanzi=new Duanzi();
-        switchFragment(tuijian).commit();
         Celeft celeft = new Celeft();
         celeft.setCe_iconback(this);
         dw.closeDrawers();
@@ -162,6 +141,27 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
             }
         });
+
+
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(int tabId) {
+                switch (tabId) {
+                    case 2131690105:
+                        switchFragment(tuijian).commit();
+                        mainTitle.setText("推荐");
+                        break;
+                    case 2131690106:
+                        switchFragment(duanzi).commit();
+                        mainTitle.setText("段子");
+                        break;
+                    case 2131690107:
+                        switchFragment(shiping).commit();
+                        mainTitle.setText("视频");
+                        break;
+                }
+            }
+        });
         // dw.setScrimColor(Color.TRANSPARENT);  去除阴影
     }
 
@@ -182,12 +182,11 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                         // 加载所有群组到内存，如果使用了群组的话
                         // EMClient.getInstance().groupManager().loadAllGroups();
                         // 登录成功跳转界面
-                        System.out.println("===="+"登录成功");
+                        System.out.println("====" + "登录成功");
 
                     }
                 });
             }
-
             /**
              * 登陆错误的回调
              * @param i
@@ -253,12 +252,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
 
             }
         });
-
-
-
-
-
-
     }
 
     @Override
@@ -268,28 +261,30 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             path = null;
         }
     }
+
     public void onResume() {
 
         MobclickAgent.onResume(this);
 
-        if(uid !=0){
+        if (uid != 0) {
             String icon = (String) SPUtils.get(this, "icon", "");
             if (icon != null && icon.length() >= 3) {
                 RequestOptions options = new RequestOptions();
                 options.diskCacheStrategy(DiskCacheStrategy.NONE);
-                options .skipMemoryCache(true);
-                options .dontAnimate();
+                options.skipMemoryCache(true);
+                options.dontAnimate();
                 Glide.with(this).load(icon)
                         .apply(options)
                         .into(imgIcon);
-            }else {
+            } else {
                 Glide.with(this).load(R.drawable.raw_1499936862)
                         .into(imgIcon);
             }
-        }else {
+        } else {
             Glide.with(this).load(R.drawable.raw_1499936862)
                     .into(imgIcon);
         }
+
 
         super.onResume();
     }
@@ -299,7 +294,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
         MobclickAgent.onPause(this);
     }
 
-    @OnClick({R.id.img_icon, R.id.img_biji, R.id.line_tuijian, R.id.line_duanzi, R.id.line_shiping})
+    @OnClick({R.id.img_icon, R.id.img_biji})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_icon:
@@ -308,36 +303,6 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                 break;
             case R.id.img_biji:
                 intent(MainActivity.this, ChuangzuoActivity.class);
-                break;
-            case R.id.line_tuijian:
-                switchFragment(tuijian).commit();
-                imgTuijian.setImageResource(R.drawable.tuijian2);
-                imgDuanzi.setImageResource(R.drawable.duanzi1);
-                imgShiping.setImageResource(R.drawable.shiping1);
-                tvTuijian.setTextColor(Color.parseColor("#03A9F4"));
-                tvDuanzi.setTextColor(Color.parseColor("#cccccc"));
-                tvShiping.setTextColor(Color.parseColor("#cccccc"));
-                mainTitle.setText("推荐");
-                break;
-            case R.id.line_duanzi:
-                switchFragment(duanzi).commit();
-                imgTuijian.setImageResource(R.drawable.tuijian1);
-                imgDuanzi.setImageResource(R.drawable.duanzi2);
-                imgShiping.setImageResource(R.drawable.shiping1);
-                tvTuijian.setTextColor(Color.parseColor("#cccccc"));
-                tvDuanzi.setTextColor(Color.parseColor("#03A9F4"));
-                tvShiping.setTextColor(Color.parseColor("#cccccc"));
-                mainTitle.setText("段子");
-                break;
-            case R.id.line_shiping:
-                switchFragment(shiping).commit();
-                imgTuijian.setImageResource(R.drawable.tuijian1);
-                imgDuanzi.setImageResource(R.drawable.duanzi1);
-                imgShiping.setImageResource(R.drawable.shiping2);
-                tvTuijian.setTextColor(Color.parseColor("#cccccc"));
-                tvDuanzi.setTextColor(Color.parseColor("#cccccc"));
-                tvShiping.setTextColor(Color.parseColor("#03A9F4"));
-                mainTitle.setText("视频");
                 break;
         }
     }
@@ -360,8 +325,8 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             SPUtils.put(this, "icon", userBean.icon);
             RequestOptions options = new RequestOptions();
             options.diskCacheStrategy(DiskCacheStrategy.NONE);
-            options .skipMemoryCache(true);
-            options .dontAnimate();
+            options.skipMemoryCache(true);
+            options.dontAnimate();
             Glide.with(this).load(userBean.icon)
                     .apply(options)
                     .into(imgIcon);
@@ -468,10 +433,7 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
     }
 
 
-
-
     private FragmentTransaction switchFragment(Fragment targetFragment) {
-
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction();
         if (!targetFragment.isAdded()) {
@@ -479,14 +441,14 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             if (currentFragment != null) {
                 transaction.hide(currentFragment);
             }
-            transaction.add(R.id.frame_main, targetFragment,targetFragment.getClass().getName());
+            transaction.add(R.id.frame_main, targetFragment, targetFragment.getClass().getName());
         } else {
             transaction
                     .hide(currentFragment)
                     .show(targetFragment);
         }
         currentFragment = targetFragment;
-        return   transaction;
+        return transaction;
     }
 
 

@@ -161,7 +161,9 @@
         <activity android:name=".IGuanzhuActivity" />
         <activity android:name=".SousuoActivity" />
         <activity android:name=".LiaoTianActivity" />
-        <activity android:name=".PhotoViewActivity"></activity>
+        <activity android:name=".PhotoViewActivity" />
+        <activity android:name=".Main2Activity">
+        </activity>
     </application>
 
 </manifest>

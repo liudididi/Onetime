@@ -115,4 +115,7 @@ dependencies {
 
     //图片查看器
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
+
+    //bottom-bar
+    compile 'com.roughike:bottom-bar:2.3.1'
 }

@@ -100,11 +100,6 @@ public class Tuijianapter extends RecyclerView.Adapter{
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
         myviewholder.jicao.setUp(replace, JZVideoPlayerStandard.SCREEN_WINDOW_LIST, " ");
         Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
-//        if (setUp) {
-//
-//                Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
-//
-//        }
         myviewholder.duanziz_item_tv_name.setText(list.get(position).user.nickname);
         myviewholder.duanzi_item_tv_time.setText(list.get(position).createTime);
         if(list.get(position).user.icon!=null){
