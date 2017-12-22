@@ -39,6 +39,7 @@ public class Duanziapter extends RecyclerView.Adapter{
         this.list = list;
         this.context = context;
     }
+
     public void Refresh(List<Duanzibean> newlist) {
         if(list!=null){
             list.clear();

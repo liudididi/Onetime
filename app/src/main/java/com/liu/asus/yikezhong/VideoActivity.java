@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,9 +29,9 @@ import bean.TuijianBean;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
 import commpont.DaggerXiangqcommpont;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import mInterface.Xqview;
 import mybase.BaseActivity;
 import mybase.Basepresent;
@@ -46,8 +47,8 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
     Xqpresent xqpresent;
     @BindView(R.id.tv_fanhui)
     ImageView tvFanhui;
-    @BindView(R.id.xq_jiecao)
-    JCVideoPlayerStandard xqJiecao;
+
+
     @BindView(R.id.pl_xlist)
     RecyclerView plXlist;
     @BindView(R.id.xq_icon)
@@ -62,6 +63,10 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
     ImageView xqFabiao;
     @BindView(R.id.xq_edpl)
     EditText xqEdpl;
+    @BindView(R.id.xq_jiecao)
+    JZVideoPlayerStandard xqJiecao;
+    @BindView(R.id.linea_pl)
+    LinearLayout lineaPl;
 
 
     private Pinglunp pinglunp;
@@ -101,16 +106,16 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
     @Override
     public void ondestory() {
 
-        xqJiecao.release();
+    /*    xqJiecao.release();
         xqJiecao.releaseAllVideos();
-        xqJiecao = null;
+        xqJiecao = null;*/
 
     }
 
 
     @Override
     public void onBackPressed() {
-        if (xqJiecao.backPress()) {
+        if (JZVideoPlayer.backPress()) {
             return;
         }
         super.onBackPressed();
@@ -119,7 +124,7 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
     @Override
     protected void onPause() {
         super.onPause();
-        xqJiecao.releaseAllVideos();
+        JZVideoPlayer.releaseAllVideos();
     }
 
 
@@ -127,19 +132,20 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
     public void getdatasuccess(TuijianBean tuijianBean) {
 
 
-        if(replace ==null){
+        if (replace == null) {
             replace = tuijianBean.videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
-            xqJiecao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
-            xqJiecao.startPlayLogic();
+            xqJiecao.setUp(replace, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, "");
+            xqJiecao.startVideo();
+
         }
         if (tuijianBean.comments.size() >= 1) {
             plXlist.setVisibility(View.VISIBLE);
             xqImgzhan.setVisibility(View.GONE);
             xqTishi.setVisibility(View.GONE);
-            if(pinglunAdapte==null){
+            if (pinglunAdapte == null) {
                 pinglunAdapte = new PinglunAdapter(this, tuijianBean.comments);
                 plXlist.setAdapter(pinglunAdapte);
-            }else {
+            } else {
                 pinglunAdapte.Refresh(tuijianBean.comments);
             }
         } else {
@@ -151,7 +157,7 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
             Glide.with(this).load(tuijianBean.user.icon).into(xqIcon);
         }
         xqCount.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-        if(!TextUtils.isEmpty(tuijianBean.workDesc)){
+        if (!TextUtils.isEmpty(tuijianBean.workDesc)) {
             xqCount.setText(tuijianBean.workDesc);
         }
 
@@ -176,7 +182,7 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
                     return;
                 }
 
-                if(TextUtils.isEmpty(xqEdpl.getText().toString())){
+                if (TextUtils.isEmpty(xqEdpl.getText().toString())) {
                     Toast("评论内容不能为空");
                     return;
                 }
@@ -192,7 +198,7 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
         xqEdpl.setText("");
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        if(imm.isActive()){
+        if (imm.isActive()) {
             imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         }
         xqpresent.GetXiangqing(wid);
@@ -200,21 +206,22 @@ public class VideoActivity extends BaseActivity implements Xqview, Baseview {
 
     @Override
     public void fail(String msg) {
-           Toast(msg);
-           if(msg.equals("token超时")){
-                   AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                   builder.setTitle("登录信息失效");
-                   builder.setNegativeButton("取消", null);
-                   builder.setPositiveButton("去登录", new DialogInterface.OnClickListener() {
-                       @Override
-                       public void onClick(DialogInterface dialogInterface, int i) {
-                           Intent intent=new Intent(VideoActivity.this, LoginActivity.class);
-                           SPUtils.clear(VideoActivity.this);
-                           startActivity(intent);
-                       }
-                   });
-                   builder.create().show();
-           }
+        Toast(msg);
+        if (msg.equals("token超时")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("登录信息失效");
+            builder.setNegativeButton("取消", null);
+            builder.setPositiveButton("去登录", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(VideoActivity.this, LoginActivity.class);
+                    SPUtils.clear(VideoActivity.this);
+                    startActivity(intent);
+                }
+            });
+            builder.create().show();
+        }
     }
+
 
 }

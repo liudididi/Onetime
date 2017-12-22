@@ -3,6 +3,7 @@ package utils;
 import android.app.Application;
 import android.util.Log;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.liu.asus.yikezhong.Myapp;
 
 import java.io.File;
@@ -44,6 +45,7 @@ public  QuestInterface getQuestInterface(){
             .addInterceptor(NetInterceptor.REWRITE_RESPONSE_MYINTERCEPTOR)
             .addInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR_LOG)
             .addInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR_OFFLINE)
+            .addNetworkInterceptor(new StethoInterceptor())
             .addNetworkInterceptor(NetInterceptor.REWRITE_RESPONSE_INTERCEPTOR)
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)

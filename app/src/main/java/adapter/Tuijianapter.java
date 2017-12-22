@@ -34,8 +34,8 @@ import java.util.List;
 
 
 import bean.TuijianBean;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import cn.jzvd.JZVideoPlayerStandard;
+
 import utils.SPUtils;
 
 
@@ -98,12 +98,13 @@ public class Tuijianapter extends RecyclerView.Adapter{
         final Myviewholder myviewholder= (Myviewholder) holder;
         String videoUrl = list.get(position).videoUrl;
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
-        boolean setUp = myviewholder.jicao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
-        if (setUp) {
-
-                Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
-
-        }
+        myviewholder.jicao.setUp(replace, JZVideoPlayerStandard.SCREEN_WINDOW_LIST, " ");
+        Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
+//        if (setUp) {
+//
+//                Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
+//
+//        }
         myviewholder.duanziz_item_tv_name.setText(list.get(position).user.nickname);
         myviewholder.duanzi_item_tv_time.setText(list.get(position).createTime);
         if(list.get(position).user.icon!=null){
@@ -244,7 +245,7 @@ public class Tuijianapter extends RecyclerView.Adapter{
          private LinearLayout line_3;
          private LinearLayout line_4;
          private  int a=0;
-         private JCVideoPlayerStandard jicao;
+         private JZVideoPlayerStandard jicao;
          private  View view;
          private  ImageView img_pinglun;
         public Myviewholder(View itemView) {

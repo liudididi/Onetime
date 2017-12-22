@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
@@ -24,9 +25,12 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.liu.asus.yikezhong.PhotoViewActivity;
 import com.liu.asus.yikezhong.R;
 
+import java.io.Serializable;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,20 +64,23 @@ public class DitemAdapter extends RecyclerView.Adapter<DitemAdapter.ViewHolder> 
 
      }
 
-
-
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-
                 /* setControllerListener(holder.image, result.get(position),
                 getScreenWidth(context));*/
-
-
         RequestOptions options = new RequestOptions();
         options.placeholder(R.drawable.wait);
         Glide.with(context).load(result.get(position)).apply(options).into(holder.image);
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, PhotoViewActivity.class);
+                intent.putStringArrayListExtra("list", (ArrayList<String>) result);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

@@ -66,12 +66,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            <cn.jzvd.JZVideoPlayerStandard
                 android:id="@+id/xq_jiecao"
                 android:layout_width="match_parent"
                 android:layout_height="900px"
                 >
-            </fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard>
+            </cn.jzvd.JZVideoPlayerStandard>
             <TextView
                 android:text="楼主很懒,并没有设置标题"
                 android:gravity="center_vertical"

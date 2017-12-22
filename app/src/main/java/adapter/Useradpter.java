@@ -26,8 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import bean.TuijianBean;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import cn.jzvd.JZVideoPlayerStandard;
 
 
 /**
@@ -94,10 +93,8 @@ public class Useradpter extends RecyclerView.Adapter{
         String videoUrl = list.get(position).videoUrl;
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
         System.out.println("===raplace"+replace);
-        boolean setUp = myviewholder.jicao.setUp(replace, JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
-        if (setUp) {
-                Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
-        }
+        myviewholder.jicao.setUp(replace, JZVideoPlayerStandard.SCREEN_WINDOW_LIST, " ");
+        Glide.with(context).load(list.get(position).cover).into(myviewholder.jicao.thumbImageView);
         myviewholder.duanziz_item_tv_name.setText(username);
         myviewholder.duanzi_item_tv_time.setText(list.get(position).createTime);
         if(icon!=null){
@@ -214,7 +211,7 @@ public class Useradpter extends RecyclerView.Adapter{
          private LinearLayout line_3;
          private LinearLayout line_4;
          private  int a=0;
-         private JCVideoPlayerStandard jicao;
+         private JZVideoPlayerStandard jicao;
          private  View view;
          private RelativeLayout re_ijk;
         public Myviewholder(View itemView) {
