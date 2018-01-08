@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.meg7.widget.CircleImageView
+        android:layout_marginTop="50px"
+        android:id="@+id/lt_icon"
+        android:layout_width="180px"
+        android:layout_height="160px"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/raw_1499936862"
+        app:roundAsCircle="true" />
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_time"
+        />
+    <TextView
+        android:layout_marginTop="100px"
+        android:layout_marginRight="10px"
+        android:background="@drawable/app_lvjian_chat_right"
+        android:id="@+id/lt_count"
+        android:layout_marginLeft="30px"
+        android:textSize="50px"
+        android:layout_toLeftOf="@+id/lt_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="金鳞"
+        />
+</RelativeLayout>

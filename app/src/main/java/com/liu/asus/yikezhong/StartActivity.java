@@ -45,11 +45,11 @@ public class StartActivity extends BaseActivity {
                  intent(StartActivity.this,LoginActivity.class);
                  finish();
               }else {
-                  handler.postDelayed(task,1000);
+                  handler.postDelayed(task,500);
               }
             }
         };
-        handler.postDelayed(task,1000);
+        handler.postDelayed(task,500);
 
 
     }

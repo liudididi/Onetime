@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:background="#fff"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -45,8 +46,12 @@
             android:layout_alignStart="@+id/igz_tv_name"
             android:maxLines="1"
             android:text="吃货们来戳我" />
-
+        <fragment.BezierView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
         <ImageView
+            android:id="@+id/img_jin"
             android:layout_width="45px"
             android:layout_height="45px"
             android:layout_alignEnd="@+id/iv_xia"

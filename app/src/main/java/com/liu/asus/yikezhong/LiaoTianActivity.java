@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hyphenate.EMCallBack;
@@ -21,8 +22,13 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import adapter.LiaoTianAdapter;
+import bean.LiaoTianBean;
 import mybase.BaseActivity;
 import mybase.Basepresent;
 
@@ -41,6 +47,12 @@ public class LiaoTianActivity extends BaseActivity implements EMMessageListener 
     private String mChatId;
     // 当前会话对象
     private EMConversation mConversation;
+    private List<LiaoTianBean> list;
+    private ListView lt_list;
+    private String dicon;
+
+    private LiaoTianAdapter adapter;
+
     @Override
     public List<Basepresent> initp() {
         return null;
@@ -54,24 +66,33 @@ public class LiaoTianActivity extends BaseActivity implements EMMessageListener 
     @Override
     public void init() {
 
-
         mChatId = getIntent().getStringExtra("mobile");
+        dicon = getIntent().getStringExtra("dicon");
         mMessageListener = this;
+        list = new ArrayList<>();
+
         initView();
         initConversation();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        list.clear();
+        list=null;
+    }
 
     private void initView() {
+        lt_list = findViewById(R.id.lt_list);
         mInputEdit = (EditText) findViewById(R.id.ec_edit_message_input);
         mSendBtn = (Button) findViewById(R.id.ec_btn_send);
-        mContentText = (TextView) findViewById(R.id.ec_text_content);
-        // 设置textview可滚动，需配合xml布局设置
-        mContentText.setMovementMethod(new ScrollingMovementMethod());
+
 
         // 设置发送按钮的点击事件
         mSendBtn.setOnClickListener(new View.OnClickListener() {
+
+
+
             @Override
             public void onClick(View v) {
                 String content = mInputEdit.getText().toString().trim();
@@ -80,9 +101,18 @@ public class LiaoTianActivity extends BaseActivity implements EMMessageListener 
                     // 创建一条新消息，第一个参数为消息内容，第二个为接受者username
                     EMMessage message = EMMessage.createTxtSendMessage(content, mChatId);
                     message.setChatType(EMMessage.ChatType.Chat);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Long l = Long.valueOf(mConversation.getLastMessage().getMsgTime());
+                    String timeString = sdf.format(new Date(l));
                     // 将新的消息内容和时间加入到下边
-                    mContentText.setText(mContentText.getText() + "\n发送：" + content + " - time: " + message.getMsgTime());
-                    // 调用发送消息的方法
+                   LiaoTianBean liaoTianBean=new LiaoTianBean(0,content,timeString);
+                    if(adapter==null){
+                        adapter= new LiaoTianAdapter(LiaoTianActivity.this,list,dicon);
+                        lt_list.setAdapter(adapter);
+                    }else {
+                        adapter.Refresh(liaoTianBean);
+                    }
+
                     EMClient.getInstance().chatManager().sendMessage(message);
                     // 为消息设置回调
                     message.setMessageStatusCallback(new EMCallBack() {
@@ -133,8 +163,21 @@ public class LiaoTianActivity extends BaseActivity implements EMMessageListener 
         if (mConversation.getAllMessages().size() > 0) {
             EMMessage messge = mConversation.getLastMessage();
             EMTextMessageBody body = (EMTextMessageBody) messge.getBody();
-            // 将消息内容和时间显示出来
-            mContentText.setText("聊天记录：" + body.getMessage() + " - time: " + mConversation.getLastMessage().getMsgTime());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Long l = Long.valueOf(mConversation.getLastMessage().getMsgTime());
+            String timeString = sdf.format(new Date(l));
+            LiaoTianBean liaoTianBean=new LiaoTianBean(1,body.getMessage(),timeString);
+            list.add(liaoTianBean);
+            if(adapter==null){
+                adapter= new LiaoTianAdapter(LiaoTianActivity.this,list,dicon);
+                lt_list.setAdapter(adapter);
+            }else {
+                adapter.Refresh(liaoTianBean);
+            }
+
+
+          /*  // 将消息内容和时间显示出来
+            mContentText.setText("聊天记录：" + body.getMessage() + " - time: " + timeString);*/
         }
     }
 
@@ -149,8 +192,20 @@ public class LiaoTianActivity extends BaseActivity implements EMMessageListener 
                     EMMessage message = (EMMessage) msg.obj;
                     // 这里只是简单的demo，也只是测试文字消息的收发，所以直接将body转为EMTextMessageBody去获取内容
                     EMTextMessageBody body = (EMTextMessageBody) message.getBody();
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Long l = Long.valueOf(mConversation.getLastMessage().getMsgTime());
+                    String timeString = sdf.format(new Date(l));
                     // 将新的消息内容和时间加入到下边
-                    mContentText.setText(mContentText.getText() + "\n接收：" + body.getMessage() + " - time: " + message.getMsgTime());
+                    LiaoTianBean liaoTianBean=new LiaoTianBean(1,body.getMessage(),timeString);
+                    if(adapter==null){
+                        adapter= new LiaoTianAdapter(LiaoTianActivity.this,list,dicon);
+                        lt_list.setAdapter(adapter);
+                    }else {
+                        adapter.Refresh(liaoTianBean);
+                    }
+/*
+                    mContentText.setText(mContentText.getText() + "\n接收：" + body.getMessage() + " - time: " +timeString);
+*/
                     break;
             }
         }

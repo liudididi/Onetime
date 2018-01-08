@@ -2,18 +2,24 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:windowBackground">@drawable/start</item>
+    <item name="android:colorControlHighlight">@color/colorPrimary</item>
+    <item name="android:navigationBarColor">@color/yancy_blue500</item>
+    <item name="android:windowAnimationStyle">@style/MyWindowAnimTheme</item>
+</style>
+    <style name="AppT" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!-- <item name="android:windowBackground">@drawable/start</item>-->
-        <item name="android:windowIsTranslucent">true</item>
         <item name="android:colorControlHighlight">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/yancy_blue500</item>
         <item name="android:windowAnimationStyle">@style/MyWindowAnimTheme</item>
     </style>
-
-
     <style name="MyWindowAnimTheme">
         <item name="android:activityOpenEnterAnimation">@anim/top_to_bottom_in</item>
         <item name="android:activityOpenExitAnimation">@anim/top_to_bottom_out</item>

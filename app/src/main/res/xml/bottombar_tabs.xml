@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
     <tab
-        id="@+id/tab_favorites"
+        id="@+id/tab_tuijian"
         icon="@drawable/ic_tuijian2"
         title="推荐"
         />
     <tab
-        id="@+id/tab_nearby"
+        id="@+id/tab_duanzi"
         icon="@drawable/ic_duanzi1"
         title="段子"
 
         />
     <tab
-        id="@+id/tab_friends"
+        id="@+id/tab_shiping"
         icon="@drawable/ic_shiping1"
         title="视频"
        />

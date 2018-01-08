@@ -1,10 +1,13 @@
 package m;
 
+import android.os.Handler;
+
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import javax.inject.Inject;
 
@@ -34,8 +37,10 @@ public class Getdatamodle {
 
     }
 
+
     private CompositeDisposable compositeDisposable=new CompositeDisposable();
     public  void  getduanzidata(int page ,final requestBack requestBack){
+
         new MyQusetUtils.Builder().addConverterFactory()
                 .addCallAdapterFactory().build().getQuestInterface().getdata(page)
                 .subscribeOn(Schedulers.io())
@@ -63,6 +68,7 @@ public class Getdatamodle {
                 });
     }
     public  void  getad(final AdBack adBack){
+
         new MyQusetUtils.Builder().addConverterFactory()
                 .addCallAdapterFactory().build().getQuestInterface().getad()
                 .subscribeOn(Schedulers.io())

@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.liu.asus.yikezhong.R;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public abstract  class BaseActivity extends AutoLayoutActivity{
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppT);
         super.onCreate(savedInstanceState);
 
 // 状态栏颜色

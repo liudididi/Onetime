@@ -2,9 +2,11 @@ package com.liu.asus.yikezhong;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -30,7 +32,7 @@ public class IGuanzhuActivity extends BaseActivity implements IGuanzhuv {
     @Inject
     IGuanzhup iGuanzhup;
     @BindView(R.id.xlv_gaunzhu)
-    XRecyclerView xlvGaunzhu;
+    RecyclerView xlvGaunzhu;
     @BindView(R.id.gz_fanhui)
     TextView gzFanhui;
     @BindView(R.id.igz_title)
@@ -48,6 +50,7 @@ public class IGuanzhuActivity extends BaseActivity implements IGuanzhuv {
 
     @Override
     public void init() {
+
         int uid = (int) SPUtils.get(this, "uid", 0);
         DaggerIguanzhucommpont.builder().iGuanzhumoudule(new IGuanzhumoudule(this)).build().injectIguan(this);
         xlvGaunzhu.setLayoutManager(new LinearLayoutManager(this));
@@ -66,6 +69,7 @@ public class IGuanzhuActivity extends BaseActivity implements IGuanzhuv {
         xlvGaunzhu.setAdapter(iguanzhuAdapter);
 
     }
+
 
     @Override
     public void getiguanzhufail(String msg) {

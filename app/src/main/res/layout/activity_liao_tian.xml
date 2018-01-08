@@ -29,13 +29,12 @@
     </RelativeLayout>
 
     <!--展示消息内容-->
-    <TextView
-        android:id="@+id/ec_text_content"
+    <ListView
+        android:id="@+id/lt_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/ec_layout_input"
-        android:maxLines="15"
-        android:scrollbars="vertical"/>
+       />
 
 
 </RelativeLayout>

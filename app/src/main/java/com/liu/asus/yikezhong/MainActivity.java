@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -142,21 +143,20 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
             }
         });
 
-
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(int tabId) {
                 switch (tabId) {
-                    case 2131690105:
-                        switchFragment(tuijian).commit();
+                    case R.id.tab_tuijian:
+                        switchFragment(tuijian).commitAllowingStateLoss();
                         mainTitle.setText("推荐");
                         break;
-                    case 2131690106:
-                        switchFragment(duanzi).commit();
+                    case R.id.tab_duanzi:
+                        switchFragment(duanzi).commitAllowingStateLoss();
                         mainTitle.setText("段子");
                         break;
-                    case 2131690107:
-                        switchFragment(shiping).commit();
+                    case R.id.tab_shiping:
+                        switchFragment(shiping).commitAllowingStateLoss();
                         mainTitle.setText("视频");
                         break;
                 }
@@ -335,6 +335,15 @@ public class MainActivity extends BaseActivity implements Lognview, Celeft.Ce_ic
                     .into(imgIcon);
         }
     }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+    }
+
+
+
 
     @Override
     public void lognfail(String msg) {
